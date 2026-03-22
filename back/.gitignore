@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+# ignore locks files
+packpage-lock.json
+
 # Logs
 logs
 *.log
