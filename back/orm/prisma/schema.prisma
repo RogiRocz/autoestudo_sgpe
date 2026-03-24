@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model paciente {
+  uuid String @id @default(uuid())
+  nome String
+  cpf String @unique @db.VarChar(11)
+  data_nascimento DateTime @db.Date
+  prontuario_status CLIENTE_PRONTUARIO_STATUS
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  prontuarios prontuario[]
+}
+
+model prontuario{
+  uuid String @id @default(uuid())
+  id_paciente String?
+  data_hora DateTime
+  duracao_minutos Int @default(60)
+  tipo_sessao TIPO_SESSAO
+  local LOCAL_SESSAO
+  status PRONTUARIO_STATUS
+  observacoes String @db.Text
+
+  paciente paciente? @relation(fields: [id_paciente], references: [uuid], onDelete: SetNull, onUpdate: NoAction)
+}
+
+enum CLIENTE_PRONTUARIO_STATUS {
+  ATIVO
+  INATIVO
+  ARQUIVADO
+}
+
+enum TIPO_SESSAO {
+  INDIVIDUAL
+  GRUPO
+  TRIAGEM
+}
+
+enum LOCAL_SESSAO {
+  SALA_01
+  SALA_02
+  REMOTO
+}
+
+enum PRONTUARIO_STATUS {
+  AGENDADO
+  REALIZADO
+  CANCELADO
+  FALTA
+}
