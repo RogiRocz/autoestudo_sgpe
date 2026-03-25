@@ -1,0 +1,13 @@
+services:
+  database:
+    image: postgres:latest
+    container_name: clinica_db_postgres
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    restart: unless-stopped
