@@ -5,7 +5,6 @@
 		"ghcr.io/shyim/devcontainers-features/bun:0": {},
 		"ghcr.io/frntn/devcontainers-features/postman:1": {},
 		"ghcr.io/devcontainers-community/npm-features/prettier:1": {},
-		"ghcr.io/itsmechlark/features/postgresql:1": {},
 		"ghcr.io/devcontainers-extra/features/nestjs-cli:2": {},
 		"ghcr.io/devcontainers-extra/features/prisma:2": {}
 	}
