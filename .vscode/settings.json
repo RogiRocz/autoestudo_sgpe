@@ -5,5 +5,8 @@
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "afterDelay",
-  "vs-code-prettier-eslint.prettierLast": false
+  "vs-code-prettier-eslint.prettierLast": false,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  }
 }
