@@ -6,7 +6,7 @@
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "afterDelay",
   "vs-code-prettier-eslint.prettierLast": false,
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
 }
