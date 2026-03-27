@@ -1,10 +1,10 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from "@nestjs/common";
-import { PrismaService } from "src/common/prisma.service";
-import { createPacienteDTO } from "./dto/create-paciente.dto";
+import { PrismaService } from "src/common/Prisma/prisma.service";
+import { CreatePacienteDTO } from "./dto/create-paciente.dto";
 import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
 import { Paciente } from "./entites/paciente.entity";
 import { Prisma } from "@prisma/client";
-import { updatePacienteDTO } from "./dto/update-paciente.dto";
+import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 
 @Injectable()
 export class PacienteService {
@@ -62,7 +62,7 @@ export class PacienteService {
         return query
     }
 
-    async create(dadosPaciente: createPacienteDTO): Promise<Paciente> {
+    async create(dadosPaciente: CreatePacienteDTO): Promise<Paciente> {
         if (await this.findByCPF(dadosPaciente.cpf)) {
             throw new ConflictException('Falha ao Registrar: Paciente já cadastrado')
         }
@@ -79,7 +79,7 @@ export class PacienteService {
         return novoPaciente;
     }
 
-    async update(id: string, dadosNovos: updatePacienteDTO): Promise<Paciente> {
+    async update(id: string, dadosNovos: UpdatePacienteDTO): Promise<Paciente> {
         const pacienteAntigo = await this.findById(id)
 
         if (pacienteAntigo.cpf != dadosNovos.cpf) {

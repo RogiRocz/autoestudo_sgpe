@@ -1,7 +1,7 @@
 import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
 import { IsDateString, IsEnum, IsOptional, IsString, Length } from "class-validator";
 
-export class updatePacienteDTO {
+export class UpdatePacienteDTO {
     @IsOptional()
     @IsString()
     nome: string;
