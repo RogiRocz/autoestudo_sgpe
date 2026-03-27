@@ -4,7 +4,9 @@ import { Prontuario } from "./entites/prontuario.entity";
 import { ProntuarioService } from "./prontuario.service";
 import { IsPositive } from "src/common/validation.pipe";
 import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('prontuarios')
 @Controller('prontuarios')
 export class ProntuarioController {
     constructor(private prontuarioService: ProntuarioService) { }

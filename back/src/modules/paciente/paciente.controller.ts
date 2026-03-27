@@ -4,8 +4,9 @@ import { Paciente } from "./entites/paciente.entity";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
 import { IsPositive } from "src/common/validation.pipe";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
+import { ApiTags } from "@nestjs/swagger";
 
-
+@ApiTags('pacientes')
 @Controller('pacientes')
 export class PacienteController {
     constructor(private pacienteService: PacienteService) { }
