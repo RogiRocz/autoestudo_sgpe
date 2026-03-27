@@ -1,7 +1,9 @@
+import { PartialType } from "@nestjs/swagger";
 import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
 import { IsDateString, IsEnum, IsOptional, IsString, Length } from "class-validator";
+import { CreatePacienteDTO } from "./create-paciente.dto";
 
-export class UpdatePacienteDTO {
+export class UpdatePacienteDTO extends PartialType(CreatePacienteDTO){
     @IsOptional()
     @IsString()
     nome: string;

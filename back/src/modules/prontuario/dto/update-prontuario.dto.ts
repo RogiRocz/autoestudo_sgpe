@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { PartialType } from "@nestjs/swagger";
 import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 import { LOCAL_SESSAO, PRONTUARIO_STATUS, TIPO_SESSAO } from "orm/generated/prisma/enums";
+import { CreateProntuarioDTO } from "./create-prontuario.dto";
 
-export class UpdateProntuarioDTO {
+export class UpdateProntuarioDTO extends PartialType(CreateProntuarioDTO){
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @IsUUID('4', { message: 'Deve ser um UUID válido' })
     id_paciente: string;
