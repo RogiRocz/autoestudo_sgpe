@@ -2,7 +2,7 @@ import { LOCAL_SESSAO, PRONTUARIO_STATUS, TIPO_SESSAO } from "orm/generated/pris
 
 export class Prontuario {
     uuid: string;
-    id_paciente: string;
+    id_paciente: string | null;
     data_hora: Date;
     // @example: 60
     duracao_minutos: number;
