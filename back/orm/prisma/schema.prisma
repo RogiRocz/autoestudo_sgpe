@@ -15,20 +15,44 @@ model paciente {
   prontuario_status CLIENTE_PRONTUARIO_STATUS
   criadoEm DateTime @default(now())
   atualizadoEm DateTime @updatedAt
+
+  prontuarios prontuario[]
+}
+
+model aluno {
+  uuid String @id @default(uuid())
+  matricula String @unique @db.VarChar(6)
+  nome String
+  email String @unique
+  senha String
+  periodo Int 
+  role PAPEIS @default(ALUNO)
+  ativo Boolean @default(true)
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
   prontuarios prontuario[]
 }
 
 model prontuario{
   uuid String @id @default(uuid())
-  id_paciente String?
+  aluno_id String
+  paciente_id String
   data_hora DateTime
   duracao_minutos Int @default(60)
   tipo_sessao TIPO_SESSAO
   local LOCAL_SESSAO
   status PRONTUARIO_STATUS
   observacoes String @db.Text
+  criadoEm DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
 
-  paciente paciente? @relation(fields: [id_paciente], references: [uuid], onDelete: SetNull, onUpdate: NoAction)
+  paciente paciente @relation(fields: [paciente_id], references: [uuid], onDelete: NoAction, onUpdate: NoAction)
+  aluno aluno @relation(fields: [aluno_id], references: [uuid], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum PAPEIS {
+  ALUNO
 }
 
 enum CLIENTE_PRONTUARIO_STATUS {
