@@ -18,7 +18,7 @@ export class CreatePacienteDTO {
     @ApiProperty({ example: '12/12/2012', description: 'Data de nascimento em formato ISO' })
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @IsDateString()
-    data_nascimento: Date;
+    data_nascimento: string;
 
     @ApiProperty({ enum: CLIENTE_PRONTUARIO_STATUS, example: CLIENTE_PRONTUARIO_STATUS.ATIVO })
     @IsNotEmpty({ message: 'Campo obrigatório' })
