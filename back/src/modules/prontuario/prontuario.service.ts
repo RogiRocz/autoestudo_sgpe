@@ -77,6 +77,10 @@ export class ProntuarioService {
                 throw new ConflictException('Falha ao atualizar: O prontuário não pode ser mudado de paciente')
             }
 
+            if(prontuarioAntigo.aluno_id != dadosNovos.aluno_id){
+                throw new ConflictException('Falha ao atualizar: O prontuário não pode ser mudado de aluno')
+            }
+
             const query = await this.prisma.prontuario.update({
                 where: { uuid: id },
                 data: dadosNovos
