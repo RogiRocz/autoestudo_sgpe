@@ -12,13 +12,18 @@ export class ProntuarioService {
     async create(dadosProntuario: CreateProntuarioDTO): Promise<Prontuario> {
         const novoProntuario = await this.prisma.prontuario.create({
             data: {
-                id_paciente: dadosProntuario.id_paciente,
+                paciente_id: dadosProntuario.paciente_id,
+                aluno_id: dadosProntuario.aluno_id,
                 data_hora: dadosProntuario.data_hora,
                 duracao_minutos: dadosProntuario.duracao_minutos,
                 tipo_sessao: dadosProntuario.tipo_sessao,
                 local: dadosProntuario.local,
                 status: dadosProntuario.status,
                 observacoes: dadosProntuario.observacoes
+            },
+            include: {
+                aluno: true,
+                paciente: true
             }
         })
 
@@ -68,7 +73,7 @@ export class ProntuarioService {
         try {
             const prontuarioAntigo = await this.findByID(id)
 
-            if (prontuarioAntigo.id_paciente != dadosNovos.id_paciente) {
+            if (prontuarioAntigo.paciente_id != dadosNovos.paciente_id) {
                 throw new ConflictException('Falha ao atualizar: O prontuário não pode ser mudado de paciente')
             }
 
@@ -94,7 +99,7 @@ export class ProntuarioService {
             const prontuarioDeletado = await this.prisma.prontuario.delete({
                 where: { uuid: id },
                 select: {
-                    id_paciente: true
+                    paciente_id: true
                 }
             })
 
