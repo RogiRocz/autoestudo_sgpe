@@ -1,4 +1,4 @@
-import { CLIENTE_PRONTUARIO_STATUS } from 'orm/generated/prisma/enums';
+import { CLIENTE_PRONTUARIO_STATUS } from '@prisma/client/enums';
 import { Prontuario } from 'src/modules/prontuario/entites/prontuario.entity';
 
 export class Paciente {
@@ -10,8 +10,8 @@ export class Paciente {
 	cpf: string;
 	data_nascimento: Date;
 	prontuario_status: CLIENTE_PRONTUARIO_STATUS;
-
-	prontuarios?: Prontuario[]
 	criadoEm: Date;
 	atualizadoEm: Date;
+
+	prontuarios?: Prontuario[]
 }
