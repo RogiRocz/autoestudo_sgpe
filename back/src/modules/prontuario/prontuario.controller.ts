@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestj
 import { CreateProntuarioDTO } from "./dto/create-prontuario.dto";
 import { Prontuario } from "./entites/prontuario.entity";
 import { ProntuarioService } from "./prontuario.service";
-import { IsPositive } from "src/common/validation.pipe";
 import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
+import { LOCAL_SESSAO, PRONTUARIO_STATUS } from "@prisma/client";
+import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
 
 @ApiTags('prontuarios')
 @Controller('prontuarios')
@@ -17,8 +19,33 @@ export class ProntuarioController {
     }
 
     @Get()
-    async findAllProntuarios(@Query('size', IsPositive) size: number = 10, @Query('page', IsPositive) page: number = 1): Promise<Prontuario[]> {
-        return await this.prontuarioService.findAllProntuarios(size, page)
+    async findAllProntuarios(@Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+        return await this.prontuarioService.findAllProntuarios(params)
+    }
+
+    @Get('paciente/:id')
+    async findByPaciente(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<Prontuario[]>{
+        return await this.prontuarioService.findByPaciente(id, params)
+    }
+
+    @Get('aluno/:id')
+    async findByAluno(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+        return await this.prontuarioService.findByAluno(id, params)
+    }
+
+    @Get('local/:local')
+    async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+        return await this.prontuarioService.findByLocal(local, params)
+    }
+
+    @Get('status/:status')
+    async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+        return await this.prontuarioService.findByStatus(status, params)
+    }
+
+    @Get('datas')
+    async findByIntervaloTempo(@Query() search: SearchTimeDTO, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+        return await this.prontuarioService.findByIntervaloTempo(search, params)
     }
 
     @Get(':id')
