@@ -5,6 +5,9 @@ import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
 import { Paciente } from "./entites/paciente.entity";
 import { Prisma } from "@prisma/client";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
+import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
+import { getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
+
 
 @Injectable()
 export class PacienteService {
@@ -43,21 +46,17 @@ export class PacienteService {
         return query
     }
 
-    async findAll(size: number, page: number): Promise<Paciente[]> {
-        const skip = size * (page - 1)
+    async findAll(params: QueryParamsDTO): Promise<Paciente[]> {
+        const skip = params.size * (params.page - 1)
         const total_records = await this.prisma.paciente.count()
 
         if (skip >= total_records) {
             throw new BadRequestException('Valor na paginação: O valor recebido está inválido')
         }
 
-        const query = await this.prisma.paciente.findMany({
-            skip: skip,
-            take: size,
-            orderBy: {
-                uuid: 'asc'
-            }
-        })
+        const query = await this.prisma.paciente.findMany(
+            getPaginationPrisma(params)
+        )
 
         return query
     }
@@ -125,4 +124,6 @@ export class PacienteService {
             throw error
         }
     }
+
+    // Criar lógica pra desativar paciente mudando o status prontuario_status
 }
