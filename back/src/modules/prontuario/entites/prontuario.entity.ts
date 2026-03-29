@@ -4,8 +4,8 @@ import { Paciente } from "src/modules/paciente/entites/paciente.entity";
 
 export class Prontuario {
     uuid: string;
-    paciente_id: string;
-    aluno_id: string
+    paciente_id?: string | null;
+    aluno_id?: string | null
     data_hora: Date;
     // @example: 60
     duracao_minutos: number;
@@ -16,6 +16,6 @@ export class Prontuario {
     criadoEm: Date
     atualizadoEm: Date
 
-    paciente: Paciente
-    aluno: Aluno
+    paciente?: Paciente | null
+    aluno?: Aluno | null
 }
