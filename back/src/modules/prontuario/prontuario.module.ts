@@ -4,6 +4,7 @@ import { ProntuarioController } from "./prontuario.controller";
 
 @Module({
     providers: [ProntuarioService],
-    controllers: [ProntuarioController]
+    controllers: [ProntuarioController],
+    exports: [ProntuarioService]
 })
 export class ProntuarioModule { }
