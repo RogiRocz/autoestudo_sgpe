@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestj
 import { PacienteService } from "./paciente.service";
 import { Paciente } from "./entites/paciente.entity";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
-import { IsPositive } from "src/common/validation.pipe";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 
 @ApiTags('pacientes')
 @Controller('pacientes')
@@ -17,8 +17,8 @@ export class PacienteController {
     }
 
     @Get()
-    async findAllPacientes(@Query('size', IsPositive) size: number = 10, @Query('page', IsPositive) page: number = 1): Promise<Paciente[]> {
-        return await this.pacienteService.findAll(size, page)
+    async findAllPacientes(@Query() params: QueryParamsDTO): Promise<Paciente[]> {
+        return await this.pacienteService.findAll(params)
     }
 
     @Get(':id')
