@@ -1,4 +1,4 @@
-import { PAPEIS } from "@prisma/client"
+import { PAPEIS } from "@prisma/client/enums"
 import { Prontuario } from "src/modules/prontuario/entites/prontuario.entity"
 
 export class Aluno {
