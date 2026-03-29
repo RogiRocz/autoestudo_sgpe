@@ -26,7 +26,7 @@ model aluno {
   email String @unique
   senha String
   periodo Int 
-  role PAPEIS @default(ALUNO)
+  papel PAPEIS @default(ALUNO)
   ativo Boolean @default(true)
   criadoEm DateTime @default(now())
   atualizadoEm DateTime @updatedAt
@@ -36,8 +36,8 @@ model aluno {
 
 model prontuario{
   uuid String @id @default(uuid())
-  aluno_id String
-  paciente_id String
+  aluno_id String?
+  paciente_id String?
   data_hora DateTime
   duracao_minutos Int @default(60)
   tipo_sessao TIPO_SESSAO
@@ -47,8 +47,8 @@ model prontuario{
   criadoEm DateTime @default(now())
   atualizadoEm DateTime @updatedAt
 
-  paciente paciente @relation(fields: [paciente_id], references: [uuid], onDelete: NoAction, onUpdate: NoAction)
-  aluno aluno @relation(fields: [aluno_id], references: [uuid], onDelete: NoAction, onUpdate: NoAction)
+  paciente paciente? @relation(fields: [paciente_id], references: [uuid], onDelete: SetNull, onUpdate: NoAction)
+  aluno aluno? @relation(fields: [aluno_id], references: [uuid], onDelete: SetNull, onUpdate: NoAction)
 }
 
 enum PAPEIS {
