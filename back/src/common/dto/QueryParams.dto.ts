@@ -1,6 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsIn, IsInt, IsOptional, IsString, Min } from "class-validator";
+import { IsEnum, IsIn, IsInt, IsOptional, IsString, Min } from "class-validator";
+
+export enum ORDER {
+    ASC = 'asc',
+    DESC = 'desc'
+}
 
 export class QueryParamsDTO {
     @ApiProperty({ example: '1', description: 'Página que deseja acessar' })
@@ -17,15 +22,16 @@ export class QueryParamsDTO {
     @Transform(({ value }) => (value ? parseInt(value, 10) : 10))
     size: number = 10;
 
-    @ApiProperty({ example: 'criadoEm, status, nome', description: 'Campos que deseja ordenar' })
+    @ApiProperty({ example: 'criadoEm, status, nome', description: 'Campo que deseja ordenar' })
     @IsOptional()
     @IsString()
     sortBy: string = 'criadoEm';
 
-    @ApiProperty({ example: 'ASC', description: 'Ordem crescente ou decrescente' })
+    @ApiProperty({enum: ORDER, enumName: 'ORDEM', example: 'asc', description: 'Ordem crescente ou decrescente', default: ORDER.ASC })
+    @IsEnum(ORDER)
     @IsOptional()
     @IsString()
     @IsIn(['asc', 'desc'])
-    @Transform(({ value }): string | undefined => (typeof value === 'string' ? value.toUpperCase() : value))
-    order: 'asc' | 'desc' = 'asc';
+    @Transform(({ value }): string | undefined => (typeof value === 'string' ? value.toLowerCase() : value))
+    order: ORDER = ORDER.ASC
 }
