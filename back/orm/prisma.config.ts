@@ -3,7 +3,7 @@ import { defineConfig } from 'prisma/config';
 import { config } from 'dotenv';
 
 // Load environment variables from the root .env file
-config({ path: '/workspaces/autoestudo_sgpe/.env' });
+config({ path: '/workspaces/autoestudo_sgpe/back/.env' });
 
 // Build DATABASE_URL from individual environment variables
 const dbUser = process.env.DB_USER;
