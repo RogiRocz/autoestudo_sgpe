@@ -12,7 +12,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     constructor(private config: ConfigService) {
         const connectionString = config.get<string>('DATABASE_URL')
         const pool = new Pool({ connectionString })
-        const adapter = new PrismaPg(pool)
+        const adapter = new PrismaPg(pool as any)
         super({
             adapter, log: ['query', 'error', 'warn'],
         })
