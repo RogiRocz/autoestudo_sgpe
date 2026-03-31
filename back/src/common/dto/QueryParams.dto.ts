@@ -25,7 +25,7 @@ export class QueryParamsDTO {
     @ApiProperty({ example: 'ASC', description: 'Ordem crescente ou decrescente' })
     @IsOptional()
     @IsString()
-    @IsIn(['ASC', 'DESC'])
+    @IsIn(['asc', 'desc'])
     @Transform(({ value }): string | undefined => (typeof value === 'string' ? value.toUpperCase() : value))
-    order: 'ASC' | 'DESC' = 'ASC';
+    order: 'asc' | 'desc' = 'asc';
 }
