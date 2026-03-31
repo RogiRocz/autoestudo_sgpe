@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseEnumPipe, Patch, Post, Query } from "@nestjs/common";
 import { CreateProntuarioDTO } from "./dto/create-prontuario.dto";
 import { Prontuario } from "./entites/prontuario.entity";
 import { ProntuarioService } from "./prontuario.service";
 import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiParam, ApiTags } from "@nestjs/swagger";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 import { LOCAL_SESSAO, PRONTUARIO_STATUS } from "@prisma/client";
 import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
@@ -34,11 +34,13 @@ export class ProntuarioController {
     }
 
     @Get('local/:local')
+    @ApiParam({ name: 'local', enum: LOCAL_SESSAO, enumName: 'LOCAL_SESSAO' })
     async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
         return await this.prontuarioService.findByLocal(local, params)
     }
 
     @Get('status/:status')
+    @ApiParam({name: 'status', enum: PRONTUARIO_STATUS, enumName: 'PRONTUARIO_STATUS'})
     async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
         return await this.prontuarioService.findByStatus(status, params)
     }
