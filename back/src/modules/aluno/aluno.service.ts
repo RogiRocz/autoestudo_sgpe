@@ -6,10 +6,10 @@ import { PrismaService } from 'src/common/Prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { QueryParamsDTO } from 'src/common/dto/QueryParams.dto';
 import { getPaginationPrisma } from 'src/common/utils/PrismaQuery.helper';
-import { IAuthService } from 'src/common/interfaces/IAuthService.interface';
+import { IAuthService } from 'src/common/interfaces/IAuth.interface';
 
 @Injectable()
-export class AlunoService implements IAuthService{
+export class AlunoService implements IAuthService {
     constructor(private prisma: PrismaService) { }
 
     async create(dadosAluno: CreateAlunoDTO): Promise<Aluno> {

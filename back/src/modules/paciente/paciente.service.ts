@@ -7,10 +7,11 @@ import { Prisma } from "@prisma/client";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 import { getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
+import { IAuthService } from "src/common/interfaces/IAuth.interface";
 
 
 @Injectable()
-export class PacienteService {
+export class PacienteService implements IAuthService {
     constructor(private prisma: PrismaService) { }
 
     async findById(uuid: string): Promise<Paciente> {
@@ -67,12 +68,7 @@ export class PacienteService {
         }
 
         const novoPaciente = await this.prisma.paciente.create({
-            data: {
-                nome: dadosPaciente.nome,
-                cpf: dadosPaciente.cpf,
-                data_nascimento: new Date(dadosPaciente.data_nascimento),
-                prontuario_status: CLIENTE_PRONTUARIO_STATUS.ATIVO
-            }
+            data: dadosPaciente
         })
 
         return novoPaciente;
