@@ -1,6 +1,6 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
@@ -8,6 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     transform: true
   }))
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('SGPE - Sistema de Gestão Psicológica')
@@ -21,7 +22,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document)
 
   await app.listen(process.env.PORT ?? 3000);
-  console.log(`Aplicação rodando em: http://localhost:${process.env.PORT ?? 3000}/`);
+  console.log(`Aplicação rodando em: https://localhost:${process.env.PORT ?? 3000}/`);
   console.log(`Para acessar o swagger: https://localhost:${process.env.PORT ?? 3000}/api/docs`)
 }
 
