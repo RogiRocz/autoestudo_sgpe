@@ -11,6 +11,7 @@ model paciente {
   uuid String @id @default(uuid())
   nome String
   cpf String @unique @db.VarChar(11)
+  senha String
   data_nascimento DateTime @db.Date
   prontuario_status CLIENTE_PRONTUARIO_STATUS
   criadoEm DateTime @default(now())

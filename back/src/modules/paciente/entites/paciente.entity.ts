@@ -6,19 +6,22 @@ export class Paciente {
 	@ApiProperty({ example: 'uuid-v4-do-paciente' })
 	uuid: string;
 
-	
+
 	@ApiProperty({ example: 'João Silva', description: 'Nome completo do paciente' })
 	nome: string;
-	
+
 	@ApiProperty({ example: '12345678901', description: 'CPF (apenas 11 números)' })
 	cpf: string;
-	
+
+	@ApiProperty({ example: 'Senha!123', description: 'Senha plana antes de ser criptografada', writeOnly: true })
+	senha: string
+
 	@ApiProperty({ example: '12/12/2012', description: 'Data de nascimento em formato ISO' })
 	data_nascimento: Date;
-	
+
 	@ApiProperty({ enum: CLIENTE_PRONTUARIO_STATUS, example: CLIENTE_PRONTUARIO_STATUS.ATIVO, description: 'Status de atividade do paciente no sistema' })
 	prontuario_status: CLIENTE_PRONTUARIO_STATUS;
-	
+
 	@ApiProperty({ description: 'Data de criação do registro do paciente' })
 	criadoEm: Date
 
