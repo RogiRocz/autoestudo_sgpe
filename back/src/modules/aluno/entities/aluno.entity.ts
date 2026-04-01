@@ -1,10 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { PAPEIS } from "@prisma/client/enums"
+import { BaseUser, IAuthenticatable } from "src/common/interfaces/IAuth.interface"
 import { Prontuario } from "src/modules/prontuario/entites/prontuario.entity"
 
-export class Aluno {
+export class Aluno extends BaseUser implements IAuthenticatable {
     @ApiProperty({ example: 'uuid-v4-do-aluno' })
-    uuid: string
+    declare uuid: string
 
     @ApiProperty({ example: '235689', description: 'Matrícula institucional do aluno' })
     matricula: string
@@ -16,7 +17,7 @@ export class Aluno {
     email: string
 
     @ApiProperty({ example: 'Senha!123', description: 'Senha plana antes de ser criptografada', writeOnly: true })
-    senha: string
+    declare senha: string
 
     @ApiProperty({ example: '10', description: 'Número do semestre atual do aluno' })
     periodo: number

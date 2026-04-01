@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CLIENTE_PRONTUARIO_STATUS } from '@prisma/client/enums';
+import { BaseUser, IAuthenticatable } from 'src/common/interfaces/IAuth.interface';
 import { Prontuario } from 'src/modules/prontuario/entites/prontuario.entity';
 
-export class Paciente {
+export class Paciente extends BaseUser implements IAuthenticatable {
 	@ApiProperty({ example: 'uuid-v4-do-paciente' })
-	uuid: string;
-
+	declare uuid: string;
 
 	@ApiProperty({ example: 'João Silva', description: 'Nome completo do paciente' })
 	nome: string;
@@ -14,7 +14,7 @@ export class Paciente {
 	cpf: string;
 
 	@ApiProperty({ example: 'Senha!123', description: 'Senha plana antes de ser criptografada', writeOnly: true })
-	senha: string
+	declare senha: string
 
 	@ApiProperty({ example: '12/12/2012', description: 'Data de nascimento em formato ISO' })
 	data_nascimento: Date;
