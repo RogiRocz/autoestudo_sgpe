@@ -15,7 +15,7 @@ export class Aluno {
     @ApiProperty({ example: 'aluno@example.com', description: 'Email utilizado pelo aluno' })
     email: string
 
-    @ApiProperty({ example: 'Senha!123', description: 'Senha plana antes de ser criptografada' })
+    @ApiProperty({ example: 'Senha!123', description: 'Senha plana antes de ser criptografada', writeOnly: true })
     senha: string
 
     @ApiProperty({ example: '10', description: 'Número do semestre atual do aluno' })
