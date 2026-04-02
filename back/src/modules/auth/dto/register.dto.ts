@@ -15,7 +15,14 @@ export class RegisterDTO {
         oneOf: [
             { $ref: getSchemaPath(CreateAlunoDTO) },
             { $ref: getSchemaPath(CreatePacienteDTO) },
-        ]
+        ],
+        discriminator: {
+            propertyName: 'type',
+            mapping: {
+                [UserType.ALUNO]: getSchemaPath(CreateAlunoDTO),
+                [UserType.PACIENTE]: getSchemaPath(CreatePacienteDTO)
+            }
+        }
     })
     @ValidateNested()
     @Type((opts) => {
