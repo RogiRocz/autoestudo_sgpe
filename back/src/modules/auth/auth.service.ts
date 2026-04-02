@@ -1,15 +1,15 @@
 import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
-import { UserPayload } from "../dto/UserPayload.dto";
+import { UserPayload } from "../../common/dto/UserPayload.dto";
 import { ModuleRef } from "@nestjs/core";
-import { IAuthenticatable, IAuthService, UserEntityMap, UserType } from "../interfaces/IAuth.interface";
-import { HashHelper } from "../utils/Hashing.helper";
+import { CreateDTOMap, IAuthenticatable, IAuthService, UserEntityMap, UserType } from "../../common/interfaces/IAuth.interface";
+import { HashHelper } from "../../common/utils/Hashing.helper";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
+import { LoginDTO } from "./dto/login.dto";
 
 @Injectable()
 export class AuthService {
     constructor(private readonly jwtService: JwtService,
-        private readonly configService: ConfigService,
         private readonly moduleRef: ModuleRef,
         private cript: HashHelper
     ) { }
@@ -62,6 +62,43 @@ export class AuthService {
             return await this.jwtService.verifyAsync(token)
         } catch (error) {
             throw new InternalServerErrorException('Falha na verificação do token: Erro: ' + error)
+        }
+    }
+
+    async registerUser<K extends UserType>(type: K, dados: CreateDTOMap[K]){
+        const service = this.getService(type) as IAuthService<CreateDTOMap[K], UserEntityMap[K]>
+
+        if(!dados.senha){
+            throw new BadRequestException('Falha no registro: Senha não fornecida do DTO')
+        }
+
+        const hashedPassword = await this.cript.hashingPassword(dados.senha)
+        const novoUsuarioDados = { ...dados, senha: hashedPassword } as CreateDTOMap[K]
+
+        const novoUsuario = await service.create(novoUsuarioDados)
+        const payload: UserPayload = {
+            sub: novoUsuario.uuid,
+            type: type
+        }
+
+        return payload
+    }
+
+    async loginUser<K extends UserType>(type: K, credenciais: Omit<LoginDTO, 'type'>){
+        try {
+            const service = this.getService(type)
+            const userDB = await service.findByIdentifier(credenciais.login) as UserEntityMap[K]
+            
+            await this.cript.comparePasswords(credenciais.senha, userDB.senha)
+
+            const payload: UserPayload = {
+                sub: userDB.uuid,
+                type
+            }
+
+            return payload
+        } catch (error) {
+            throw new UnauthorizedException('Falha no login: Credenciais erradas')
         }
     }
 }
