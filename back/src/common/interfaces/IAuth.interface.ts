@@ -34,6 +34,6 @@ export interface IAuthService<D = any, E extends IAuthenticatable = any> {
 export abstract class BaseUser implements IAuthenticatable {
     uuid: string;
 
-    @Exclude({ toPlainOnly: true })
+    @Exclude({toClassOnly: true})
     senha: string;
 }
