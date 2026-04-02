@@ -4,8 +4,10 @@ import { AlunoService } from "./aluno.service";
 import { CreateAlunoDTO } from "./dto/create-aluno.dto";
 import { UpdateAlunoDTO } from "./dto/update-aluno.dto";
 import { Aluno } from "./entities/aluno.entity";
+import { ApiTags } from "@nestjs/swagger";
 
-@Controller('aluno')
+@ApiTags('alunos')
+@Controller('alunos')
 export class AlunoController{
     constructor(private alunoService: AlunoService) { }
 

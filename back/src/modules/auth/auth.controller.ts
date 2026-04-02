@@ -3,11 +3,12 @@ import { AuthService } from "./auth.service";
 import { LoginDTO } from "./dto/login.dto";
 import { RegisterDTO } from "./dto/register.dto";
 import { Public } from "src/common/decorator/public.decorator";
-import { ApiExtraModels, ApiBody } from "@nestjs/swagger";
+import { ApiExtraModels, ApiBody, ApiTags } from "@nestjs/swagger";
 import { CreateAlunoDTO } from "../aluno/dto/create-aluno.dto";
 import { CreatePacienteDTO } from "../paciente/dto/create-paciente.dto";
 
 @Public()
+@ApiTags('auth')
 @Controller('auth')
 @ApiExtraModels(CreateAlunoDTO, CreatePacienteDTO)
 export class AuthController {
