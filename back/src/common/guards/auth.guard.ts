@@ -15,21 +15,23 @@ export class AuthGuard implements CanActivate {
 
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        const request = context.switchToHttp().getRequest()
-        const token = this.extractTokenFromHeader(request)
-
         const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
             context.getHandler(),
             context.getClass(),
         ]);
         if (isPublic) return true;
 
+        const request = context.switchToHttp().getRequest()
+        const token = this.extractTokenFromHeader(request)
+
+        console.log(token)
+
         if (!token) {
             throw new UnauthorizedException('Falha na requisição: Token não encontrado ou inválido')
         }
 
         const payload = await this.authService.verifiyToken(token)
-        const user = this.authService.getUser(payload)
+        const user = await this.authService.getUser(payload)
 
         request['user'] = user
 
