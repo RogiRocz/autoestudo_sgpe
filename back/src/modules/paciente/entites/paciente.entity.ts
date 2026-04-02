@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CLIENTE_PRONTUARIO_STATUS } from '@prisma/client/enums';
-import { BaseUser, IAuthenticatable } from 'src/common/interfaces/IAuth.interface';
-import { Prontuario } from 'src/modules/prontuario/entites/prontuario.entity';
+import { BaseUser, IAuthenticatable } from '@common/interfaces/IAuth.interface';
+import { Prontuario } from '@modules/prontuario/entites/prontuario.entity';
 
 export class Paciente extends BaseUser implements IAuthenticatable {
 	@ApiProperty({ example: 'uuid-v4-do-paciente' })

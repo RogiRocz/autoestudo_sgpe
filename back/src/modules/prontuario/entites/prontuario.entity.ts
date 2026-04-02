@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { LOCAL_SESSAO, PRONTUARIO_STATUS, TIPO_SESSAO } from "@prisma/client/enums";
-import { Aluno } from "src/modules/aluno/entities/aluno.entity";
-import { Paciente } from "src/modules/paciente/entites/paciente.entity";
+import { Aluno } from "@modules/aluno/entities/aluno.entity";
+import { Paciente } from "@modules/paciente/entites/paciente.entity";
 
 export class Prontuario {
     @ApiProperty({ example: 'uuid-v4-do-prontuario' })

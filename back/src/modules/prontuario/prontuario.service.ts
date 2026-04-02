@@ -1,16 +1,16 @@
-import { PrismaService } from "src/common/Prisma/prisma.service";
+import { PrismaService } from "@common/Prisma/prisma.service";
 import { CreateProntuarioDTO } from "./dto/create-prontuario.dto";
 import { Prontuario } from "./entites/prontuario.entity";
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import { LOCAL_SESSAO, Prisma, PRONTUARIO_STATUS } from "@prisma/client";
 import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
-import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
-import { createPagination, getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
+import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
+import { createPagination, getPaginationPrisma } from "@common/utils/PrismaQuery.helper";
 import { PacienteService } from "../paciente/paciente.service";
-import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
+import { SearchTimeDTO } from "@common/dto/SearchTime.dto";
 import { AlunoService } from "../aluno/aluno.service";
-import { OwnerDataDTO } from "src/common/dto/OwnerData.dto";
-import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
+import { OwnerDataDTO } from "@common/dto/OwnerData.dto";
+import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
 import { plainToInstance } from "class-transformer";
 
 @Injectable()

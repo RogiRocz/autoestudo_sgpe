@@ -1,15 +1,15 @@
 import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
-import { PrismaService } from "src/common/Prisma/prisma.service";
+import { PrismaService } from "@common/Prisma/prisma.service";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
 import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
 import { Paciente } from "./entites/paciente.entity";
 import { Prisma } from "@prisma/client";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
-import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
-import { createPagination, getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
-import { IAuthService } from "src/common/interfaces/IAuth.interface";
+import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
+import { createPagination, getPaginationPrisma } from "@common/utils/PrismaQuery.helper";
+import { IAuthService } from "@common/interfaces/IAuth.interface";
 import { Fields } from "../auth/dto/login.dto";
-import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
+import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
 import { plainToInstance } from "class-transformer";
 
 

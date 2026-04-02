@@ -4,11 +4,11 @@ import { Prontuario } from "./entites/prontuario.entity";
 import { ProntuarioService } from "./prontuario.service";
 import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
 import { ApiParam, ApiTags } from "@nestjs/swagger";
-import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
+import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
 import { LOCAL_SESSAO, PRONTUARIO_STATUS } from "@prisma/client";
-import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
-import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
-import { ApiPaginatedResponse } from "src/common/decorator/paginated.decorator";
+import { SearchTimeDTO } from "@common/dto/SearchTime.dto";
+import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
+import { ApiPaginatedResponse } from "@common/decorator/paginated.decorator";
 
 @ApiTags('prontuarios')
 @Controller('prontuarios')
@@ -28,7 +28,7 @@ export class ProntuarioController {
 
     @Get('paciente/:id')
     @ApiPaginatedResponse(Prontuario)
-    async findByPaciente(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>>{
+    async findByPaciente(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByPaciente(id, params)
     }
 
@@ -46,7 +46,7 @@ export class ProntuarioController {
     }
 
     @Get('status/:status')
-    @ApiParam({name: 'status', enum: PRONTUARIO_STATUS, enumName: 'PRONTUARIO_STATUS'})
+    @ApiParam({ name: 'status', enum: PRONTUARIO_STATUS, enumName: 'PRONTUARIO_STATUS' })
     @ApiPaginatedResponse(Prontuario)
     async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByStatus(status, params)

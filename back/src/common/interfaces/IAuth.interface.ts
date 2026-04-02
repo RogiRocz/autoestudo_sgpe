@@ -1,9 +1,9 @@
 import { Exclude } from "class-transformer";
-import { CreateAlunoDTO } from "src/modules/aluno/dto/create-aluno.dto";
-import { Aluno } from "src/modules/aluno/entities/aluno.entity"
-import { Fields } from "src/modules/auth/dto/login.dto";
-import { CreatePacienteDTO } from "src/modules/paciente/dto/create-paciente.dto";
-import { Paciente } from "src/modules/paciente/entites/paciente.entity"
+import { CreateAlunoDTO } from "@modules/aluno/dto/create-aluno.dto";
+import { Aluno } from "@modules/aluno/entities/aluno.entity"
+import { Fields } from "@modules/auth/dto/login.dto";
+import { CreatePacienteDTO } from "@modules/paciente/dto/create-paciente.dto";
+import { Paciente } from "@modules/paciente/entites/paciente.entity"
 
 export enum UserType {
     PACIENTE = 'paciente',
@@ -34,6 +34,6 @@ export interface IAuthService<D = any, E extends IAuthenticatable = any> {
 export abstract class BaseUser implements IAuthenticatable {
     uuid: string;
 
-    @Exclude({toClassOnly: true})
+    @Exclude({ toClassOnly: true })
     senha: string;
 }

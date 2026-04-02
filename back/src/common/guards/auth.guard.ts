@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { Observable } from "rxjs";
-import { AuthService } from "src/modules/auth/auth.service";
+import { AuthService } from "@modules/auth/auth.service";
 import { IS_PUBLIC_KEY } from "../decorator/public.decorator";
 
 @Injectable()

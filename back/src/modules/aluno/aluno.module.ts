@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AlunoService } from "./aluno.service";
 import { AlunoController } from "./aluno.controller";
-import { PrismaModule } from "src/common/Prisma/prisma.module";
+import { PrismaModule } from "@common/Prisma/prisma.module";
 
 @Module({
     imports: [PrismaModule],
@@ -9,4 +9,4 @@ import { PrismaModule } from "src/common/Prisma/prisma.module";
     controllers: [AlunoController],
     exports: [AlunoService]
 })
-export class AlunoModule{}
+export class AlunoModule { }

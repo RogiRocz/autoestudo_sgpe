@@ -1,9 +1,9 @@
 import { ApiProperty, getSchemaPath } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsEnum, ValidateNested } from "class-validator";
-import { UserType } from "src/common/interfaces/IAuth.interface";
-import { CreateAlunoDTO } from "src/modules/aluno/dto/create-aluno.dto";
-import { CreatePacienteDTO } from "src/modules/paciente/dto/create-paciente.dto";
+import { UserType } from "@common/interfaces/IAuth.interface";
+import { CreateAlunoDTO } from "@modules/aluno/dto/create-aluno.dto";
+import { CreatePacienteDTO } from "@modules/paciente/dto/create-paciente.dto";
 
 export class RegisterDTO {
     @ApiProperty({ enum: UserType })

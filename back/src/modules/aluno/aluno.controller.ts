@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
+import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
 import { AlunoService } from "./aluno.service";
 import { CreateAlunoDTO } from "./dto/create-aluno.dto";
 import { UpdateAlunoDTO } from "./dto/update-aluno.dto";
 import { Aluno } from "./entities/aluno.entity";
 import { ApiTags } from "@nestjs/swagger";
-import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
-import { ApiPaginatedResponse } from "src/common/decorator/paginated.decorator";
+import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
+import { ApiPaginatedResponse } from "@common/decorator/paginated.decorator";
 
 @ApiTags('alunos')
 @Controller('alunos')

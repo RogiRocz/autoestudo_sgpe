@@ -4,9 +4,9 @@ import { Paciente } from "./entites/paciente.entity";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
-import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
-import { ApiPaginatedResponse } from "src/common/decorator/paginated.decorator";
+import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
+import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
+import { ApiPaginatedResponse } from "@common/decorator/paginated.decorator";
 
 @ApiTags('pacientes')
 @Controller('pacientes')
