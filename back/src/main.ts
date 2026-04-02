@@ -16,6 +16,18 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('pacientes')
     .addTag('prontuarios')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Insira seu token JWT',
+        in: 'header',
+      },
+      'token',
+    )
+    .addSecurityRequirements('token')
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig)
