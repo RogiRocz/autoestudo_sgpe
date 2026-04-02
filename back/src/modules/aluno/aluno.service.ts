@@ -25,8 +25,9 @@ export class AlunoService implements IAuthService {
         return alunoNovo
     }
 
-    async findByIdentifier(login: string, field: Fields): Promise<Aluno> {
-        switch (field) {
+    async findByIdentifier(login: string, field?: Fields): Promise<Aluno> {
+        const searchField = field || Fields.EMAIL
+        switch (searchField) {
             case Fields.MATRICULA:
                 return await this.findByMatricula(login)
             case Fields.EMAIL:

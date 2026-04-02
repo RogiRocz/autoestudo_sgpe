@@ -37,7 +37,8 @@ export class PacienteService implements IAuthService {
 
 
     async findByIdentifier(login: string, field?: Fields): Promise<Paciente | null> {
-        switch (field) {
+        const searchField = field || Fields.CPF
+        switch (searchField) {
             case Fields.CPF:
                 return this.findByCPF(login)
             default:
