@@ -6,6 +6,7 @@ import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
+import { ApiPaginatedResponse } from "src/common/decorator/paginated.decorator";
 
 @ApiTags('pacientes')
 @Controller('pacientes')
@@ -18,6 +19,7 @@ export class PacienteController {
     }
 
     @Get()
+    @ApiPaginatedResponse(Paciente)
     async findAllPacientes(@Query() params: QueryParamsDTO): Promise<PaginatedResponse<Paciente>> {
         return await this.pacienteService.findAll(params)
     }
