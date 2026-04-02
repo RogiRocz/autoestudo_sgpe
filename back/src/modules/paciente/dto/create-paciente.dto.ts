@@ -12,7 +12,6 @@ export class CreatePacienteDTO extends PickType(Paciente, [
     @IsString()
     nome: string;
 
-    
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @IsString()
     @Length(11, 11, { message: 'O CPF deve ter exatamente 11 dígitos' })
