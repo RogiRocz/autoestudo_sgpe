@@ -30,7 +30,7 @@ export class AuthGuard implements CanActivate {
             throw new UnauthorizedException('Falha na requisição: Token não encontrado ou inválido')
         }
 
-        const payload = await this.authService.verifiyToken(token)
+        const payload = await this.authService.verifyToken(token)
         const user = await this.authService.getUser(payload)
 
         request['user'] = user
