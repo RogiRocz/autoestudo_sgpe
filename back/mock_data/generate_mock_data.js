@@ -32,8 +32,6 @@ for (let i = 0; i < 5; i++) {
     periodo: Math.floor(Math.random() * 10) + 1,
     papel: 'ALUNO',
     ativo: true,
-    criadoEm: new Date().toISOString(),
-    atualizadoEm: new Date().toISOString()
   });
 }
 
@@ -46,8 +44,6 @@ for (let i = 0; i < 15; i++) {
     senha: `Senha!${i + 1}`,
     data_nascimento: new Date(1970 + Math.random() * 40, Math.random() * 12, Math.random() * 28).toISOString().split('T')[0],
     prontuario_status: ['ATIVO', 'INATIVO', 'ARQUIVADO'][Math.floor(Math.random() * 3)],
-    criadoEm: new Date().toISOString(),
-    atualizadoEm: new Date().toISOString()
   });
 }
 
@@ -65,8 +61,6 @@ for (let i = 0; i < 50; i++) {
     local: ['SALA_01', 'SALA_02', 'REMOTO'][Math.floor(Math.random() * 3)],
     status: ['AGENDADO', 'REALIZADO', 'CANCELADO', 'FALTA'][Math.floor(Math.random() * 4)],
     observacoes: `Observação da sessão ${i + 1}`,
-    criadoEm: new Date().toISOString(),
-    atualizadoEm: new Date().toISOString()
   });
 }
 
