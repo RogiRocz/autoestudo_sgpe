@@ -3,9 +3,9 @@ import { IsString, IsNotEmpty, IsEnum, IsOptional } from "class-validator";
 import { UserType } from "src/common/interfaces/IAuth.interface";
 
 export enum Fields {
-    CPF,
-    EMAIL,
-    MATRICULA
+    CPF = 'cpf',
+    EMAIL = 'email',
+    MATRICULA = 'matricula'
 }
 
 export class LoginDTO {
@@ -23,7 +23,7 @@ export class LoginDTO {
     @ApiProperty({enum: Fields, enumName: 'FIELDS', example: Fields.EMAIL, description: 'Qual campo vai ser validado para login'})
     field?: Fields
 
-    @ApiProperty({ enum: UserType, enumName: 'USER_TYPE', example: UserType.ALUNO, description: 'Qual tipo de usuário quer logar' })
+    @ApiProperty({ enum: UserType, enumName: 'USER_TYPE',examples: UserType, example: UserType.ALUNO, description: 'Qual tipo de usuário quer logar' })
     @IsEnum(UserType)
     type: UserType;
 }
