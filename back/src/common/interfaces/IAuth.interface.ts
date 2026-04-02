@@ -17,7 +17,7 @@ export type UserEntityMap = {
 
 export type CreateDTOMap = {
     [UserType.ALUNO]: CreateAlunoDTO
-    [UserType.PACIENTE]: CreatePacienteDTO 
+    [UserType.PACIENTE]: CreatePacienteDTO
 }
 
 export interface IAuthenticatable {
@@ -25,8 +25,8 @@ export interface IAuthenticatable {
     senha: string
 }
 
-export interface IAuthService <D = any, E extends IAuthenticatable = any>{
-    findByIdentifier(login: string, field?: Fields): Promise<E>
+export interface IAuthService<D = any, E extends IAuthenticatable = any> {
+    findByIdentifier(login: string, field?: Fields): Promise<E | null>
     findById(id: string): Promise<E>
     create(dados: D): Promise<E>
 }
