@@ -9,6 +9,7 @@ import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 import { getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
 import { IAuthService } from "src/common/interfaces/IAuth.interface";
 import { Fields } from "../auth/dto/login.dto";
+import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
 
 
 @Injectable()
@@ -59,7 +60,7 @@ export class PacienteService implements IAuthService {
         return query
     }
 
-    async findAll(params: QueryParamsDTO): Promise<Paciente[]> {
+    async findAll(params: QueryParamsDTO): Promise<PaginatedResponse<Paciente>> {
         const skip = params.size * (params.page - 1)
         const total_records = await this.prisma.paciente.count()
 
@@ -71,7 +72,17 @@ export class PacienteService implements IAuthService {
             getPaginationPrisma(params)
         )
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
     async create(dadosPaciente: CreatePacienteDTO): Promise<Paciente> {

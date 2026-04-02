@@ -7,6 +7,7 @@ import { ApiParam, ApiTags } from "@nestjs/swagger";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 import { LOCAL_SESSAO, PRONTUARIO_STATUS } from "@prisma/client";
 import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
+import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
 
 @ApiTags('prontuarios')
 @Controller('prontuarios')
@@ -19,34 +20,34 @@ export class ProntuarioController {
     }
 
     @Get()
-    async findAllProntuarios(@Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findAllProntuarios(@Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findAllProntuarios(params)
     }
 
     @Get('paciente/:id')
-    async findByPaciente(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<Prontuario[]>{
+    async findByPaciente(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>>{
         return await this.prontuarioService.findByPaciente(id, params)
     }
 
     @Get('aluno/:id')
-    async findByAluno(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByAluno(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByAluno(id, params)
     }
 
     @Get('local/:local')
     @ApiParam({ name: 'local', enum: LOCAL_SESSAO, enumName: 'LOCAL_SESSAO' })
-    async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByLocal(local, params)
     }
 
     @Get('status/:status')
     @ApiParam({name: 'status', enum: PRONTUARIO_STATUS, enumName: 'PRONTUARIO_STATUS'})
-    async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByStatus(status, params)
     }
 
     @Get('datas')
-    async findByIntervaloTempo(@Query() search: SearchTimeDTO, @Query() params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByIntervaloTempo(@Query() search: SearchTimeDTO, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByIntervaloTempo(search, params)
     }
 

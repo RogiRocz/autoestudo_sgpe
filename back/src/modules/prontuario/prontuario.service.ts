@@ -10,6 +10,7 @@ import { PacienteService } from "../paciente/paciente.service";
 import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
 import { AlunoService } from "../aluno/aluno.service";
 import { OwnerDataDTO } from "src/common/dto/OwnerData.dto";
+import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
 
 @Injectable()
 export class ProntuarioService {
@@ -29,7 +30,7 @@ export class ProntuarioService {
         return novoProntuario
     }
 
-    async findAllProntuarios(params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findAllProntuarios(params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         const skip = params.size * (params.page - 1)
         const total_records = await this.prisma.prontuario.count()
 
@@ -41,24 +42,54 @@ export class ProntuarioService {
             getPaginationPrisma(params)
         )
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
-    async findByPaciente(id_paciente: string, params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByPaciente(id_paciente: string, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         const paciente = await this.pacienteService.findById(id_paciente)
+        const total_records = await this.prisma.prontuario.count({
+            where: {
+                paciente_id: id_paciente
+            }
+        })
 
         const query = await this.prisma.prontuario.findMany({
             where: {
                 paciente_id: paciente.uuid
             },
-            ...getPaginationPrisma(params)
+            ...getPaginationPrisma(params),
         })
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
-    async findByAluno(id_aluno: string, params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByAluno(id_aluno: string, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         const aluno = await this.alunoService.findById(id_aluno)
+        const total_records = await this.prisma.prontuario.count({
+            where: {
+                aluno_id: id_aluno
+            }
+        })
 
         const query = await this.prisma.prontuario.findMany({
             where: {
@@ -67,25 +98,49 @@ export class ProntuarioService {
             ...getPaginationPrisma(params)
         })
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
-    async findByLocal(local: LOCAL_SESSAO, params: QueryParamsDTO, owner?: OwnerDataDTO) {
+    async findByLocal(local: LOCAL_SESSAO, params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
         const whereClause: Prisma.prontuarioWhereInput = { local }
 
         if (owner?.tipoDono && owner?.donoId) {
             whereClause[owner?.tipoDono as string] = owner?.donoId
         }
 
+        const total_records = await this.prisma.prontuario.count({
+            where: whereClause
+        })
+
         const query = await this.prisma.prontuario.findMany({
             where: whereClause,
             ...getPaginationPrisma(params)
         })
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
-    async findByIntervaloTempo(search: SearchTimeDTO, params: QueryParamsDTO): Promise<Prontuario[]> {
+    async findByIntervaloTempo(search: SearchTimeDTO, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
         const whereClause: Prisma.prontuarioWhereInput = {}
 
         if (search.tipoDono && search.donoId) {
@@ -97,27 +152,55 @@ export class ProntuarioService {
             lte: search.endDate ? new Date(search.endDate) : undefined
         }
 
+        const total_records = await this.prisma.prontuario.count({
+            where: whereClause
+        })
+
         const query = await this.prisma.prontuario.findMany({
             where: whereClause,
             ...getPaginationPrisma(params)
         })
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
-    async findByStatus(status: PRONTUARIO_STATUS, params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<Prontuario[]> {
+    async findByStatus(status: PRONTUARIO_STATUS, params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
         const whereClause: Prisma.prontuarioWhereInput = { status }
 
         if (owner?.tipoDono && owner?.donoId) {
             whereClause[owner?.tipoDono as string] = owner?.donoId
         }
 
+        const total_records = await this.prisma.prontuario.count({
+            where: whereClause
+        })
+
         const query = await this.prisma.prontuario.findMany({
             where: whereClause,
             ...getPaginationPrisma(params)
         })
 
-        return query
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
     async findByID(uuid: string): Promise<Prontuario> {

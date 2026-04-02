@@ -5,10 +5,11 @@ import { CreateAlunoDTO } from "./dto/create-aluno.dto";
 import { UpdateAlunoDTO } from "./dto/update-aluno.dto";
 import { Aluno } from "./entities/aluno.entity";
 import { ApiTags } from "@nestjs/swagger";
+import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
 
 @ApiTags('alunos')
 @Controller('alunos')
-export class AlunoController{
+export class AlunoController {
     constructor(private alunoService: AlunoService) { }
 
     @Post()
@@ -17,7 +18,7 @@ export class AlunoController{
     }
 
     @Get()
-    async findAll(@Query() params: QueryParamsDTO): Promise<Aluno[]> {
+    async findAll(@Query() params: QueryParamsDTO): Promise<PaginatedResponse<Aluno>> {
         return this.alunoService.findAll(params);
     }
 

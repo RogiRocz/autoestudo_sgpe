@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateAlunoDTO } from './dto/create-aluno.dto';
 import { UpdateAlunoDTO } from './dto/update-aluno.dto';
 import { Aluno } from './entities/aluno.entity';
@@ -8,6 +8,7 @@ import { QueryParamsDTO } from 'src/common/dto/QueryParams.dto';
 import { getPaginationPrisma } from 'src/common/utils/PrismaQuery.helper';
 import { IAuthService } from 'src/common/interfaces/IAuth.interface';
 import { Fields } from '../auth/dto/login.dto';
+import { PaginatedResponse } from 'src/common/dto/PaginatedResponse.dto';
 
 @Injectable()
 export class AlunoService implements IAuthService {
@@ -81,10 +82,29 @@ export class AlunoService implements IAuthService {
         }
     }
 
-    async findAll(params: QueryParamsDTO): Promise<Aluno[]> {
-        return this.prisma.aluno.findMany(
+    async findAll(params: QueryParamsDTO): Promise<PaginatedResponse<Aluno>> {
+        const skip = params.size * (params.page - 1)
+        const total_records = await this.prisma.aluno.count()
+
+        if (skip >= total_records) {
+            throw new BadRequestException('Valor na paginação: O valor recebido está inválido')
+        }
+
+        const query = await this.prisma.aluno.findMany(
             getPaginationPrisma(params)
-        );
+        )
+
+        const result = {
+            metadata: {
+                page: params.page,
+                size: params.size,
+                totalPages: Math.ceil(total_records / params.size),
+                totalItems: total_records
+            },
+            data: query
+        }
+
+        return result
     }
 
 
