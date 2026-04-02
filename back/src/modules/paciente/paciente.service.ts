@@ -36,14 +36,12 @@ export class PacienteService implements IAuthService {
     }
 
 
-    async findByIdentifier(login: string, field?: Fields): Promise<any> {
+    async findByIdentifier(login: string, field?: Fields): Promise<Paciente | null> {
         switch (field) {
             case Fields.CPF:
                 return this.findByCPF(login)
-                break;
             default:
                 throw new InternalServerErrorException('Falha em busca: Campo para buscar inexistente')
-                break;
         }
     }
 
