@@ -64,7 +64,7 @@ export class AuthService {
         }
     }
 
-    async verifiyToken(token: string): Promise<UserPayload> {
+    async verifyToken(token: string): Promise<UserPayload> {
         try {
             return await this.jwtService.verifyAsync(token)
         } catch (error) {
@@ -94,10 +94,10 @@ export class AuthService {
     async loginUser<K extends UserType>(type: K, credenciais: Omit<LoginDTO, 'type'>): Promise<string> {
         try {
             const service = this.getService(type)
-            const userDB = await service.findByIdentifier(credenciais.login) as UserEntityMap[K] | null
+            const userDB = await service.findByIdentifier(credenciais.login, credenciais.field) as UserEntityMap[K] | null
 
             if (!userDB) {
-                throw new UnauthorizedException('Falha no login: Credenciais erradas')
+                throw new UnauthorizedException('Falha no login: Usuário do banco de dados não encontrado')
             }
 
             await this.cript.comparePasswords(credenciais.senha, userDB.senha)
@@ -112,7 +112,8 @@ export class AuthService {
             if (error instanceof UnauthorizedException) {
                 throw error
             }
-            throw new UnauthorizedException('Falha no login: Credenciais erradas')
+
+            throw error
         }
     }
 }
