@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "src/common/Prisma/prisma.service";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
 import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
@@ -8,6 +8,7 @@ import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
 import { getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
 import { IAuthService } from "src/common/interfaces/IAuth.interface";
+import { Fields } from "../auth/dto/login.dto";
 
 
 @Injectable()
@@ -31,6 +32,18 @@ export class PacienteService implements IAuthService {
             }
 
             throw error
+        }
+    }
+
+
+    async findByIdentifier(login: string, field?: Fields): Promise<any> {
+        switch (field) {
+            case Fields.CPF:
+                return this.findByCPF(login)
+                break;
+            default:
+                throw new InternalServerErrorException('Falha em busca: Campo para buscar inexistente')
+                break;
         }
     }
 

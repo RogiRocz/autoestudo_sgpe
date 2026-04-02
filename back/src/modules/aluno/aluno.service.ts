@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateAlunoDTO } from './dto/create-aluno.dto';
 import { UpdateAlunoDTO } from './dto/update-aluno.dto';
 import { Aluno } from './entities/aluno.entity';
@@ -7,6 +7,7 @@ import { Prisma } from '@prisma/client';
 import { QueryParamsDTO } from 'src/common/dto/QueryParams.dto';
 import { getPaginationPrisma } from 'src/common/utils/PrismaQuery.helper';
 import { IAuthService } from 'src/common/interfaces/IAuth.interface';
+import { Fields } from '../auth/dto/login.dto';
 
 @Injectable()
 export class AlunoService implements IAuthService {
@@ -22,6 +23,19 @@ export class AlunoService implements IAuthService {
         });
 
         return alunoNovo
+    }
+
+    async findByIdentifier(login: string, field: Fields): Promise<Aluno> {
+        switch (field) {
+            case Fields.MATRICULA:
+                return await this.findByMatricula(login)
+                break;
+            case Fields.EMAIL:
+                return await this.findByEmail(login)
+            default:
+                throw new InternalServerErrorException('Falha em busca: Campo para buscar inexistente')
+                break;
+        }
     }
 
     async findById(id: string): Promise<Aluno> {
