@@ -1,5 +1,8 @@
 import { Exclude } from "class-transformer";
+import { CreateAlunoDTO } from "src/modules/aluno/dto/create-aluno.dto";
 import { Aluno } from "src/modules/aluno/entities/aluno.entity"
+import { Fields } from "src/modules/auth/dto/login.dto";
+import { CreatePacienteDTO } from "src/modules/paciente/dto/create-paciente.dto";
 import { Paciente } from "src/modules/paciente/entites/paciente.entity"
 
 export enum UserType {
@@ -10,15 +13,22 @@ export enum UserType {
 export type UserEntityMap = {
     [UserType.ALUNO]: Aluno
     [UserType.PACIENTE]: Paciente
-} & Record<string, IAuthenticatable>;
+}
+
+export type CreateDTOMap = {
+    [UserType.ALUNO]: CreateAlunoDTO
+    [UserType.PACIENTE]: CreatePacienteDTO 
+}
 
 export interface IAuthenticatable {
     uuid: string
     senha: string
 }
 
-export interface IAuthService {
-    findById(id: string): Promise<any>
+export interface IAuthService <D = any, E extends IAuthenticatable = any>{
+    findByIdentifier(login: string, field?: Fields): Promise<E>
+    findById(id: string): Promise<E>
+    create(dados: D): Promise<E>
 }
 
 export abstract class BaseUser implements IAuthenticatable {
