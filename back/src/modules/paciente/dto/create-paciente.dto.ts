@@ -22,7 +22,6 @@ export class CreatePacienteDTO extends PickType(Paciente, [
     senha: string;
     
     @IsNotEmpty({ message: 'Campo obrigatório' })
-    @IsDateString()
     @Type(() => Date)
     @IsDate({ message: 'Deve ser uma data válida' })
     data_nascimento: Date;
