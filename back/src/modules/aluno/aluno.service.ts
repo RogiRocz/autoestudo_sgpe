@@ -29,12 +29,10 @@ export class AlunoService implements IAuthService {
         switch (field) {
             case Fields.MATRICULA:
                 return await this.findByMatricula(login)
-                break;
             case Fields.EMAIL:
                 return await this.findByEmail(login)
             default:
                 throw new InternalServerErrorException('Falha em busca: Campo para buscar inexistente')
-                break;
         }
     }
 
@@ -90,14 +88,13 @@ export class AlunoService implements IAuthService {
 
 
     async update(id: string, dadosNovos: UpdateAlunoDTO): Promise<Aluno> {
-        if (await this.findByMatricula(dadosNovos.matricula ?? '')) {
+        if (dadosNovos.matricula && await this.findByMatricula(dadosNovos.matricula)) {
             throw new ConflictException('Falha na atualização: Matrícula já cadastrada')
         }
 
-        if (await this.findByEmail(dadosNovos.email ?? '')) {
+        if (dadosNovos.email && await this.findByEmail(dadosNovos.email)) {
             throw new ConflictException('Falha na atualização: Email já cadastrado')
         }
-
 
         return this.prisma.aluno.update({
             where: { uuid: id },
