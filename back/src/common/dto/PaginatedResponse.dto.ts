@@ -19,11 +19,7 @@ export class PaginatedResponse<E> {
         description: 'Lista de registros encontrados',
         type: 'array',
         items: {
-            oneOf: [
-                { $ref: 'Paciente' },
-                { $ref: 'Aluno' },
-                { $ref: 'Prontuario' },
-            ],
+            type: 'object'
         },
     })
     data: E[];
