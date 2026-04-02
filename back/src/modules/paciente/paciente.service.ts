@@ -6,10 +6,11 @@ import { Paciente } from "./entites/paciente.entity";
 import { Prisma } from "@prisma/client";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
-import { getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
+import { createPagination, getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
 import { IAuthService } from "src/common/interfaces/IAuth.interface";
 import { Fields } from "../auth/dto/login.dto";
 import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
+import { plainToInstance } from "class-transformer";
 
 
 @Injectable()
@@ -72,17 +73,9 @@ export class PacienteService implements IAuthService {
             getPaginationPrisma(params)
         )
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Paciente, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async create(dadosPaciente: CreatePacienteDTO): Promise<Paciente> {

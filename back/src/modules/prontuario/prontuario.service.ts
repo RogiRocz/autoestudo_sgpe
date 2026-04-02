@@ -5,12 +5,13 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException }
 import { LOCAL_SESSAO, Prisma, PRONTUARIO_STATUS } from "@prisma/client";
 import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
 import { QueryParamsDTO } from "src/common/dto/QueryParams.dto";
-import { getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
+import { createPagination, getPaginationPrisma } from "src/common/utils/PrismaQuery.helper";
 import { PacienteService } from "../paciente/paciente.service";
 import { SearchTimeDTO } from "src/common/dto/SearchTime.dto";
 import { AlunoService } from "../aluno/aluno.service";
 import { OwnerDataDTO } from "src/common/dto/OwnerData.dto";
 import { PaginatedResponse } from "src/common/dto/PaginatedResponse.dto";
+import { plainToInstance } from "class-transformer";
 
 @Injectable()
 export class ProntuarioService {
@@ -42,17 +43,9 @@ export class ProntuarioService {
             getPaginationPrisma(params)
         )
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Prontuario, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async findByPaciente(id_paciente: string, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
@@ -70,17 +63,9 @@ export class ProntuarioService {
             ...getPaginationPrisma(params),
         })
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Prontuario, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async findByAluno(id_aluno: string, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
@@ -98,17 +83,9 @@ export class ProntuarioService {
             ...getPaginationPrisma(params)
         })
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Prontuario, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async findByLocal(local: LOCAL_SESSAO, params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
@@ -127,17 +104,9 @@ export class ProntuarioService {
             ...getPaginationPrisma(params)
         })
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Prontuario, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async findByIntervaloTempo(search: SearchTimeDTO, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
@@ -161,17 +130,9 @@ export class ProntuarioService {
             ...getPaginationPrisma(params)
         })
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Prontuario, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async findByStatus(status: PRONTUARIO_STATUS, params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
@@ -190,17 +151,9 @@ export class ProntuarioService {
             ...getPaginationPrisma(params)
         })
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Prontuario, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
     async findByID(uuid: string): Promise<Prontuario> {

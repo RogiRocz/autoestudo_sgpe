@@ -5,10 +5,11 @@ import { Aluno } from './entities/aluno.entity';
 import { PrismaService } from 'src/common/Prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { QueryParamsDTO } from 'src/common/dto/QueryParams.dto';
-import { getPaginationPrisma } from 'src/common/utils/PrismaQuery.helper';
+import { createPagination, getPaginationPrisma } from 'src/common/utils/PrismaQuery.helper';
 import { IAuthService } from 'src/common/interfaces/IAuth.interface';
 import { Fields } from '../auth/dto/login.dto';
 import { PaginatedResponse } from 'src/common/dto/PaginatedResponse.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class AlunoService implements IAuthService {
@@ -94,17 +95,9 @@ export class AlunoService implements IAuthService {
             getPaginationPrisma(params)
         )
 
-        const result = {
-            metadata: {
-                page: params.page,
-                size: params.size,
-                totalPages: Math.ceil(total_records / params.size),
-                totalItems: total_records
-            },
-            data: query
-        }
+        const instancias = plainToInstance(Aluno, query)
 
-        return result
+        return createPagination(instancias, total_records, params)
     }
 
 
