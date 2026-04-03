@@ -1,0 +1,28 @@
+export enum PAPEIS {
+  ALUNO
+}
+
+export enum CLIENTE_PRONTUARIO_STATUS {
+  ATIVO,
+  INATIVO,
+  ARQUIVADO
+}
+
+export enum TIPO_SESSAO {
+  INDIVIDUAL,
+  GRUPO,
+  TRIAGEM
+}
+
+export enum LOCAL_SESSAO {
+  SALA_01,
+  SALA_02,
+  REMOTO
+}
+
+export enum PRONTUARIO_STATUS {
+  AGENDADO,
+  REALIZADO,
+  CANCELADO,
+  FALTA
+}
