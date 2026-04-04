@@ -1,9 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDateString, IsOptional } from "class-validator";
-import { OwnerDataDTO } from "./OwnerData.dto";
 
 
-export class SearchTimeDTO extends OwnerDataDTO {
+export class SearchTimeDTO{
     @ApiProperty({ example: '2023-01-01T00:00:00.000Z', description: 'Data de início do intervalo' })
     @IsOptional()
     @IsDateString()

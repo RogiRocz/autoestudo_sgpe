@@ -109,11 +109,11 @@ export class ProntuarioService {
         return createPagination(instancias, total_records, params)
     }
 
-    async findByIntervaloTempo(search: SearchTimeDTO, params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
+    async findByIntervaloTempo(search: SearchTimeDTO, params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
         const whereClause: Prisma.prontuarioWhereInput = {}
 
-        if (search.tipoDono && search.donoId) {
-            whereClause[search.tipoDono as string] = search.donoId
+        if (owner?.tipoDono && owner?.donoId) {
+            whereClause[owner.tipoDono as string] = owner.donoId
         }
 
         whereClause.data_hora = {
