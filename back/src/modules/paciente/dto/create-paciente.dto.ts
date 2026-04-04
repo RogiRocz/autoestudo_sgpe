@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { ApiProperty, PickType } from "@nestjs/swagger";
-import { IsDate, IsDateString, IsEnum, IsNotEmpty, IsString, Length } from "class-validator";
-import { CLIENTE_PRONTUARIO_STATUS } from "orm/generated/prisma/enums";
+import { PickType } from "@nestjs/swagger";
+import { IsDate, IsEnum, IsNotEmpty, IsString, Length } from "class-validator";
+import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client";
 import { Paciente } from "../entites/paciente.entity";
 import { Type } from "class-transformer";
 
