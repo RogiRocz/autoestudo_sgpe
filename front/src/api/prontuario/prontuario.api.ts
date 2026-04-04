@@ -6,7 +6,7 @@ import { PaginationResponse, QueryParams } from "@/types/shared/pagination"
 import { apiFetch } from "../shared/config"
 import { createParams } from "../shared/params"
 import { OwnerData } from "@/types/shared/ownerData"
-import { SearchDate } from "@/types/shared/SearchDate"
+import { SearchDate } from "@/types/shared/searchDate"
 
 const routeName = 'prontuarios'
 
