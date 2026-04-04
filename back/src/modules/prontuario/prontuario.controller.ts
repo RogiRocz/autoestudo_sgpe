@@ -9,6 +9,7 @@ import { LOCAL_SESSAO, PRONTUARIO_STATUS } from "@prisma/client";
 import { SearchTimeDTO } from "@common/dto/SearchTime.dto";
 import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
 import { ApiPaginatedResponse } from "@common/decorator/paginated.decorator";
+import { OwnerDataDTO } from "@common/dto/OwnerData.dto";
 
 @ApiTags('prontuarios')
 @Controller('prontuarios')
@@ -41,21 +42,21 @@ export class ProntuarioController {
     @Get('local/:local')
     @ApiParam({ name: 'local', enum: LOCAL_SESSAO, enumName: 'LOCAL_SESSAO' })
     @ApiPaginatedResponse(Prontuario)
-    async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
-        return await this.prontuarioService.findByLocal(local, params)
+    async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
+        return await this.prontuarioService.findByLocal(local, params, owner)
     }
 
     @Get('status/:status')
     @ApiParam({ name: 'status', enum: PRONTUARIO_STATUS, enumName: 'PRONTUARIO_STATUS' })
     @ApiPaginatedResponse(Prontuario)
-    async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
-        return await this.prontuarioService.findByStatus(status, params)
+    async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
+        return await this.prontuarioService.findByStatus(status, params, owner)
     }
 
     @Get('datas')
     @ApiPaginatedResponse(Prontuario)
-    async findByIntervaloTempo(@Query() search: SearchTimeDTO, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
-        return await this.prontuarioService.findByIntervaloTempo(search, params)
+    async findByIntervaloTempo(@Query() search: SearchTimeDTO, @Query() params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
+        return await this.prontuarioService.findByIntervaloTempo(search, params, owner)
     }
 
     @Get(':id')
