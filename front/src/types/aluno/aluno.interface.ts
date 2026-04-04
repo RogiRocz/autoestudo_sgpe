@@ -1,12 +1,11 @@
 import { PAPEIS } from "../enums/enums"
-import { Prontuario } from "../prontuario/prontuario.type"
+import { Prontuario } from "../prontuario/prontuario.interface"
 
-export type Aluno = {
+export interface Aluno {
     uuid: string
     matricula: string
     nome: string
     email: string
-    senha: string
     periodo: number
     papel: PAPEIS
     ativo: boolean

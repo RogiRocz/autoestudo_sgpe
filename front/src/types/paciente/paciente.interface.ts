@@ -1,7 +1,7 @@
 import { CLIENTE_PRONTUARIO_STATUS } from '@/types/enums/enums'
-import { Prontuario } from '../prontuario/prontuario.type'
+import { Prontuario } from '../prontuario/prontuario.interface'
 
-export type Paciente = {
+export interface Paciente {
     uuid?: string
     nome: string
     cpf: string
