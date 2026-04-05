@@ -16,8 +16,8 @@ export class AuthService {
         private cript: HashHelper
     ) { }
 
-    getService(nameType: string): IAuthService {
-        if (!Object.values(UserType).includes(nameType as UserType)) {
+    getService(nameType: UserType): IAuthService {
+        if (!Object.values(UserType).includes(nameType)) {
             throw new BadRequestException('Falha na requisição: tipo de usário inválido')
         }
 
@@ -31,14 +31,10 @@ export class AuthService {
     }
 
     async getUser<T extends UserEntityMap[UserType]>(payload: UserPayload): Promise<T> {
-        try {
-            const service = this.getService(payload.type)
-            const user = await service.findById(payload.sub)
+        const service = this.getService(payload.type)
+        const user = await service.findById(payload.sub) as T
 
-            return user
-        } catch (error) {
-            throw error
-        }
+        return user
     }
 
     async verifyPassword<T extends IAuthenticatable>(user: T, plainPass: string): Promise<boolean> {
