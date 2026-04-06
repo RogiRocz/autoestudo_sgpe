@@ -3,14 +3,18 @@ import { AuthService } from "./auth.service";
 import { LoginDTO } from "./dto/login.dto";
 import { RegisterDTO } from "./dto/register.dto";
 import { Public } from "@common/decorator/public.decorator";
-import { ApiExtraModels, ApiBody, ApiTags } from "@nestjs/swagger";
+import { ApiExtraModels, ApiBody, ApiTags, ApiResponse } from "@nestjs/swagger";
 import { CreateAlunoDTO } from "../aluno/dto/create-aluno.dto";
 import { CreatePacienteDTO } from "../paciente/dto/create-paciente.dto";
+import { AuthResponse, UserType } from "@common/interfaces/IAuth.interface";
+import { AuthResponseDTO } from "./dto/authResponse.dto";
+import { AlunoViewDTO } from "@modules/aluno/dto/alunoView.dto";
+import { PacienteViewDTO } from "@modules/paciente/dto/pacienteView.dto";
 
 @Public()
 @ApiTags('auth')
 @Controller('auth')
-@ApiExtraModels(CreateAlunoDTO, CreatePacienteDTO)
+@ApiExtraModels(AuthResponseDTO, AlunoViewDTO, PacienteViewDTO, CreateAlunoDTO, CreatePacienteDTO)
 export class AuthController {
     constructor(private readonly auth: AuthService) { }
 
@@ -50,12 +54,14 @@ export class AuthController {
             }
         }
     })
-    async registerUser(@Body() dados: RegisterDTO): Promise<string> {
+    @ApiResponse({ type: AuthResponseDTO, description: 'Retorna o token e os dados específicos do tipo de usuário.' })
+    async registerUser(@Body() dados: RegisterDTO): Promise<AuthResponse<UserType>> {
         return this.auth.registerUser(dados.type, dados.userData)
     }
 
+    @ApiResponse({ type: AuthResponseDTO, description: 'Retorna o token e os dados específicos do tipo de usuário.' })
     @Post('login')
-    async loginUser(@Body() dados: LoginDTO): Promise<string> {
+    async loginUser(@Body() dados: LoginDTO): Promise<AuthResponse<UserType>> {
         const { type, ...credenciais } = dados
         return this.auth.loginUser(type, credenciais)
     }
