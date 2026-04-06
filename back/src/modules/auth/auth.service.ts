@@ -1,11 +1,19 @@
 import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { UserPayload } from "../../common/dto/UserPayload.dto";
-import { CreateDTOMap, IAuthenticatable, IAuthService, UserEntityMap, UserType } from "../../common/interfaces/IAuth.interface";
+import { AuthResponse, CreateDTOMap, IAuthenticatable, IAuthService, UserEntityMap, UserType } from "../../common/interfaces/IAuth.interface";
 import { HashHelper } from "../../common/utils/Hashing.helper";
 import { JwtService } from "@nestjs/jwt";
 import { LoginDTO } from "./dto/login.dto";
 import { PacienteService } from "../paciente/paciente.service";
 import { AlunoService } from "../aluno/aluno.service";
+import { plainToInstance } from "class-transformer";
+import { Aluno } from "@modules/aluno/entities/aluno.entity";
+import { Paciente } from "@modules/paciente/entites/paciente.entity";
+
+const TargetClasses: Record<UserType, any> = {
+    [UserType.ALUNO]: Aluno,
+    [UserType.PACIENTE]: Paciente,
+};
 
 @Injectable()
 export class AuthService {
@@ -68,7 +76,7 @@ export class AuthService {
         }
     }
 
-    async registerUser<K extends UserType>(type: K, dados: CreateDTOMap[K]): Promise<string> {
+    async registerUser<K extends UserType>(type: K, dados: CreateDTOMap[K]): Promise<AuthResponse<K>> {
         const service = this.getService(type) as IAuthService<CreateDTOMap[K], UserEntityMap[K]>
 
         if (!dados.senha) {
@@ -79,15 +87,22 @@ export class AuthService {
         const novoUsuarioDados = { ...dados, senha: hashedPassword } as CreateDTOMap[K]
 
         const novoUsuario = await service.create(novoUsuarioDados)
+        const usuarioComTipo = {
+            ...novoUsuario,
+            type
+        }
         const payload: UserPayload = {
             sub: novoUsuario.uuid,
             type: type
         }
 
-        return await this.jwtService.signAsync(payload)
+        return {
+            token: await this.jwtService.signAsync(payload),
+            user: plainToInstance(TargetClasses[type], usuarioComTipo)
+        }
     }
 
-    async loginUser<K extends UserType>(type: K, credenciais: Omit<LoginDTO, 'type'>): Promise<string> {
+    async loginUser<K extends UserType>(type: K, credenciais: Omit<LoginDTO, 'type'>): Promise<AuthResponse<K>> {
         try {
             const service = this.getService(type)
             const userDB = await service.findByIdentifier(credenciais.login, credenciais.field) as UserEntityMap[K] | null
@@ -100,10 +115,18 @@ export class AuthService {
 
             const payload: UserPayload = {
                 sub: userDB.uuid,
+                type,
+            }
+
+            const usuarioComTipo = {
+                ...userDB,
                 type
             }
 
-            return await this.jwtService.signAsync(payload)
+            return {
+                token: await this.jwtService.signAsync(payload),
+                user: plainToInstance(TargetClasses[type], usuarioComTipo)
+            }
         } catch (error) {
             if (error instanceof UnauthorizedException) {
                 throw error
