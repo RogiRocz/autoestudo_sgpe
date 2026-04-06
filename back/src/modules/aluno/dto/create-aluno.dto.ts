@@ -1,7 +1,7 @@
-import { ApiProperty, PickType } from "@nestjs/swagger";
 import { PAPEIS } from "@prisma/client/enums";
 import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
 import { Aluno } from "../entities/aluno.entity";
+import { PickType } from "@nestjs/swagger";
 
 export class CreateAlunoDTO extends PickType(Aluno, [
     'matricula', 'nome', 'email', 'senha', 'periodo', 'papel', 'ativo'
