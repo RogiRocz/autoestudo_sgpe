@@ -1,10 +1,13 @@
+import { useAuthStore } from "@/store/auth.store";
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:3000';
 
-export async function apiFetch<T}>(
+export async function apiFetch<T>(
     endpoint: string,
     options: RequestInit = {}
 ): Promise<T> {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const authStore = useAuthStore
+    const token = authStore((state) => state.token)
 
     const headers = new Headers(options.headers);
     headers.set('Content-Type', 'application/json');
@@ -27,12 +30,12 @@ export async function apiFetch<T}>(
     const newToken = response.headers.get('Authorization');
     if (newToken && typeof window !== 'undefined') {
         const tokenValue = newToken.split(' ')[1];
-        localStorage.setItem('token', tokenValue);
+        authStore((state) => state.setToken(tokenValue))
     }
 
     if (response.status === 401) {
         if (typeof window !== 'undefined') {
-            localStorage.removeItem('token');
+            authStore(state => state.logout())
             window.location.href = '/auth/login';
         }
     }
