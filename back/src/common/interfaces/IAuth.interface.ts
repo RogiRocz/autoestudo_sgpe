@@ -20,6 +20,11 @@ export type CreateDTOMap = {
     [UserType.PACIENTE]: CreatePacienteDTO
 }
 
+export interface AuthResponse<K extends UserType>{
+    token: string,
+    user: UserEntityMap[K]
+}
+
 export interface IAuthenticatable {
     uuid: string
     senha: string
