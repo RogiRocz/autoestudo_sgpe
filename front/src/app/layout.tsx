@@ -2,11 +2,15 @@ import { Geist, Geist_Mono, Raleway, Montserrat } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
+import QueryProvider from "@/providers/query.provider"
 
-const montserratHeading = Montserrat({subsets:['latin'],variable:'--font-heading'});
+const montserratHeading = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-heading",
+})
 
-const raleway = Raleway({subsets:['latin'],variable:'--font-sans'})
+const raleway = Raleway({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -22,10 +26,18 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", raleway.variable, montserratHeading.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        raleway.variable,
+        montserratHeading.variable
+      )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   )
