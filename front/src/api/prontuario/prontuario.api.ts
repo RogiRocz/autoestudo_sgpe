@@ -7,7 +7,6 @@ import { apiFetch } from "../shared/config"
 import { createParams } from "../shared/params"
 import { OwnerData } from "@/types/shared/ownerData"
 import { SearchDate } from "@/types/shared/searchDate"
-import { fetchManagement } from "../shared/fetchManagement"
 
 const routeName = 'prontuarios'
 
@@ -20,27 +19,27 @@ export const ProntuarioService = {
         Promise<PaginationResponse<Prontuario>> => {
         const path = `${routeName}/${type}/${id}`
         const params = createParams(queries)
-        return fetchManagement<Prontuario>(path, params)
+        return apiFetch<PaginationResponse<Prontuario>>(`${path}${params}`)
     },
 
     findByLocal: async (local: LOCAL_SESSAO, queries?: QueryParams, owner?: OwnerData):
         Promise<PaginationResponse<Prontuario>> => {
         const path = `${routeName}/local/${local}`
         const params = createParams({ ...queries, ...owner })
-        return fetchManagement<Prontuario>(path, params)
+        return apiFetch<PaginationResponse<Prontuario>>(`${path}${params}`)
     },
 
     findByStatus: async (status: PRONTUARIO_STATUS, queries?: QueryParams, owner?: OwnerData):
         Promise<PaginationResponse<Prontuario>> => {
         const path = `${routeName}/status/${status}`
         const params = createParams({ ...queries, ...owner })
-        return fetchManagement<Prontuario>(path, params)
+        return apiFetch<PaginationResponse<Prontuario>>(`${path}${params}`)
     },
 
     findByIntervalTime: async (dates: SearchDate, queries?: QueryParams, owner?: OwnerData):
         Promise<PaginationResponse<Prontuario>> => {
         const path = `${routeName}/datas/`
         const params = createParams({ ...queries, ...dates, ...owner })
-        return fetchManagement<Prontuario>(path, params)
+        return apiFetch<PaginationResponse<Prontuario>>(`${path}${params}`)
     }
 }
