@@ -3,7 +3,7 @@ import { getCookie } from 'cookies-next/server';
 
 const publicRoutes = ['/login', '/register'];
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
     const res = NextResponse.next();
     const token = await getCookie('token', { req, res });
     const { pathname } = req.nextUrl;
