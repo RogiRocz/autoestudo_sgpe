@@ -8,7 +8,14 @@ export function Container({
   className?: string
 }) {
   return (
-    <div className={cn("container mx-auto px-4 sm:px-6 lg:px-8", className)}>
+    <div
+      className={cn(
+        "mx-auto w-full",
+        !className?.includes("px-") && "px-4 sm:px-6 lg:px-8",
+        !className?.includes("max-w-") && "container w-full max-w-none",
+        className
+      )}
+    >
       {children}
     </div>
   )
