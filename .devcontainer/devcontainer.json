@@ -1,5 +1,5 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node",
 	"features": {
 		"ghcr.io/stu-bell/devcontainer-features/node:0": {},
 		"ghcr.io/shyim/devcontainers-features/bun:0": {},
