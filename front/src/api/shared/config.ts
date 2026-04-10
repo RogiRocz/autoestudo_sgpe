@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/store/auth.store";
+import { deleteCookie, getCookie, setCookie } from "cookies-next/client";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:3000';
 
@@ -7,7 +8,7 @@ export async function apiFetch<T>(
     options: RequestInit = {}
 ): Promise<T> {
     const authStore = useAuthStore
-    const token = authStore((state) => state.token)
+    const token = getCookie('token')
 
     const headers = new Headers(options.headers);
     headers.set('Content-Type', 'application/json');
@@ -31,12 +32,14 @@ export async function apiFetch<T>(
     if (newToken && typeof window !== 'undefined') {
         const tokenValue = newToken.split(' ')[1];
         authStore((state) => state.setToken(tokenValue))
+        setCookie('token', tokenValue)
     }
 
     if (response.status === 401) {
         if (typeof window !== 'undefined') {
+            deleteCookie('token')
             authStore(state => state.logout())
-            window.location.href = '/auth/login';
+            window.location.href = '/login';
         }
     }
 

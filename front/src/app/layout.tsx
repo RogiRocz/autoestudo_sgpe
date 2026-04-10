@@ -4,6 +4,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import QueryProvider from "@/providers/query.provider"
+import { Toaster } from "sonner"
 
 const montserratHeading = Montserrat({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </QueryProvider>
+        <Toaster />
       </body>
     </html>
   )
