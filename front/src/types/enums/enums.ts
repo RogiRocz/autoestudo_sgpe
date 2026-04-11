@@ -1,5 +1,5 @@
 export enum PAPEIS {
-  ALUNO
+  ALUNO = 'ALUNO'
 }
 
 export enum CLIENTE_PRONTUARIO_STATUS {
