@@ -5,6 +5,7 @@ export interface Paciente {
     uuid?: string
     nome: string
     cpf: string
+    senha: string
     data_nascimento: Date;
     prontuario_status: CLIENTE_PRONTUARIO_STATUS;
 
