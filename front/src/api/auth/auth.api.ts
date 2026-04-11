@@ -1,4 +1,4 @@
-import { LoginRequest } from "@/types/auth/auth"
+import { LoginRequest, RegisterUser } from "@/types/auth/auth"
 import { apiFetch } from "../shared/config"
 
 const routeName = 'auth'
@@ -9,7 +9,7 @@ export const AuthService = {
         body: JSON.stringify(data)
     }),
 
-    register: async (data: LoginRequest) => apiFetch<string>(`${routeName}/register/`, {
+    register: async (data: RegisterUser) => apiFetch<string>(`${routeName}/register/`, {
         method: 'POST',
         body: JSON.stringify(data)
     })
