@@ -6,6 +6,7 @@ export interface Aluno {
     matricula: string
     nome: string
     email: string
+    senha: string
     periodo: number
     papel: PAPEIS
     ativo: boolean
