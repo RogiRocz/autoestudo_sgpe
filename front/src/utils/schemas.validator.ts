@@ -1,26 +1,36 @@
 import { CLIENTE_PRONTUARIO_STATUS, PAPEIS, TIPO_USUARIO } from "@/types/enums/enums"
 import * as z from "zod"
 
+z.config(z.locales.pt())
+
 export const pacienteFieldsSchema = z.object({
-    nome: z.email(),
-    senha: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
+    nome: z.string().min(1, 'O nome é obrigatório'),
+    senha: z.string()
+        .length(6)
+        .min(6, "A senha deve ter pelo menos 6 caracteres")
+        .max(6, "A senha deve ter somente 6 caracteres"),
     cpf: z
         .stringFormat("cpf", /^(\d{3}\.\d{3}\.\d{3}-\d{2})|(\d{11})$/)
         .min(11, "O CPF é composto por 11 números"),
-    data_nascimento: z.iso.date(),
+    data_nascimento: z.iso.date().min(1, "Data de nascimento é obrigatória"),
     prontuario_status: z.enum(CLIENTE_PRONTUARIO_STATUS).default(CLIENTE_PRONTUARIO_STATUS.ATIVO)
 })
 
 const pacienteFieldsDefaultValues = {
-    nome: '', senha: '', cpf: '000.000.000-00', data_nascimento: ''
+    nome: '', senha: '', cpf: '', data_nascimento: ''
 }
 
 export const alunoFieldsSchema = z.object({
-    matricula: z.coerce.number<string>().min(6, 'A matrícula contém 6 dígitos'),
-    nome: z.string(),
-    email: z.email(),
-    senha: z.string().min(6, "A senha deve ter pelo menos 6 caracteres"),
-    periodo: z.number(),
+    matricula: z.string({ error: 'A matrícula tem que ser somente números' })
+        .min(6, 'A matrícula deve conter 6 dígitos')
+        .max(6, 'A matrícula deve ter somente 6 dígitos'),
+    nome: z.string().min(1, 'O nome é obrigatório'),
+    email: z.email({ pattern: z.regexes.email }),
+    senha: z.string()
+        .length(6)
+        .min(6, "A senha deve ter pelo menos 6 caracteres")
+        .max(6, "A senha deve ter somente 6 caracteres"),
+    periodo: z.coerce.number<string>().min(1, 'O período é obrigatório'),
     papel: z.enum(PAPEIS).default(PAPEIS.ALUNO),
     ativo: z.boolean().default(true)
 })
