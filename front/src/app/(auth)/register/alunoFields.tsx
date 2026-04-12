@@ -1,7 +1,14 @@
 "use client"
 
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { HideInput } from "@/components/shared/HideInput"
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import {
   SelectTrigger,
   SelectValue,
@@ -12,40 +19,59 @@ import {
   Select,
 } from "@/components/ui/select"
 import { PAPEIS } from "@/types/enums/enums"
-import { FormValues } from "@/utils/schemas.validator"
+import { AlunoFormValues, FormValues } from "@/utils/schemas.validator"
 import { capitalize } from "@/utils/stringFormat.validator"
-import { Control, Controller, UseFormRegister } from "react-hook-form"
+import { useState } from "react"
+import { Controller, FieldErrors, useFormContext } from "react-hook-form"
 
-export function AlunoFields({
-  register,
-  control,
-}: {
-  register: UseFormRegister<FormValues>
-  control: Control<FormValues, any, FormValues>
-}) {
+export function AlunoFields() {
   const listaPapeis = Object.values(PAPEIS)
+  const {
+    register,
+    formState: { errors: baseErrors },
+    control,
+  } = useFormContext<FormValues>()
+
+  const errors = baseErrors as FieldErrors<AlunoFormValues>
+
+  const [isVisible, setVisibility] = useState(false)
 
   return (
     <FieldGroup>
       <Field>
         <FieldLabel htmlFor="matricula">Matrícula</FieldLabel>
         <Input id="matricula" type="text" {...register("matricula")}></Input>
+        <FieldError errors={[errors.matricula]}></FieldError>
       </Field>
       <Field>
         <FieldLabel htmlFor="nome">Nome</FieldLabel>
         <Input id="nome" type="text" {...register("nome")}></Input>
+        <FieldError errors={[errors.nome]}></FieldError>
       </Field>
       <Field>
         <FieldLabel htmlFor="email">Email</FieldLabel>
         <Input id="email" type="text" {...register("email")}></Input>
+        <FieldError errors={[errors.email]}></FieldError>
       </Field>
       <Field>
-        <FieldLabel htmlFor="senha">Senha</FieldLabel>
-        <Input id="senha" type="text" {...register("senha")}></Input>
+        <FieldLabel htmlFor="password">Senha</FieldLabel>
+        <InputGroup>
+          <InputGroupInput
+            id="password"
+            type={isVisible ? "text" : "password"}
+            className="placeholder:text-muted-white placeholder:font-semibold"
+            {...register("senha")}
+          ></InputGroupInput>
+          <InputGroupAddon align={"inline-end"}>
+            <HideInput value={isVisible} onChange={(v) => setVisibility(v)} />
+          </InputGroupAddon>
+        </InputGroup>
+        <FieldError errors={[errors.senha]}></FieldError>
       </Field>
       <Field>
         <FieldLabel htmlFor="periodo">Periodo</FieldLabel>
         <Input id="periodo" type="number" {...register("periodo")}></Input>
+        <FieldError errors={[errors.periodo]}></FieldError>
       </Field>
       <Field>
         <FieldLabel htmlFor="papel">Papel</FieldLabel>
@@ -64,7 +90,7 @@ export function AlunoFields({
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                <SelectLabel>Papeis</SelectLabel>
+                  <SelectLabel>Papeis</SelectLabel>
                   {listaPapeis.map((papel) => (
                     <SelectItem key={papel} value={papel}>
                       {capitalize(papel)}
@@ -75,6 +101,7 @@ export function AlunoFields({
             </Select>
           )}
         ></Controller>
+        <FieldError errors={[errors.papel]}></FieldError>
       </Field>
     </FieldGroup>
   )
