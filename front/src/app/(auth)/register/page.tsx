@@ -10,18 +10,19 @@ import {
   pacienteFieldsSchema,
 } from "@/utils/schemas.validator"
 import { useState } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRegisterUser } from "@/hooks/mutations/useAuthMutations.mutation"
 import { PacienteFields } from "./pacienteFields"
 import { AlunoFields } from "./alunoFields"
-import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group"
+import { ButtonGroup } from "@/components/ui/button-group"
 import { Button } from "@/components/ui/button"
 
 export default function RegisterPage() {
   const [userTypeRegister, setTypeRegister] = useState(TIPO_USUARIO.PACIENTE)
   const { mutate } = useRegisterUser()
-  const { register, handleSubmit, reset, control } = useForm<FormValues>({
+
+  const methods = useForm<FormValues>({
     resolver: zodResolver(
       userTypeRegister === TIPO_USUARIO.PACIENTE
         ? pacienteFieldsSchema
@@ -31,10 +32,17 @@ export default function RegisterPage() {
     mode: 'onChange'
   })
 
+  const { reset, handleSubmit } = methods
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const formattedData = {
+      ...data,
+      ...("cpf" in data && { cpf: data.cpf.replace(/\D/g, "") }),
+    }
+
     mutate({
       type: userTypeRegister,
-      userData: data as any,
+      userData: formattedData as any,
     })
   }
 
@@ -65,22 +73,33 @@ export default function RegisterPage() {
           </p>
         </header>
       </div>
-      <div className="flex flex-row w-[50%] mx-auto">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {userTypeRegister === TIPO_USUARIO.PACIENTE ? (
-            <PacienteFields register={register} />
-          ) : (
-            <AlunoFields register={register} control={control} />
-          )}
-          <ButtonGroup className="mt-6 gap-x-4" orientation={"horizontal"}>
-            <Button type="reset" variant={"destructive"} className="bg-background">
-              Apagar Campos
-            </Button>
-            <Button type="submit" variant={"outline"} className="bg-chart-2">
-              Registrar
-            </Button>
-          </ButtonGroup>
-        </form>
+      <div className="justify-center mx-auto flex w-[50%] flex-row">
+        <FormProvider {...methods}>
+          <form id="form" onSubmit={handleSubmit(onSubmit)}>
+            {userTypeRegister === TIPO_USUARIO.PACIENTE ? (
+              <PacienteFields />
+            ) : (
+              <AlunoFields />
+            )}
+            <ButtonGroup className="mt-6 gap-x-4" orientation={"horizontal"}>
+              <Button
+                type="reset"
+                variant={"destructive"}
+                className="bg-background"
+              >
+                Apagar Campos
+              </Button>
+              <Button
+                type="submit"
+                form="form"
+                variant={"outline"}
+                className="bg-chart-2"
+              >
+                Registrar
+              </Button>
+            </ButtonGroup>
+          </form>
+        </FormProvider>
       </div>
     </div>
   )
