@@ -33,6 +33,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig)
   SwaggerModule.setup('api/docs', app, document)
 
+  app.enableCors({
+    origin: 'https:localhost:3000'
+  })
+
   await app.listen(process.env.PORT ?? 3000);
   console.log(`Aplicação rodando em: https://localhost:${process.env.PORT ?? 3000}/`);
   console.log(`Para acessar o swagger: https://localhost:${process.env.PORT ?? 3000}/api/docs`)
