@@ -28,8 +28,8 @@ export enum PRONTUARIO_STATUS {
 }
 
 export enum TIPO_USUARIO {
-  ALUNO = 'ALUNO',
-  PACIENTE = 'PACIENTE'
+  ALUNO = 'aluno',
+  PACIENTE = 'paciente'
 }
 
 export enum TIPO_CAMPO_LOGIN {
