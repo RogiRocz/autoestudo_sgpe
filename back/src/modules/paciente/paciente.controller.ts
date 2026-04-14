@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from "@nestjs/common";
 import { PacienteService } from "./paciente.service";
 import { Paciente } from "./entites/paciente.entity";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
@@ -32,6 +32,12 @@ export class PacienteController {
     @Patch(':id')
     async updatePaciente(@Param('id') id: string, @Body() dadosNovos: UpdatePacienteDTO): Promise<Paciente> {
         return this.pacienteService.update(id, dadosNovos)
+    }
+
+    @Patch('/desativar/:id')
+    @HttpCode(204)
+    async deactivate(@Param('id') id: string): Promise<void> {
+        await this.pacienteService.deactivate(id)
     }
 
     @Delete(':id')

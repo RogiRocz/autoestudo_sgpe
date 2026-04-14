@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from "@nestjs/common";
 import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
 import { AlunoService } from "./aluno.service";
 import { CreateAlunoDTO } from "./dto/create-aluno.dto";
@@ -32,6 +32,12 @@ export class AlunoController {
     @Patch(':id')
     async update(@Param('id') id: string, @Body() dadosNovos: UpdateAlunoDTO): Promise<Aluno> {
         return this.alunoService.update(id, dadosNovos);
+    }
+
+    @Patch('/desativar/:id')
+    @HttpCode(204)
+    async deactivate(@Param('id') id: string): Promise<void>{
+        await this.alunoService.deactivate(id)
     }
 
     @Delete(':id')
