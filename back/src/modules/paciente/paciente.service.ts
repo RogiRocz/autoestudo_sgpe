@@ -1,7 +1,7 @@
 import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "@common/Prisma/prisma.service";
 import { CreatePacienteDTO } from "./dto/create-paciente.dto";
-import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client/enums";
+import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client";
 import { Paciente } from "./entites/paciente.entity";
 import { Prisma } from "@prisma/client";
 import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
@@ -115,6 +115,10 @@ export class PacienteService implements IAuthService {
         }
     }
 
+    async deactivate(id: string): Promise<void> {
+        await this.update(id, { prontuario_status: CLIENTE_PRONTUARIO_STATUS.INATIVO })
+    }
+
     async delete(id: string): Promise<object> {
         try {
             const pacienteDeletado = await this.prisma.paciente.delete({
@@ -136,6 +140,4 @@ export class PacienteService implements IAuthService {
             throw error
         }
     }
-
-    // Criar lógica pra desativar paciente mudando o status prontuario_status
 }
