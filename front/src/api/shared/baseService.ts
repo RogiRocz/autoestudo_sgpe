@@ -9,8 +9,8 @@ export const createBaseService = <T, UpdateDTO>(routeName: string) => {
             }),
 
         deactivate: async (id: string) =>
-            apiFetch<void>(`${routeName}/${id}`, {
-                method: "DELETE"
+            apiFetch<void>(`${routeName}/desativar/${id}`, {
+                method: "PATCH"
             }),
     };
 };
