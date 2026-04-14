@@ -1,6 +1,6 @@
 "use client"
 
-import { Field, FieldLabel } from "@/components/ui/field"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Switch } from "@/components/ui/switch"
 import { TIPO_USUARIO } from "@/types/enums/enums"
 import {
@@ -17,6 +17,7 @@ import { PacienteFields } from "./pacienteFields"
 import { AlunoFields } from "./alunoFields"
 import { ButtonGroup } from "@/components/ui/button-group"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function RegisterPage() {
   const [userTypeRegister, setTypeRegister] = useState(TIPO_USUARIO.PACIENTE)
@@ -50,19 +51,31 @@ export default function RegisterPage() {
     <div className="justify-center overflow-auto">
       <div className="my-6">
         <div className="mb-4 flex flex-row justify-center">
-          <Field orientation={"horizontal"} className="w-fit">
-            <FieldLabel htmlFor="type_register">{userTypeRegister}</FieldLabel>
-            <Switch
-              id="type_register"
-              className="w-full data-[state=checked]:bg-chart-2"
-              onCheckedChange={(v) => {
-                const newType = v ? TIPO_USUARIO.ALUNO : TIPO_USUARIO.PACIENTE
-                setTypeRegister(newType)
+          <FieldGroup className="flex-row max-w-sm justify-center gap-10">
+            <Field orientation={"horizontal"} className="w-fit">
+              <FieldLabel htmlFor="type_register">{userTypeRegister}</FieldLabel>
+              <Switch
+                id="type_register"
+                className="w-full data-[state=checked]:bg-chart-2"
+                onCheckedChange={(v) => {
+                  const newType = v ? TIPO_USUARIO.ALUNO : TIPO_USUARIO.PACIENTE
+                  setTypeRegister(newType)
 
-                reset(DefaultValuesByType[newType])
-              }}
-            />
-          </Field>
+                  reset(DefaultValuesByType[newType])
+                }}
+              />
+            </Field>
+            <Field className="w-fit">
+              <Button
+                variant={"link"}
+                className="bg-background text-(--chart-2) hover:bg-(--chart-2) hover:text-white"
+              >
+                <Link href={"/login"} transitionTypes={["slide-in"]}>
+                  Já tem conta?
+                </Link>
+              </Button>
+            </Field>
+          </FieldGroup>
         </div>
         <header className="flex-row space-y-4">
           <h1 className="text-center text-2xl font-bold">
