@@ -34,7 +34,13 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document)
 
   app.enableCors({
-    origin: 'https:localhost:3000'
+    origin: [
+      'https://ideal-disco-xvpq7wx4q45f494-3000.app.github.dev',
+      'http://localhost:3000'
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+    allowedHeaders: 'Content-Type, Accept, Authorization',
   })
 
   await app.listen(process.env.PORT ?? 3000);
