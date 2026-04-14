@@ -1,4 +1,4 @@
-import { PAPEIS } from "@prisma/client/enums";
+import { PAPEIS } from "@prisma/client";
 import { IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsString, MaxLength, MinLength } from "class-validator";
 import { Aluno } from "../entities/aluno.entity";
 import { PickType } from "@nestjs/swagger";

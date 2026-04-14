@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CLIENTE_PRONTUARIO_STATUS } from '@prisma/client/enums';
+import { CLIENTE_PRONTUARIO_STATUS } from '@prisma/client';
 import { BaseUser, IAuthenticatable } from '@common/interfaces/IAuth.interface';
 import { Prontuario } from '@modules/prontuario/entites/prontuario.entity';
 

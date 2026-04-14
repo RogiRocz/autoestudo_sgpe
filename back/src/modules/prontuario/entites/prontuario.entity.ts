@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { LOCAL_SESSAO, PRONTUARIO_STATUS, TIPO_SESSAO } from "@prisma/client/enums";
+import { LOCAL_SESSAO, PRONTUARIO_STATUS, TIPO_SESSAO } from "@prisma/client";
 import { Aluno } from "@modules/aluno/entities/aluno.entity";
 import { Paciente } from "@modules/paciente/entites/paciente.entity";
 
