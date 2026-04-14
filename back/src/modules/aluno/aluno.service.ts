@@ -116,6 +116,10 @@ export class AlunoService implements IAuthService {
         });
     }
 
+    async deactivate(id: string): Promise<void> {
+        await this.update(id, {ativo: false})
+    }
+
     async delete(id: string): Promise<void> {
         await this.prisma.aluno.delete({
             where: { uuid: id },
