@@ -6,7 +6,7 @@ import { TIPO_USUARIO } from "@/types/enums/enums"
 import {
   alunoFieldsSchema,
   DefaultValuesByType,
-  FormValues,
+  RegisterFormValues,
   pacienteFieldsSchema,
 } from "@/utils/schemas.validator"
 import { useState } from "react"
@@ -25,19 +25,19 @@ export default function RegisterPage() {
   const { mutate } = useRegisterUser()
   const router = useRouter()
 
-  const methods = useForm<FormValues>({
+  const methods = useForm<RegisterFormValues>({
     resolver: zodResolver(
       userTypeRegister === TIPO_USUARIO.PACIENTE
         ? pacienteFieldsSchema
         : alunoFieldsSchema
     ) as any,
     defaultValues: DefaultValuesByType[userTypeRegister],
-    mode: "onChange",
+    mode: "onBlur",
   })
 
   const { reset, handleSubmit } = methods
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
     const formattedData = {
       ...data,
       ...("cpf" in data && { cpf: data.cpf.replace(/\D/g, "") }),
