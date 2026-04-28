@@ -32,7 +32,7 @@ export default function RegisterPage() {
         : alunoFieldsSchema
     ) as any,
     defaultValues: DefaultValuesByType[userTypeRegister],
-    mode: 'onChange'
+    mode: "onChange",
   })
 
   const { reset, handleSubmit } = methods
@@ -43,12 +43,15 @@ export default function RegisterPage() {
       ...("cpf" in data && { cpf: data.cpf.replace(/\D/g, "") }),
     }
 
-    mutate({
-      type: userTypeRegister,
-      userData: formattedData as any,
-    }, {
-      onSuccess: () => router.push('/')
-    })
+    mutate(
+      {
+        type: userTypeRegister,
+        userData: formattedData as any,
+      },
+      {
+        onSuccess: () => router.push("/"),
+      }
+    )
   }
 
   return (
@@ -97,14 +100,17 @@ export default function RegisterPage() {
           <form
             id="form"
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col align-center w-full justify-center"
+            className="align-center flex w-full flex-col justify-center"
           >
             {userTypeRegister === TIPO_USUARIO.PACIENTE ? (
               <PacienteFields />
             ) : (
               <AlunoFields />
             )}
-            <ButtonGroup className="mt-6 gap-x-4 mx-auto" orientation={"horizontal"}>
+            <ButtonGroup
+              className="mx-auto mt-6 gap-x-4"
+              orientation={"horizontal"}
+            >
               <Button
                 type="reset"
                 variant={"destructive"}

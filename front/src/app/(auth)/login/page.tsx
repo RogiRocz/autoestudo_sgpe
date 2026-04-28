@@ -1,14 +1,7 @@
 "use client"
 
-import { HideInput } from "@/components/shared/HideInput"
 import { Button } from "@/components/ui/button"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group"
 import { Switch } from "@/components/ui/switch"
 import { TIPO_USUARIO } from "@/types/enums/enums"
 import {
