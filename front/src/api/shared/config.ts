@@ -22,7 +22,7 @@ export async function apiFetch<T>(
         headers,
     };
 
-    const response = await fetch(`${BASE_URL}${endpoint}`, config);
+    const response = await fetch(`${BASE_URL}/${endpoint}`, config);
 
     if (response.status === 204) {
         return {} as T;
@@ -30,7 +30,7 @@ export async function apiFetch<T>(
 
     const newToken = response.headers.get('Authorization');
     if (newToken && typeof window !== 'undefined') {
-        const tokenValue = newToken.split(' ')[1];
+        const tokenValue = newToken.split(' ')[1];		
         authStore((state) => state.setToken(tokenValue))
         setCookie('token', tokenValue)
     }
