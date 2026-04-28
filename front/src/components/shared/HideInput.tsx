@@ -15,7 +15,7 @@ export function HideInput({ value, onChange }: Props) {
         size={"icon-sm"}
         type="button"
         variant={"outline"}
-        className="border-transparent bg-transparent text-white"
+        className="border-transparent bg-transparent text-white border-none"
         onClick={() => onChange(!value)}
       >
         {value ? (
