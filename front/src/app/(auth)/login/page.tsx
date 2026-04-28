@@ -13,7 +13,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useState } from "react"
-import { FormProvider, useForm } from "react-hook-form"
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { PacienteFields } from "../pacienteFields"
 import { AlunoFields } from "../alunoFields"
 
@@ -32,6 +32,15 @@ export default function LoginPage() {
 
   const { reset, handleSubmit } = methods
 
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    const formattedData = {
+      ...data,
+      ...("cpf" in data && { cpf: data.cpf.replace(/\D/g, "") }),
+    }
+
+    
+  }
+
   return (
     <div className="my-auto h-[80%]">
       <header className="flex-row space-y-4">
@@ -42,7 +51,7 @@ export default function LoginPage() {
       </header>
       <div className="mx-auto flex w-[50%] flex-row justify-center">
         <FormProvider {...methods}>
-          <form action="" className="w-full">
+          <form id="form" onSubmit={handleSubmit()} className="w-full">
             <header className="align-center my-10 flex justify-center">
               <Field orientation={"horizontal"} className="w-fit">
                 <FieldLabel htmlFor="type_register">
@@ -74,6 +83,8 @@ export default function LoginPage() {
                 className="items-centerjustify-center flex-col gap-y-6"
               >
                 <Button
+                type="submit"
+                form="form"
                   variant={"outline"}
                   className="w-30 bg-chart-2 hover:text-(--chart-2)"
                 >
