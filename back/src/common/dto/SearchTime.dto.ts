@@ -1,15 +1,20 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsOptional } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger'
+import { IsDateString, IsOptional } from 'class-validator'
 
-
-export class SearchTimeDTO{
-    @ApiProperty({ example: '2023-01-01T00:00:00.000Z', description: 'Data de início do intervalo' })
+export class SearchTimeDTO {
+    @ApiProperty({
+        example: '2023-01-01T00:00:00.000Z',
+        description: 'Data de início do intervalo',
+    })
     @IsOptional()
     @IsDateString()
-    startDate: string;
+    startDate: string
 
-    @ApiProperty({ example: '2023-12-31T23:59:59.999Z', description: 'Data de fim do intervalo' })
+    @ApiProperty({
+        example: '2023-12-31T23:59:59.999Z',
+        description: 'Data de fim do intervalo',
+    })
     @IsOptional()
     @IsDateString()
-    endDate: string;
+    endDate: string
 }

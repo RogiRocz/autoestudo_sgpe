@@ -1,28 +1,40 @@
-import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { CreateAlunoDTO } from './dto/create-aluno.dto';
-import { UpdateAlunoDTO } from './dto/update-aluno.dto';
-import { Aluno } from './entities/aluno.entity';
-import { PrismaService } from '@common/Prisma/prisma.service';
-import { Prisma } from '@prisma/client';
-import { QueryParamsDTO } from '@common/dto/QueryParams.dto';
-import { createPagination, getPaginationPrisma } from '@common/utils/PrismaQuery.helper';
-import { IAuthService } from '@common/interfaces/IAuth.interface';
-import { Fields } from '../auth/dto/login.dto';
-import { PaginatedResponse } from '@common/dto/PaginatedResponse.dto';
-import { plainToInstance } from 'class-transformer';
+import {
+    BadRequestException,
+    ConflictException,
+    Injectable,
+    InternalServerErrorException,
+    NotFoundException,
+} from '@nestjs/common'
+import { CreateAlunoDTO } from './dto/create-aluno.dto'
+import { UpdateAlunoDTO } from './dto/update-aluno.dto'
+import { Aluno } from './entities/aluno.entity'
+import { PrismaService } from '@common/Prisma/prisma.service'
+import { Prisma } from '@prisma/client'
+import { QueryParamsDTO } from '@common/dto/QueryParams.dto'
+import {
+    createPagination,
+    getPaginationPrisma,
+} from '@common/utils/PrismaQuery.helper'
+import { IAuthService } from '@common/interfaces/IAuth.interface'
+import { Fields } from '../auth/dto/login.dto'
+import { PaginatedResponse } from '@common/dto/PaginatedResponse.dto'
+import { plainToInstance } from 'class-transformer'
 
 @Injectable()
 export class AlunoService implements IAuthService {
-    constructor(private prisma: PrismaService) { }
+    constructor(private prisma: PrismaService) {}
 
     async create(dadosAluno: CreateAlunoDTO): Promise<Aluno> {
-        if (await this.findByMatricula(dadosAluno.matricula) || await this.findByEmail(dadosAluno.email)) {
+        if (
+            (await this.findByMatricula(dadosAluno.matricula)) ||
+            (await this.findByEmail(dadosAluno.email))
+        ) {
             throw new ConflictException('Falha na criação: Aluno já cadastrado')
         }
 
         const alunoNovo = await this.prisma.aluno.create({
             data: dadosAluno,
-        });
+        })
 
         return alunoNovo
     }
@@ -35,7 +47,9 @@ export class AlunoService implements IAuthService {
             case Fields.EMAIL:
                 return await this.findByEmail(login)
             default:
-                throw new InternalServerErrorException('Falha em busca: Campo para buscar inexistente')
+                throw new InternalServerErrorException(
+                    'Falha em busca: Campo para buscar inexistente'
+                )
         }
     }
 
@@ -43,9 +57,9 @@ export class AlunoService implements IAuthService {
         try {
             return this.prisma.aluno.findUniqueOrThrow({
                 where: {
-                    uuid: id
-                }
-            });
+                    uuid: id,
+                },
+            })
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
                 throw new NotFoundException('Falha em busca: Aluno não existe')
@@ -59,7 +73,7 @@ export class AlunoService implements IAuthService {
         try {
             return this.prisma.aluno.findUniqueOrThrow({
                 where: { matricula },
-            });
+            })
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
                 throw new NotFoundException('Falha em busca: Aluno não existe')
@@ -73,7 +87,7 @@ export class AlunoService implements IAuthService {
         try {
             return this.prisma.aluno.findUniqueOrThrow({
                 where: { email },
-            });
+            })
         } catch (error) {
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
                 throw new NotFoundException('Falha em busca: Aluno não existe')
@@ -88,7 +102,9 @@ export class AlunoService implements IAuthService {
         const total_records = await this.prisma.aluno.count()
 
         if (skip >= total_records) {
-            throw new BadRequestException('Valor na paginação: O valor recebido está inválido')
+            throw new BadRequestException(
+                'Valor na paginação: O valor recebido está inválido'
+            )
         }
 
         const query = await this.prisma.aluno.findMany(
@@ -100,24 +116,30 @@ export class AlunoService implements IAuthService {
         return createPagination(instancias, total_records, params)
     }
 
-
     async update(id: string, dadosNovos: UpdateAlunoDTO): Promise<Aluno> {
-        if (dadosNovos.matricula && await this.findByMatricula(dadosNovos.matricula)) {
-            throw new ConflictException('Falha na atualização: Matrícula já cadastrada')
+        if (
+            dadosNovos.matricula &&
+            (await this.findByMatricula(dadosNovos.matricula))
+        ) {
+            throw new ConflictException(
+                'Falha na atualização: Matrícula já cadastrada'
+            )
         }
 
-        if (dadosNovos.email && await this.findByEmail(dadosNovos.email)) {
-            throw new ConflictException('Falha na atualização: Email já cadastrado')
+        if (dadosNovos.email && (await this.findByEmail(dadosNovos.email))) {
+            throw new ConflictException(
+                'Falha na atualização: Email já cadastrado'
+            )
         }
 
         return this.prisma.aluno.update({
             where: { uuid: id },
             data: dadosNovos,
-        });
+        })
     }
 
     async deactivate(id: string): Promise<void> {
-        await this.update(id, {ativo: false})
+        await this.update(id, { ativo: false })
     }
 
     async delete(id: string): Promise<void> {
@@ -127,7 +149,7 @@ export class AlunoService implements IAuthService {
                 uuid: true,
                 matricula: true,
                 email: true,
-            }
-        });
+            },
+        })
     }
 }

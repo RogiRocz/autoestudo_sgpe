@@ -1,33 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { PickType } from "@nestjs/swagger";
-import { IsDate, IsEnum, IsNotEmpty, IsString, Length } from "class-validator";
-import { CLIENTE_PRONTUARIO_STATUS } from "@prisma/client";
-import { Paciente } from "../entites/paciente.entity";
-import { Type } from "class-transformer";
+import { PickType } from '@nestjs/swagger'
+import { IsDate, IsEnum, IsNotEmpty, IsString, Length } from 'class-validator'
+import { CLIENTE_PRONTUARIO_STATUS } from '@prisma/client'
+import { Paciente } from '../entites/paciente.entity'
+import { Type } from 'class-transformer'
 
 export class CreatePacienteDTO extends PickType(Paciente, [
-    'nome', 'cpf', 'data_nascimento', 'prontuario_status'
-]){
+    'nome',
+    'cpf',
+    'data_nascimento',
+    'prontuario_status',
+]) {
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @IsString()
-    nome: string;
+    nome: string
 
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @IsString()
     @Length(11, 11, { message: 'O CPF deve ter exatamente 11 dígitos' })
-    cpf: string;
+    cpf: string
 
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @IsString()
-    senha: string;
-    
+    senha: string
+
     @IsNotEmpty({ message: 'Campo obrigatório' })
     @Type(() => Date)
     @IsDate({ message: 'Deve ser uma data válida' })
-    data_nascimento: Date;
+    data_nascimento: Date
 
-    
     @IsNotEmpty({ message: 'Campo obrigatório' })
-    @IsEnum(CLIENTE_PRONTUARIO_STATUS, { message: 'Status do prontuário inválido' })
-    prontuario_status: CLIENTE_PRONTUARIO_STATUS;
+    @IsEnum(CLIENTE_PRONTUARIO_STATUS, {
+        message: 'Status do prontuário inválido',
+    })
+    prontuario_status: CLIENTE_PRONTUARIO_STATUS
 }

@@ -1,13 +1,13 @@
-import { Exclude } from "class-transformer";
-import { CreateAlunoDTO } from "@modules/aluno/dto/create-aluno.dto";
-import { Aluno } from "@modules/aluno/entities/aluno.entity"
-import { Fields } from "@modules/auth/dto/login.dto";
-import { CreatePacienteDTO } from "@modules/paciente/dto/create-paciente.dto";
-import { Paciente } from "@modules/paciente/entites/paciente.entity"
+import { Exclude } from 'class-transformer'
+import { CreateAlunoDTO } from '@modules/aluno/dto/create-aluno.dto'
+import { Aluno } from '@modules/aluno/entities/aluno.entity'
+import { Fields } from '@modules/auth/dto/login.dto'
+import { CreatePacienteDTO } from '@modules/paciente/dto/create-paciente.dto'
+import { Paciente } from '@modules/paciente/entites/paciente.entity'
 
 export enum UserType {
     PACIENTE = 'paciente',
-    ALUNO = 'aluno'
+    ALUNO = 'aluno',
 }
 
 export type UserEntityMap = {
@@ -20,8 +20,8 @@ export type CreateDTOMap = {
     [UserType.PACIENTE]: CreatePacienteDTO
 }
 
-export interface AuthResponse<K extends UserType>{
-    token: string,
+export interface AuthResponse<K extends UserType> {
+    token: string
     user: UserEntityMap[K]
 }
 
@@ -37,8 +37,8 @@ export interface IAuthService<D = any, E extends IAuthenticatable = any> {
 }
 
 export abstract class BaseUser implements IAuthenticatable {
-    uuid: string;
+    uuid: string
 
     @Exclude({ toClassOnly: true })
-    senha: string;
+    senha: string
 }

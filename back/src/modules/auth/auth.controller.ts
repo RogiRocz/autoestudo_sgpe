@@ -1,24 +1,30 @@
-import { Body, Controller, Post, UseInterceptors } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { LoginDTO } from "./dto/login.dto";
-import { RegisterDTO } from "./dto/register.dto";
-import { Public } from "@common/decorator/public.decorator";
-import { ApiExtraModels, ApiBody, ApiTags, ApiResponse } from "@nestjs/swagger";
-import { CreateAlunoDTO } from "../aluno/dto/create-aluno.dto";
-import { CreatePacienteDTO } from "../paciente/dto/create-paciente.dto";
-import { AuthResponse, UserType } from "@common/interfaces/IAuth.interface";
-import { AuthResponseDTO } from "./dto/authResponse.dto";
-import { AlunoViewDTO } from "@modules/aluno/dto/alunoView.dto";
-import { PacienteViewDTO } from "@modules/paciente/dto/pacienteView.dto";
-import { TokenInterceptor } from "@common/interceptors/token.interceptor";
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common'
+import { AuthService } from './auth.service'
+import { LoginDTO } from './dto/login.dto'
+import { RegisterDTO } from './dto/register.dto'
+import { Public } from '@common/decorator/public.decorator'
+import { ApiExtraModels, ApiBody, ApiTags, ApiResponse } from '@nestjs/swagger'
+import { CreateAlunoDTO } from '../aluno/dto/create-aluno.dto'
+import { CreatePacienteDTO } from '../paciente/dto/create-paciente.dto'
+import { AuthResponse, UserType } from '@common/interfaces/IAuth.interface'
+import { AuthResponseDTO } from './dto/authResponse.dto'
+import { AlunoViewDTO } from '@modules/aluno/dto/alunoView.dto'
+import { PacienteViewDTO } from '@modules/paciente/dto/pacienteView.dto'
+import { TokenInterceptor } from '@common/interceptors/token.interceptor'
 
 @Public()
 @UseInterceptors(TokenInterceptor)
 @ApiTags('auth')
 @Controller('auth')
-@ApiExtraModels(AuthResponseDTO, AlunoViewDTO, PacienteViewDTO, CreateAlunoDTO, CreatePacienteDTO)
+@ApiExtraModels(
+    AuthResponseDTO,
+    AlunoViewDTO,
+    PacienteViewDTO,
+    CreateAlunoDTO,
+    CreatePacienteDTO
+)
 export class AuthController {
-    constructor(private readonly auth: AuthService) { }
+    constructor(private readonly auth: AuthService) {}
 
     @Post('register')
     @ApiBody({
@@ -36,9 +42,9 @@ export class AuthController {
                         senha: 'SenhaForte!123',
                         periodo: 10,
                         papel: 'ALUNO',
-                        ativo: true
-                    }
-                }
+                        ativo: true,
+                    },
+                },
             },
             paciente: {
                 summary: 'Exemplo Paciente',
@@ -50,18 +56,28 @@ export class AuthController {
                         cpf: '12345678901',
                         senha: 'SenhaForte!123',
                         data_nascimento: '1995-05-20',
-                        prontuario_status: 'ATIVO'
-                    }
-                }
-            }
-        }
+                        prontuario_status: 'ATIVO',
+                    },
+                },
+            },
+        },
     })
-    @ApiResponse({ type: AuthResponseDTO, description: 'Retorna o token e os dados específicos do tipo de usuário.' })
-    async registerUser(@Body() dados: RegisterDTO): Promise<AuthResponse<UserType>> {
+    @ApiResponse({
+        type: AuthResponseDTO,
+        description:
+            'Retorna o token e os dados específicos do tipo de usuário.',
+    })
+    async registerUser(
+        @Body() dados: RegisterDTO
+    ): Promise<AuthResponse<UserType>> {
         return this.auth.registerUser(dados.type, dados.userData)
     }
 
-    @ApiResponse({ type: AuthResponseDTO, description: 'Retorna o token e os dados específicos do tipo de usuário.' })
+    @ApiResponse({
+        type: AuthResponseDTO,
+        description:
+            'Retorna o token e os dados específicos do tipo de usuário.',
+    })
     @Post('login')
     async loginUser(@Body() dados: LoginDTO): Promise<AuthResponse<UserType>> {
         const { type, ...credenciais } = dados

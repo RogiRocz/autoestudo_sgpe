@@ -9,7 +9,10 @@ export class HashHelper {
         this.SaltRound = 12
     }
 
-    async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    async comparePasswords(
+        plainPassword: string,
+        hashedPassword: string
+    ): Promise<boolean> {
         return await compare(plainPassword, hashedPassword)
     }
 
@@ -17,7 +20,9 @@ export class HashHelper {
         try {
             return await hash(plainPassword, this.SaltRound)
         } catch (error) {
-            throw new InternalServerErrorException('Erro ao encriptar a senha. Erro: ' + error)
+            throw new InternalServerErrorException(
+                'Erro ao encriptar a senha. Erro: ' + error
+            )
         }
     }
 }

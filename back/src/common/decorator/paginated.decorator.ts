@@ -1,8 +1,10 @@
-import { Type, applyDecorators } from "@nestjs/common";
-import { ApiExtraModels, ApiOkResponse, getSchemaPath } from "@nestjs/swagger";
-import { PaginatedResponse } from "../dto/PaginatedResponse.dto";
+import { Type, applyDecorators } from '@nestjs/common'
+import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger'
+import { PaginatedResponse } from '../dto/PaginatedResponse.dto'
 
-export const ApiPaginatedResponse = <TModel extends Type<any>>(model: TModel) => {
+export const ApiPaginatedResponse = <TModel extends Type<any>>(
+    model: TModel
+) => {
     return applyDecorators(
         ApiExtraModels(PaginatedResponse, model), // Registra os modelos no Swagger
         ApiOkResponse({
@@ -21,6 +23,6 @@ export const ApiPaginatedResponse = <TModel extends Type<any>>(model: TModel) =>
                     },
                 ],
             },
-        }),
-    );
-};
+        })
+    )
+}

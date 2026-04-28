@@ -1,26 +1,40 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from "@nestjs/common";
-import { PacienteService } from "./paciente.service";
-import { Paciente } from "./entites/paciente.entity";
-import { CreatePacienteDTO } from "./dto/create-paciente.dto";
-import { UpdatePacienteDTO } from "./dto/update-paciente.dto";
-import { ApiTags } from "@nestjs/swagger";
-import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
-import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
-import { ApiPaginatedResponse } from "@common/decorator/paginated.decorator";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    Param,
+    Patch,
+    Post,
+    Query,
+} from '@nestjs/common'
+import { PacienteService } from './paciente.service'
+import { Paciente } from './entites/paciente.entity'
+import { CreatePacienteDTO } from './dto/create-paciente.dto'
+import { UpdatePacienteDTO } from './dto/update-paciente.dto'
+import { ApiTags } from '@nestjs/swagger'
+import { QueryParamsDTO } from '@common/dto/QueryParams.dto'
+import { PaginatedResponse } from '@common/dto/PaginatedResponse.dto'
+import { ApiPaginatedResponse } from '@common/decorator/paginated.decorator'
 
 @ApiTags('pacientes')
 @Controller('pacientes')
 export class PacienteController {
-    constructor(private pacienteService: PacienteService) { }
+    constructor(private pacienteService: PacienteService) {}
 
     @Post()
-    async createPaciente(@Body() dadosPaciente: CreatePacienteDTO): Promise<Paciente> {
+    async createPaciente(
+        @Body() dadosPaciente: CreatePacienteDTO
+    ): Promise<Paciente> {
         return await this.pacienteService.create(dadosPaciente)
     }
 
     @Get()
     @ApiPaginatedResponse(Paciente)
-    async findAllPacientes(@Query() params: QueryParamsDTO): Promise<PaginatedResponse<Paciente>> {
+    async findAllPacientes(
+        @Query() params: QueryParamsDTO
+    ): Promise<PaginatedResponse<Paciente>> {
         return await this.pacienteService.findAll(params)
     }
 
@@ -30,7 +44,10 @@ export class PacienteController {
     }
 
     @Patch(':id')
-    async updatePaciente(@Param('id') id: string, @Body() dadosNovos: UpdatePacienteDTO): Promise<Paciente> {
+    async updatePaciente(
+        @Param('id') id: string,
+        @Body() dadosNovos: UpdatePacienteDTO
+    ): Promise<Paciente> {
         return this.pacienteService.update(id, dadosNovos)
     }
 

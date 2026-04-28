@@ -1,62 +1,102 @@
-import { Body, Controller, Delete, Get, Param, ParseEnumPipe, Patch, Post, Query } from "@nestjs/common";
-import { CreateProntuarioDTO } from "./dto/create-prontuario.dto";
-import { Prontuario } from "./entites/prontuario.entity";
-import { ProntuarioService } from "./prontuario.service";
-import { UpdateProntuarioDTO } from "./dto/update-prontuario.dto";
-import { ApiParam, ApiTags } from "@nestjs/swagger";
-import { QueryParamsDTO } from "@common/dto/QueryParams.dto";
-import { LOCAL_SESSAO, PRONTUARIO_STATUS } from "@prisma/client";
-import { SearchTimeDTO } from "@common/dto/SearchTime.dto";
-import { PaginatedResponse } from "@common/dto/PaginatedResponse.dto";
-import { ApiPaginatedResponse } from "@common/decorator/paginated.decorator";
-import { OwnerDataDTO } from "@common/dto/OwnerData.dto";
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    ParseEnumPipe,
+    Patch,
+    Post,
+    Query,
+} from '@nestjs/common'
+import { CreateProntuarioDTO } from './dto/create-prontuario.dto'
+import { Prontuario } from './entites/prontuario.entity'
+import { ProntuarioService } from './prontuario.service'
+import { UpdateProntuarioDTO } from './dto/update-prontuario.dto'
+import { ApiParam, ApiTags } from '@nestjs/swagger'
+import { QueryParamsDTO } from '@common/dto/QueryParams.dto'
+import { LOCAL_SESSAO, PRONTUARIO_STATUS } from '@prisma/client'
+import { SearchTimeDTO } from '@common/dto/SearchTime.dto'
+import { PaginatedResponse } from '@common/dto/PaginatedResponse.dto'
+import { ApiPaginatedResponse } from '@common/decorator/paginated.decorator'
+import { OwnerDataDTO } from '@common/dto/OwnerData.dto'
 
 @ApiTags('prontuarios')
 @Controller('prontuarios')
 export class ProntuarioController {
-    constructor(private prontuarioService: ProntuarioService) { }
+    constructor(private prontuarioService: ProntuarioService) {}
 
     @Post()
-    async createProntuario(@Body() novoProntuario: CreateProntuarioDTO): Promise<Prontuario> {
+    async createProntuario(
+        @Body() novoProntuario: CreateProntuarioDTO
+    ): Promise<Prontuario> {
         return await this.prontuarioService.create(novoProntuario)
     }
 
     @Get()
     @ApiPaginatedResponse(Prontuario)
-    async findAllProntuarios(@Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
+    async findAllProntuarios(
+        @Query() params: QueryParamsDTO
+    ): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findAllProntuarios(params)
     }
 
     @Get('paciente/:id')
     @ApiPaginatedResponse(Prontuario)
-    async findByPaciente(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
+    async findByPaciente(
+        @Param('id') id: string,
+        @Query() params: QueryParamsDTO
+    ): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByPaciente(id, params)
     }
 
     @Get('aluno/:id')
     @ApiPaginatedResponse(Prontuario)
-    async findByAluno(@Param('id') id: string, @Query() params: QueryParamsDTO): Promise<PaginatedResponse<Prontuario>> {
+    async findByAluno(
+        @Param('id') id: string,
+        @Query() params: QueryParamsDTO
+    ): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByAluno(id, params)
     }
 
     @Get('local/:local')
     @ApiParam({ name: 'local', enum: LOCAL_SESSAO, enumName: 'LOCAL_SESSAO' })
     @ApiPaginatedResponse(Prontuario)
-    async findByLocal(@Param('local') local: LOCAL_SESSAO, @Query() params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
+    async findByLocal(
+        @Param('local') local: LOCAL_SESSAO,
+        @Query() params: QueryParamsDTO,
+        owner?: OwnerDataDTO
+    ): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByLocal(local, params, owner)
     }
 
     @Get('status/:status')
-    @ApiParam({ name: 'status', enum: PRONTUARIO_STATUS, enumName: 'PRONTUARIO_STATUS' })
+    @ApiParam({
+        name: 'status',
+        enum: PRONTUARIO_STATUS,
+        enumName: 'PRONTUARIO_STATUS',
+    })
     @ApiPaginatedResponse(Prontuario)
-    async findByStatus(@Param('status') status: PRONTUARIO_STATUS, @Query() params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
+    async findByStatus(
+        @Param('status') status: PRONTUARIO_STATUS,
+        @Query() params: QueryParamsDTO,
+        owner?: OwnerDataDTO
+    ): Promise<PaginatedResponse<Prontuario>> {
         return await this.prontuarioService.findByStatus(status, params, owner)
     }
 
     @Get('datas')
     @ApiPaginatedResponse(Prontuario)
-    async findByIntervaloTempo(@Query() search: SearchTimeDTO, @Query() params: QueryParamsDTO, owner?: OwnerDataDTO): Promise<PaginatedResponse<Prontuario>> {
-        return await this.prontuarioService.findByIntervaloTempo(search, params, owner)
+    async findByIntervaloTempo(
+        @Query() search: SearchTimeDTO,
+        @Query() params: QueryParamsDTO,
+        owner?: OwnerDataDTO
+    ): Promise<PaginatedResponse<Prontuario>> {
+        return await this.prontuarioService.findByIntervaloTempo(
+            search,
+            params,
+            owner
+        )
     }
 
     @Get(':id')
@@ -65,7 +105,10 @@ export class ProntuarioController {
     }
 
     @Patch(':id')
-    async updateProntuario(@Param('id') id: string, @Body() dadosNovos: UpdateProntuarioDTO): Promise<Prontuario> {
+    async updateProntuario(
+        @Param('id') id: string,
+        @Body() dadosNovos: UpdateProntuarioDTO
+    ): Promise<Prontuario> {
         return await this.prontuarioService.update(id, dadosNovos)
     }
 
