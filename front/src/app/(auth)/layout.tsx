@@ -8,7 +8,7 @@ export default function AuthLayout({
 }) {
   return (
     <Container className="mx-0 flex min-h-screen items-center justify-center bg-chart-2 px-0">
-      <Card className="h-[70vh] w-[40vw] bg-primary text-primary-foreground shadow-xl/30">
+      <Card className="h-[70vh] w-[40vw] my-auto bg-primary text-primary-foreground shadow-xl/30">
         {children}
       </Card>
     </Container>
