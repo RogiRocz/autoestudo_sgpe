@@ -9,11 +9,35 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group"
+import { Switch } from "@/components/ui/switch"
+import { TIPO_USUARIO } from "@/types/enums/enums"
+import {
+  FormValues,
+  pacienteFieldsSchema,
+  alunoFieldsSchema,
+  DefaultValuesByType,
+} from "@/utils/schemas.validator"
+import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { PacienteFields } from "../pacienteFields"
+import { AlunoFields } from "../alunoFields"
 
 export default function LoginPage() {
-  const [isVisible, setVisibility] = useState(false)
+  const [userTypeRegister, setTypeRegister] = useState(TIPO_USUARIO.PACIENTE)
+
+  const methods = useForm<FormValues>({
+    resolver: zodResolver(
+      userTypeRegister === TIPO_USUARIO.PACIENTE
+        ? pacienteFieldsSchema
+        : alunoFieldsSchema
+    ) as any,
+    defaultValues: DefaultValuesByType[userTypeRegister],
+    mode: "onChange",
+  })
+
+  const { reset, handleSubmit } = methods
 
   return (
     <div className="my-auto h-[80%]">
@@ -23,60 +47,58 @@ export default function LoginPage() {
           Insira suas credenciais para acessar o sistema.
         </p>
       </header>
-      <form
-        action=""
-        className="flex h-full w-full flex-1 flex-col justify-center px-[6vw]"
-      >
-        <FieldGroup className="mx-auto flex w-[60%] flex-col">
-          <Field orientation={"horizontal"}>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="text"
-              placeholder="Insira seu email"
-              className="placeholder:text-muted-white h-auto py-3 placeholder:font-semibold"
-            ></Input>
-          </Field>
-          <Field orientation={"horizontal"}>
-            <FieldLabel htmlFor="password">Senha</FieldLabel>
-            <InputGroup className="h-auto">
-              <InputGroupInput
-                id="password"
-                type={isVisible ? "text" : "password"}
-                placeholder="Insira seu senha"
-                className="placeholder:text-muted-white h-auto py-3 placeholder:font-semibold"
-              ></InputGroupInput>
-              <InputGroupAddon align={"inline-end"}>
-                <HideInput
-                  value={isVisible}
-                  onChange={(v) => setVisibility(v)}
+      <div className="mx-auto flex w-[50%] flex-row justify-center">
+        <FormProvider {...methods}>
+          <form action="" className="w-full">
+            <header className="align-center my-10 flex justify-center">
+              <Field orientation={"horizontal"} className="w-fit">
+                <FieldLabel htmlFor="type_register">
+                  {userTypeRegister}
+                </FieldLabel>
+                <Switch
+                  id="type_register"
+                  className="w-full data-[state=checked]:bg-chart-2"
+                  onCheckedChange={(v) => {
+                    const newType = v
+                      ? TIPO_USUARIO.ALUNO
+                      : TIPO_USUARIO.PACIENTE
+                    setTypeRegister(newType)
+
+                    reset(DefaultValuesByType[newType])
+                  }}
                 />
-              </InputGroupAddon>
-            </InputGroup>
-          </Field>
-        </FieldGroup>
-        <FieldGroup className="mt-14 flex">
-          <Field
-            orientation={"horizontal"}
-            className="items-centerjustify-center flex-col gap-y-6"
-          >
-            <Button
-              variant={"outline"}
-              className="w-30 bg-chart-2 hover:text-(--chart-2)"
-            >
-              Entrar
-            </Button>
-            <Button
-              variant={"link"}
-              className="w-50 bg-background text-(--chart-2) hover:bg-(--chart-2) hover:text-white"
-            >
-              <Link href={"/register"} transitionTypes={["slide-in"]}>
-                Quer se cadastrar?
-              </Link>
-            </Button>
-          </Field>
-        </FieldGroup>
-      </form>
+              </Field>
+            </header>
+
+            {userTypeRegister === TIPO_USUARIO.PACIENTE ? (
+              <PacienteFields isLogin={true} />
+            ) : (
+              <AlunoFields isLogin={true} />
+            )}
+            <FieldGroup className="mt-14 flex">
+              <Field
+                orientation={"horizontal"}
+                className="items-centerjustify-center flex-col gap-y-6"
+              >
+                <Button
+                  variant={"outline"}
+                  className="w-30 bg-chart-2 hover:text-(--chart-2)"
+                >
+                  Entrar
+                </Button>
+                <Button
+                  variant={"link"}
+                  className="w-50 bg-background text-(--chart-2) hover:bg-(--chart-2) hover:text-white"
+                >
+                  <Link href={"/register"} transitionTypes={["slide-in"]}>
+                    Quer se cadastrar?
+                  </Link>
+                </Button>
+              </Field>
+            </FieldGroup>
+          </form>
+        </FormProvider>
+      </div>
     </div>
   )
 }
