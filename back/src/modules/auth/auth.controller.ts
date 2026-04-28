@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post, UseInterceptors } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDTO } from "./dto/login.dto";
 import { RegisterDTO } from "./dto/register.dto";
@@ -10,8 +10,10 @@ import { AuthResponse, UserType } from "@common/interfaces/IAuth.interface";
 import { AuthResponseDTO } from "./dto/authResponse.dto";
 import { AlunoViewDTO } from "@modules/aluno/dto/alunoView.dto";
 import { PacienteViewDTO } from "@modules/paciente/dto/pacienteView.dto";
+import { TokenInterceptor } from "@common/interceptors/token.interceptor";
 
 @Public()
+@UseInterceptors(TokenInterceptor)
 @ApiTags('auth')
 @Controller('auth')
 @ApiExtraModels(AuthResponseDTO, AlunoViewDTO, PacienteViewDTO, CreateAlunoDTO, CreatePacienteDTO)
