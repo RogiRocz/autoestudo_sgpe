@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Switch } from "@/components/ui/switch"
-import { TIPO_USUARIO } from "@/types/enums/enums"
+import { TIPO_CAMPO_LOGIN, TIPO_USUARIO } from "@/types/enums/enums"
 import {
-  FormValues,
-  pacienteFieldsSchema,
-  alunoFieldsSchema,
+  LoginFormValues,
   DefaultValuesByType,
+  pacienteLoginSchema,
+  alunoLoginSchema,
+  AlunoFormLoginValues,
+  PacienteFormLoginValues,
 } from "@/utils/schemas.validator"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
@@ -16,29 +18,45 @@ import { useState } from "react"
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { PacienteFields } from "../pacienteFields"
 import { AlunoFields } from "../alunoFields"
+import { useLoginUser } from "@/hooks/mutations/useAuthMutations.mutation"
 
 export default function LoginPage() {
   const [userTypeRegister, setTypeRegister] = useState(TIPO_USUARIO.PACIENTE)
+  const { mutate } = useLoginUser()
 
-  const methods = useForm<FormValues>({
+  const methods = useForm<LoginFormValues>({
     resolver: zodResolver(
       userTypeRegister === TIPO_USUARIO.PACIENTE
-        ? pacienteFieldsSchema
-        : alunoFieldsSchema
+        ? pacienteLoginSchema
+        : alunoLoginSchema
     ) as any,
     defaultValues: DefaultValuesByType[userTypeRegister],
-    mode: "onChange",
+    mode: "onBlur",
   })
 
   const { reset, handleSubmit } = methods
 
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    const formattedData = {
-      ...data,
-      ...("cpf" in data && { cpf: data.cpf.replace(/\D/g, "") }),
+  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
+    const isPaciente = userTypeRegister === TIPO_USUARIO.PACIENTE
+
+    let loginValue = ""
+    let fieldName = ""
+
+    if (isPaciente) {
+      loginValue = (data as PacienteFormLoginValues).cpf.replace(/\D/g, "")
+      fieldName = "cpf"
+    } else {
+      const d = data as AlunoFormLoginValues
+      loginValue = d.email || d.matricula || ""
+      fieldName = d.email ? "email" : "matricula"
     }
 
-    
+    mutate({
+      login: loginValue,
+      senha: data.senha,
+      type: userTypeRegister,
+      field: TIPO_CAMPO_LOGIN[fieldName.toUpperCase() as TIPO_CAMPO_LOGIN],
+    })
   }
 
   return (
@@ -51,7 +69,13 @@ export default function LoginPage() {
       </header>
       <div className="mx-auto flex w-[50%] flex-row justify-center">
         <FormProvider {...methods}>
-          <form id="form" onSubmit={handleSubmit()} className="w-full">
+          <form
+            id="form"
+            onSubmit={handleSubmit(onSubmit, (errors) =>
+              console.log("ERROS DE VALIDAÇÃO:", errors)
+            )}
+            className="w-full"
+          >
             <header className="align-center my-10 flex justify-center">
               <Field orientation={"horizontal"} className="w-fit">
                 <FieldLabel htmlFor="type_register">
@@ -83,8 +107,8 @@ export default function LoginPage() {
                 className="items-centerjustify-center flex-col gap-y-6"
               >
                 <Button
-                type="submit"
-                form="form"
+                  type="submit"
+                  form="form"
                   variant={"outline"}
                   className="w-30 bg-chart-2 hover:text-(--chart-2)"
                 >
