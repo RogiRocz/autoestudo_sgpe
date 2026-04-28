@@ -41,11 +41,12 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
+	exposedHeaders: ['Authorization']
   })
 
   await app.listen(process.env.PORT ?? 3000);
-  console.log(`Aplicação rodando em: https://localhost:${process.env.PORT ?? 3000}/`);
-  console.log(`Para acessar o swagger: https://localhost:${process.env.PORT ?? 3000}/api/docs`)
+  console.log(`Aplicação rodando em: http://localhost:${process.env.PORT ?? 3000}/`);
+  console.log(`Para acessar o swagger: http://localhost:${process.env.PORT ?? 3000}/api/docs`)
 }
 
 bootstrap().then().catch(e => {
