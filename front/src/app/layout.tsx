@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
     return (
         <html
-            lang="en"
+            lang="pt_br"
             suppressHydrationWarning
             className={cn(
                 'antialiased',
