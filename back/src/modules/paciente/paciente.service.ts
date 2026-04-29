@@ -1,9 +1,9 @@
 import {
-    BadRequestException,
-    ConflictException,
-    Injectable,
-    InternalServerErrorException,
-    NotFoundException,
+	BadRequestException,
+	ConflictException,
+	Injectable,
+	InternalServerErrorException,
+	NotFoundException,
 } from '@nestjs/common'
 import { PrismaService } from '@common/Prisma/prisma.service'
 import { CreatePacienteDTO } from './dto/create-paciente.dto'
@@ -13,8 +13,8 @@ import { Prisma } from '@prisma/client'
 import { UpdatePacienteDTO } from './dto/update-paciente.dto'
 import { QueryParamsDTO } from '@common/dto/QueryParams.dto'
 import {
-    createPagination,
-    getPaginationPrisma,
+	createPagination,
+	getPaginationPrisma,
 } from '@common/utils/PrismaQuery.helper'
 import { IAuthService } from '@common/interfaces/IAuth.interface'
 import { Fields } from '../auth/dto/login.dto'
@@ -23,146 +23,165 @@ import { plainToInstance } from 'class-transformer'
 
 @Injectable()
 export class PacienteService implements IAuthService {
-    constructor(private prisma: PrismaService) {}
+	constructor(private prisma: PrismaService) { }
 
-    async findById(uuid: string): Promise<Paciente> {
-        try {
-            const query = await this.prisma.paciente.findUniqueOrThrow({
-                where: {
-                    uuid: uuid,
-                },
-            })
+	async findById(uuid: string): Promise<Paciente> {
+		try {
+			const query = await this.prisma.paciente.findUniqueOrThrow({
+				where: {
+					uuid: uuid,
+				},
+			})
 
-            return query
-        } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                if (error.code == 'P2002') {
-                    throw new NotFoundException(
-                        'Valor inválido: Paciente não encontrado'
-                    )
-                }
-            }
+			return query
+		} catch (error) {
+			if (error instanceof Prisma.PrismaClientKnownRequestError) {
+				if (error.code == 'P2002') {
+					throw new NotFoundException(
+						'Valor inválido: Paciente não encontrado'
+					)
+				}
+			}
 
-            throw error
-        }
-    }
+			throw error
+		}
+	}
 
-    async findByIdentifier(
-        login: string,
-        field?: Fields
-    ): Promise<Paciente | null> {
-        const searchField = field || Fields.CPF
-        switch (searchField) {
-            case Fields.CPF:
-                return this.findByCPF(login)
-            default:
-                throw new InternalServerErrorException(
-                    'Falha em busca: Campo para buscar inexistente'
-                )
-        }
-    }
+	async findByIdentifier(
+		login: string,
+		field?: Fields
+	): Promise<Paciente | null> {
+		const searchField = field || Fields.CPF
+		switch (searchField) {
+			case Fields.CPF:
+				return this.findByCPF(login)
+			default:
+				throw new InternalServerErrorException(
+					'Falha em busca: Campo para buscar inexistente'
+				)
+		}
+	}
 
-    async findByCPF(cpf: string): Promise<Paciente | null> {
-        const query = await this.prisma.paciente.findUnique({
-            where: {
-                cpf: cpf,
-            },
-        })
+	async findByCPF(cpf: string): Promise<Paciente | null> {
+		const query = await this.prisma.paciente.findUnique({
+			where: {
+				cpf: cpf,
+			},
+		})
 
-        return query
-    }
+		return query
+	}
 
-    async findAll(
-        params: QueryParamsDTO
-    ): Promise<PaginatedResponse<Paciente>> {
-        const skip = params.size * (params.page - 1)
-        const total_records = await this.prisma.paciente.count()
+	async search(word: string): Promise<Paciente[]> {
+		const query = await this.prisma.paciente.findMany({
+			where: {
+				nome: {
+					search: word
+				}
+			},
+			orderBy: {
+				_relevance: {
+					fields: ['nome'],
+					search: word,
+					sort: 'asc'
+				}
+			}
+		})
 
-        if (skip >= total_records) {
-            throw new BadRequestException(
-                'Valor na paginação: O valor recebido está inválido'
-            )
-        }
+		return query
+	}
 
-        const query = await this.prisma.paciente.findMany(
-            getPaginationPrisma(params)
-        )
+	async findAll(
+		params: QueryParamsDTO
+	): Promise<PaginatedResponse<Paciente>> {
+		const skip = params.size * (params.page - 1)
+		const total_records = await this.prisma.paciente.count()
 
-        const instancias = plainToInstance(Paciente, query)
+		if (skip >= total_records) {
+			throw new BadRequestException(
+				'Valor na paginação: O valor recebido está inválido'
+			)
+		}
 
-        return createPagination(instancias, total_records, params)
-    }
+		const query = await this.prisma.paciente.findMany(
+			getPaginationPrisma(params)
+		)
 
-    async create(dadosPaciente: CreatePacienteDTO): Promise<Paciente> {
-        if (await this.findByCPF(dadosPaciente.cpf)) {
-            throw new ConflictException(
-                'Falha ao Registrar: Paciente já cadastrado'
-            )
-        }
+		const instancias = plainToInstance(Paciente, query)
 
-        const novoPaciente = await this.prisma.paciente.create({
-            data: dadosPaciente,
-        })
+		return createPagination(instancias, total_records, params)
+	}
 
-        return novoPaciente
-    }
+	async create(dadosPaciente: CreatePacienteDTO): Promise<Paciente> {
+		if (await this.findByCPF(dadosPaciente.cpf)) {
+			throw new ConflictException(
+				'Falha ao Registrar: Paciente já cadastrado'
+			)
+		}
 
-    async update(id: string, dadosNovos: UpdatePacienteDTO): Promise<Paciente> {
-        const pacienteAntigo = await this.findById(id)
+		const novoPaciente = await this.prisma.paciente.create({
+			data: dadosPaciente,
+		})
 
-        if (pacienteAntigo.cpf != dadosNovos.cpf) {
-            throw new ConflictException(
-                'Falha ao atualizar: CPF já utilizado por outro paciente'
-            )
-        }
+		return novoPaciente
+	}
 
-        try {
-            const pacienteAtualizado = await this.prisma.paciente.update({
-                where: { uuid: id },
-                data: dadosNovos,
-            })
+	async update(id: string, dadosNovos: UpdatePacienteDTO): Promise<Paciente> {
+		const pacienteAntigo = await this.findById(id)
 
-            return pacienteAtualizado
-        } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                if (error.code == 'P2025') {
-                    throw new NotFoundException(
-                        'Valor inválido: Paciente não encontrado'
-                    )
-                }
-            }
+		if (pacienteAntigo.cpf != dadosNovos.cpf) {
+			throw new ConflictException(
+				'Falha ao atualizar: CPF já utilizado por outro paciente'
+			)
+		}
 
-            throw error
-        }
-    }
+		try {
+			const pacienteAtualizado = await this.prisma.paciente.update({
+				where: { uuid: id },
+				data: dadosNovos,
+			})
 
-    async deactivate(id: string): Promise<void> {
-        await this.update(id, {
-            prontuario_status: CLIENTE_PRONTUARIO_STATUS.INATIVO,
-        })
-    }
+			return pacienteAtualizado
+		} catch (error) {
+			if (error instanceof Prisma.PrismaClientKnownRequestError) {
+				if (error.code == 'P2025') {
+					throw new NotFoundException(
+						'Valor inválido: Paciente não encontrado'
+					)
+				}
+			}
 
-    async delete(id: string): Promise<object> {
-        try {
-            const pacienteDeletado = await this.prisma.paciente.delete({
-                where: { uuid: id },
-                select: {
-                    nome: true,
-                    cpf: true,
-                },
-            })
+			throw error
+		}
+	}
 
-            return pacienteDeletado
-        } catch (error) {
-            if (error instanceof Prisma.PrismaClientKnownRequestError) {
-                if (error.code == 'P2025') {
-                    throw new NotFoundException(
-                        'Valor inválido: Paciente não encontrado'
-                    )
-                }
-            }
+	async deactivate(id: string): Promise<void> {
+		await this.update(id, {
+			prontuario_status: CLIENTE_PRONTUARIO_STATUS.INATIVO,
+		})
+	}
 
-            throw error
-        }
-    }
+	async delete(id: string): Promise<object> {
+		try {
+			const pacienteDeletado = await this.prisma.paciente.delete({
+				where: { uuid: id },
+				select: {
+					nome: true,
+					cpf: true,
+				},
+			})
+
+			return pacienteDeletado
+		} catch (error) {
+			if (error instanceof Prisma.PrismaClientKnownRequestError) {
+				if (error.code == 'P2025') {
+					throw new NotFoundException(
+						'Valor inválido: Paciente não encontrado'
+					)
+				}
+			}
+
+			throw error
+		}
+	}
 }

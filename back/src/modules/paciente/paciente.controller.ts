@@ -30,6 +30,11 @@ export class PacienteController {
         return await this.pacienteService.create(dadosPaciente)
     }
 
+	@Get('search')
+	async searchPacientes(word: string): Promise<Paciente[]> {
+		return await this.pacienteService.search(word)
+	}
+
     @Get()
     @ApiPaginatedResponse(Paciente)
     async findAllPacientes(
