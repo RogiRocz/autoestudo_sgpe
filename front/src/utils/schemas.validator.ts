@@ -74,9 +74,9 @@ export const prontuarioFieldsSchema = z.object({
     observacoes: z.string(),
 })
 
-const prontuarioDefaultValues = {
-    aluno_id: '',
-    paciente_id: '',
+export const prontuarioDefaultValues = {
+    aluno_id: undefined,
+    paciente_id: undefined,
     data_hora: new Date(),
     duracao_minutos: 60,
     tipo_sessao: TIPO_SESSAO.INDIVIDUAL,
@@ -115,6 +115,6 @@ export type PacienteFormValues = z.infer<typeof pacienteFieldsSchema>
 export type AlunoFormValues = z.infer<typeof alunoFieldsSchema>
 export type PacienteFormLoginValues = z.infer<typeof pacienteLoginSchema>
 export type AlunoFormLoginValues = z.infer<typeof alunoLoginSchema>
-export type ProntuarioRegisterForms = z.infer<typeof prontuarioFieldsSchema>
+export type ProntuarioRegisterForms = z.input<typeof prontuarioFieldsSchema>
 export type RegisterFormValues = PacienteFormValues | AlunoFormValues
 export type LoginFormValues = PacienteFormLoginValues | AlunoFormLoginValues
