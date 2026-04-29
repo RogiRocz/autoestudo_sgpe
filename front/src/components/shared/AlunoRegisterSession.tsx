@@ -1,17 +1,25 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { FieldGroup, Field, FieldLabel } from '../ui/field'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../ui/input-group'
-import { prontuarioDefaultValues, prontuarioFieldsSchema, ProntuarioRegisterForms } from '@/utils/schemas.validator'
+import {
+    prontuarioDefaultValues,
+    prontuarioFieldsSchema,
+    ProntuarioRegisterForms,
+} from '@/utils/schemas.validator'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function AlunoRegisterSession() {
     const methods = useForm<ProntuarioRegisterForms>({
         resolver: zodResolver(prontuarioFieldsSchema),
         defaultValues: prontuarioDefaultValues,
-        mode: 'onBlur'
+        mode: 'onBlur',
     })
+
+    const { reset, handleSubmit } = methods
+
+    const onSubmit: SubmitHandler<ProntuarioRegisterForms> = (data) => {}
 
     return (
         <>
