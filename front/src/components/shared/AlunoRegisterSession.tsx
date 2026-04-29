@@ -11,15 +11,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function AlunoRegisterSession() {
-    const methods = useForm<ProntuarioRegisterForms>({
-        resolver: zodResolver(prontuarioFieldsSchema),
-        defaultValues: prontuarioDefaultValues,
-        mode: 'onBlur',
-    })
-
-    const { reset, handleSubmit } = methods
-
-    const onSubmit: SubmitHandler<ProntuarioRegisterForms> = (data) => {}
+    
 
     return (
         <>
