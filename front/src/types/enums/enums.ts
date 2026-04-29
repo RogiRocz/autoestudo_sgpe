@@ -33,7 +33,7 @@ export enum TIPO_USUARIO {
 }
 
 export enum TIPO_CAMPO_LOGIN {
-  CPF = "CPF",
-  EMAIL = "EMAIL",
-  MATRICULA = "MATRICULA",
+  CPF = "cpf",
+  EMAIL = "email",
+  MATRICULA = "matricula",
 }
