@@ -1,6 +1,6 @@
 'use client'
 
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FieldErrors, SubmitHandler, useForm, useFormContext } from 'react-hook-form'
 import { FieldGroup, Field, FieldLabel } from '../ui/field'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../ui/input-group'
 import {
@@ -11,14 +11,14 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 
 export function AlunoRegisterSession() {
-    
+    const {register, control, formState: errors} = useFormContext<ProntuarioRegisterForms>()
 
     return (
         <>
             <FieldGroup>
                 <Field>
                     <FieldLabel htmlFor="id1">Campo 1</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
@@ -27,7 +27,7 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="id2">Campo 2</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
@@ -36,7 +36,7 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="id3">Campo 3</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
@@ -45,7 +45,7 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="id4">Campo 4</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
@@ -54,7 +54,7 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="id5">Campo 5</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
@@ -63,7 +63,7 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="id6">Campo 6</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
@@ -72,7 +72,7 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="id7">Campo 7</FieldLabel>
-                    <InputGroup>
+                    <InputGroup {...register}>
                         <InputGroupAddon>
                             <div></div>
                         </InputGroupAddon>
