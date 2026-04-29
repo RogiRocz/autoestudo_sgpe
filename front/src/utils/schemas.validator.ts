@@ -1,6 +1,9 @@
 import {
     CLIENTE_PRONTUARIO_STATUS,
+    LOCAL_SESSAO,
     PAPEIS,
+    PRONTUARIO_STATUS,
+    TIPO_SESSAO,
     TIPO_USUARIO,
 } from '@/types/enums/enums'
 import * as z from 'zod'
@@ -60,6 +63,28 @@ const alunoFieldsDefaultValues = {
     periodo: '',
 }
 
+export const prontuarioFieldsSchema = z.object({
+    aluno_id: z.number(),
+    paciente_id: z.number(),
+    data_hora: z.date(),
+    duracao_minutos: z.number(),
+    tipo_sessao: z.enum(TIPO_SESSAO).default(TIPO_SESSAO.INDIVIDUAL),
+    local: z.enum(LOCAL_SESSAO),
+    status: z.enum(PRONTUARIO_STATUS).default(PRONTUARIO_STATUS.AGENDADO),
+    observacoes: z.string(),
+})
+
+const prontuarioDefaultValues = {
+    aluno_id: '',
+    paciente_id: '',
+    data_hora: new Date(),
+    duracao_minutos: 60,
+    tipo_sessao: TIPO_SESSAO.INDIVIDUAL,
+    local: LOCAL_SESSAO.SALA_01,
+    status: PRONTUARIO_STATUS.AGENDADO,
+    observacoes: '',
+}
+
 export const pacienteLoginSchema = pacienteFieldsSchema.pick({
     cpf: true,
     senha: true,
@@ -90,5 +115,6 @@ export type PacienteFormValues = z.infer<typeof pacienteFieldsSchema>
 export type AlunoFormValues = z.infer<typeof alunoFieldsSchema>
 export type PacienteFormLoginValues = z.infer<typeof pacienteLoginSchema>
 export type AlunoFormLoginValues = z.infer<typeof alunoLoginSchema>
+export type ProntuarioRegisterForms = z.infer<typeof prontuarioFieldsSchema>
 export type RegisterFormValues = PacienteFormValues | AlunoFormValues
 export type LoginFormValues = PacienteFormLoginValues | AlunoFormLoginValues
