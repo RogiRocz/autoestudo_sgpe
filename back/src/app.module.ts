@@ -18,6 +18,7 @@ import { AuthGuard } from './common/guards/auth.guard'
         AlunoModule,
         ProntuarioModule,
         AuthModule,
+        ConfigModule,
     ],
     providers: [
         {
