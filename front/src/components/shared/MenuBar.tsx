@@ -22,7 +22,7 @@ export function MenuBar() {
                             className={navigationMenuTriggerStyle()}
                         >
                             <Link href={item.href}>
-                                <Button>
+                                <Button variant='outline' className=''>
                                     {<item.icon />}
                                     {item.label}
                                 </Button>
