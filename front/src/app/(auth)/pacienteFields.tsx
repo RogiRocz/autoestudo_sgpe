@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { FormValues, PacienteFormValues } from "@/utils/schemas.validator"
+import { RegisterFormValues, PacienteFormValues } from "@/utils/schemas.validator"
 import { cpfMask } from "@/utils/stringFormat.validator"
 import { format } from "date-fns"
 import { Controller, FieldErrors, useFormContext } from "react-hook-form"
@@ -33,7 +33,7 @@ export function PacienteFields({ isLogin = false }: { isLogin?: boolean }) {
     setValue,
     control,
     formState: { errors: baseErrors },
-  } = useFormContext<FormValues>()
+  } = useFormContext<RegisterFormValues>()
   const errors = baseErrors as FieldErrors<PacienteFormValues>
 
   const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {

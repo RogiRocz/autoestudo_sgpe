@@ -23,7 +23,7 @@ import {
   Select,
 } from "@/components/ui/select"
 import { PAPEIS } from "@/types/enums/enums"
-import { AlunoFormValues, FormValues } from "@/utils/schemas.validator"
+import { AlunoFormValues, RegisterFormValues } from "@/utils/schemas.validator"
 import { capitalize } from "@/utils/stringFormat.validator"
 import { useState } from "react"
 import { Controller, FieldErrors, useFormContext } from "react-hook-form"
@@ -34,7 +34,7 @@ export function AlunoFields({ isLogin = false }: { isLogin?: boolean }) {
     register,
     formState: { errors: baseErrors },
     control,
-  } = useFormContext<FormValues>()
+  } = useFormContext<RegisterFormValues>()
 
   const errors = baseErrors as FieldErrors<AlunoFormValues>
 
