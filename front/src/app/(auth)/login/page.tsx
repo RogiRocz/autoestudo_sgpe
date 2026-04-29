@@ -19,10 +19,12 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form"
 import { PacienteFields } from "../pacienteFields"
 import { AlunoFields } from "../alunoFields"
 import { useLoginUser } from "@/hooks/mutations/useAuthMutations.mutation"
+import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
   const [userTypeRegister, setTypeRegister] = useState(TIPO_USUARIO.PACIENTE)
   const { mutate } = useLoginUser()
+  const router = useRouter()
 
   const methods = useForm<LoginFormValues>({
     resolver: zodResolver(
@@ -51,12 +53,20 @@ export default function LoginPage() {
       fieldName = d.email ? "email" : "matricula"
     }
 
-    mutate({
-      login: loginValue,
-      senha: data.senha,
-      type: userTypeRegister,
-      field: TIPO_CAMPO_LOGIN[fieldName.toUpperCase() as TIPO_CAMPO_LOGIN],
-    })
+    mutate(
+      {
+        login: loginValue,
+        senha: data.senha,
+        type: userTypeRegister,
+        field:
+          TIPO_CAMPO_LOGIN[
+            fieldName.toUpperCase() as keyof typeof TIPO_CAMPO_LOGIN
+          ],
+      },
+      {
+        onSuccess: () => router.push("/"),
+      }
+    )
   }
 
   return (
