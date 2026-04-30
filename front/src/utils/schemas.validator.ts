@@ -60,8 +60,8 @@ const alunoFieldsDefaultValues = {
 }
 
 export const prontuarioFieldsSchema = z.object({
-    aluno_id: z.number().optional(),
-    paciente_id: z.number().optional(),
+    aluno_id: z.string().optional(),
+    paciente_id: z.string().optional(),
     data_hora: z.date(),
     duracao_minutos: z.number(),
     tipo_sessao: z.enum(TIPO_SESSAO).default(TIPO_SESSAO.INDIVIDUAL),

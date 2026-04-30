@@ -56,7 +56,7 @@ export function AlunoRegisterSession() {
                             labelExtractor={(p: any) => p.nome}
                             onClose={() => setShowSuggestions(false)}
                             onSelect={(p: Paciente) => {
-                                setValue('paciente_id', p.id)
+                                setValue('paciente_id', p.uuid)
                                 setShowSuggestions(false)
                             }}
                         />
