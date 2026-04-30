@@ -2,10 +2,11 @@ import { QueryParams } from "@/types/shared/pagination";
 import { useAuthUser } from "./useAuthUser.hook";
 import { useQuery } from "@tanstack/react-query";
 import { PacienteService } from "@/api/paciente/paciente.api";
+import { InputEventHandler } from "react";
 
 const tableKey = 'pacientes'
 
-export const searchPacientes = (word: string) => {
+export const useSearchPacientes = (word: string) => {
 	const { user, isAuthenticated } = useAuthUser()
 
 	return useQuery({
