@@ -2,12 +2,18 @@ import { useAuthStore } from '@/store/auth.store'
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import CardContent from '@mui/material/CardContent'
 import { TIPO_USUARIO } from '@/types/enums/enums'
-import { ProntuarioRegisterForms, prontuarioFieldsSchema, prontuarioDefaultValues } from '@/utils/schemas.validator'
+import {
+    ProntuarioRegisterForms,
+    prontuarioFieldsSchema,
+    prontuarioDefaultValues,
+} from '@/utils/schemas.validator'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
+import { AlunoRegisterSession } from './AlunoRegisterSession'
+import { PacienteRegisterSession } from './PacienteRegisterSession'
 
 interface Props {
-    entity: string
+    entity?: string
 }
 
 export function RegisterSessions(props: Props) {
@@ -25,7 +31,7 @@ export function RegisterSessions(props: Props) {
     const onSubmit: SubmitHandler<ProntuarioRegisterForms> = (data) => {}
 
     return (
-        <>
+        <FormProvider {...methods}>
             <Card>
                 <CardHeader>
                     <CardTitle>Agendar uma sessão</CardTitle>
@@ -34,9 +40,13 @@ export function RegisterSessions(props: Props) {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {user?.type === TIPO_USUARIO.ALUNO && <></>}
+                    {user?.type === TIPO_USUARIO.PACIENTE ? (
+                        <AlunoRegisterSession />
+                    ) : (
+                        <PacienteRegisterSession />
+                    )}
                 </CardContent>
             </Card>
-        </>
+        </FormProvider>
     )
 }
