@@ -42,6 +42,7 @@ export function AlunoRegisterSession() {
                             <InputGroupInput
                                 type="search"
                                 id="paciente"
+                                value={searchWord}
                                 onInput={(e) => {
                                     setSearchWord(e.currentTarget.value)
                                     setShowSuggestions(true)
@@ -57,6 +58,7 @@ export function AlunoRegisterSession() {
                             onClose={() => setShowSuggestions(false)}
                             onSelect={(p: Paciente) => {
                                 setValue('paciente_id', p.uuid)
+                                setSearchWord(p.nome)
                                 setShowSuggestions(false)
                             }}
                         />
