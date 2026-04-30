@@ -6,9 +6,11 @@ import * as bcrypt from 'bcrypt';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import {expand} from 'dotenv-expand'
 
 const rootPath = path.join(process.chdir('..'))
-dotenv.config({ path: path.join(rootPath, '.env') });
+const env = dotenv.config({ path: path.join(rootPath, '.env') });
+expand(env)
 
 async function main() {
   const connectionString = process.env.DATABASE_URL;
