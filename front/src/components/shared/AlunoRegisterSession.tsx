@@ -12,16 +12,20 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { People, Event } from '@mui/icons-material'
 import { useSearchPacientes } from '@/hooks/queries/usePaciente.hook'
 import { useState } from 'react'
+import { Paciente } from '@/types/paciente/paciente.interface'
+import { SuggestionList } from './SuggestionList'
 
 export function AlunoRegisterSession() {
     const [searchWord, setSearchWord] = useState('')
     const { data: pacientes, isLoading } = useSearchPacientes(searchWord)
+    const [showSuggestions, setShowSuggestions] = useState(false)
     console.log(pacientes);
     
 
     const {
         register,
         control,
+        setValue,
         formState: errors,
     } = useFormContext<ProntuarioRegisterForms>()
 
@@ -30,16 +34,33 @@ export function AlunoRegisterSession() {
             <FieldGroup>
                 <Field>
                     <FieldLabel htmlFor="paciente">Pacinete</FieldLabel>
-                    <InputGroup {...register}>
-                        <InputGroupAddon id="icon">
-                            <People />
-                        </InputGroupAddon>
-                        <InputGroupInput
-                            type="search"
-                            id="paciente"
-                            onInput={(e) => setSearchWord(e.currentTarget.value)}
-                        ></InputGroupInput>
-                    </InputGroup>
+                    <div className="relative w-full">
+                        <InputGroup {...register}>
+                            <InputGroupAddon id="icon">
+                                <People />
+                            </InputGroupAddon>
+                            <InputGroupInput
+                                type="search"
+                                id="paciente"
+                                onInput={(e) => {
+                                    setSearchWord(e.currentTarget.value)
+                                    setShowSuggestions(true)
+                                }}
+                                onFocus={() => setShowSuggestions(true)}
+                            ></InputGroupInput>
+                        </InputGroup>
+                        <SuggestionList
+                            show={showSuggestions}
+                            data={pacientes}
+                            isLoading={isLoading}
+                            labelExtractor={(p: any) => p.nome}
+                            onClose={() => setShowSuggestions(false)}
+                            onSelect={(p: Paciente) => {
+                                setValue('paciente_id', p.id)
+                                setShowSuggestions(false)
+                            }}
+                        />
+                    </div>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="data_hora">Data e hora</FieldLabel>
