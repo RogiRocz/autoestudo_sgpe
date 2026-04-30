@@ -19,9 +19,7 @@ export const pacienteFieldsSchema = z.object({
     nome: z.string().min(1, 'O nome é obrigatório'),
     senha: z
         .string()
-        .length(6)
-        .min(6, 'A senha deve ter pelo menos 6 caracteres')
-        .max(6, 'A senha deve ter somente 6 caracteres'),
+        .min(6, 'A senha deve ter pelo menos 6 caracteres'),
     cpf: z
         .stringFormat('cpf', /^(\d{3}\.\d{3}\.\d{3}-\d{2})|(\d{11})$/)
         .min(11, 'O CPF é composto por 11 números'),
@@ -47,9 +45,7 @@ export const alunoFieldsSchema = z.object({
     email: z.email({ pattern: z.regexes.email }),
     senha: z
         .string()
-        .length(6)
-        .min(6, 'A senha deve ter pelo menos 6 caracteres')
-        .max(6, 'A senha deve ter somente 6 caracteres'),
+        .min(6, 'A senha deve ter pelo menos 6 caracteres'),
     periodo: z.coerce.number<string>().min(1, 'O período é obrigatório'),
     papel: z.enum(PAPEIS).default(PAPEIS.ALUNO),
     ativo: z.boolean().default(true),
