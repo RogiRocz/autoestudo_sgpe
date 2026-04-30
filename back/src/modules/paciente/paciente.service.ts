@@ -41,6 +41,11 @@ export class PacienteService implements IAuthService {
 						'Valor inválido: Paciente não encontrado'
 					)
 				}
+				if (error.code == 'P2025') {
+					throw new NotFoundException(
+						'Valor inválido: Paciente não encontrado'
+					)
+				}
 			}
 
 			throw error
@@ -73,22 +78,27 @@ export class PacienteService implements IAuthService {
 	}
 
 	async search(word: string): Promise<Paciente[]> {
-		const query = await this.prisma.paciente.findMany({
-			where: {
-				nome: {
-					search: word
-				}
-			},
-			orderBy: {
-				_relevance: {
-					fields: ['nome'],
-					search: word,
-					sort: 'asc'
-				}
-			}
-		})
+		if(!word) return []
 
-		return query
+		try {
+			const query = await this.prisma.paciente.findMany({
+				where: {
+					nome: {
+						contains: word,
+						mode: 'insensitive'
+					}
+				},
+				orderBy: {
+					nome: 'asc'
+				}
+			})
+
+			return query
+		} catch (error) {
+			console.error(error);
+			return []
+		}
+
 	}
 
 	async findAll(
