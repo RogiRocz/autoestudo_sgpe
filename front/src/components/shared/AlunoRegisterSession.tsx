@@ -1,6 +1,6 @@
 'use client'
 
-import { FieldErrors, SubmitHandler, useForm, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { FieldGroup, Field, FieldLabel } from '../ui/field'
 import { InputGroup, InputGroupAddon, InputGroupInput } from '../ui/input-group'
 import {
@@ -9,74 +9,83 @@ import {
     ProntuarioRegisterForms,
 } from '@/utils/schemas.validator'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { People, Event } from '@mui/icons-material'
 
 export function AlunoRegisterSession() {
-    const {register, control, formState: errors} = useFormContext<ProntuarioRegisterForms>()
+    const {
+        register,
+        control,
+        formState: errors,
+    } = useFormContext<ProntuarioRegisterForms>()
 
     return (
         <>
             <FieldGroup>
                 <Field>
-                    <FieldLabel htmlFor="id1">Campo 1</FieldLabel>
+                    <FieldLabel htmlFor="paciente">Pacinete</FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
-                            <div></div>
+                        <InputGroupAddon id="icon">
+                            <People />
                         </InputGroupAddon>
-                        <InputGroupInput id="id1"></InputGroupInput>
+                        <InputGroupInput type='search' id="paciente" onInput={searchPacientes}></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
-                    <FieldLabel htmlFor="id2">Campo 2</FieldLabel>
+                    <FieldLabel htmlFor="data_hora">Data e hora</FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
-                            <div></div>
+                        <InputGroupAddon id="icon">
+                            <Event />
                         </InputGroupAddon>
-                        <InputGroupInput id="id2"></InputGroupInput>
+                        <InputGroupInput id="data_hora"></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
-                    <FieldLabel htmlFor="id3">Campo 3</FieldLabel>
+                    <FieldLabel htmlFor="duracao">
+                        Duração atendimento
+                    </FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
+                        <InputGroupAddon id="icon">
                             <div></div>
                         </InputGroupAddon>
-                        <InputGroupInput id="id3"></InputGroupInput>
+                        <InputGroupInput id="duracao"></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
-                    <FieldLabel htmlFor="id4">Campo 4</FieldLabel>
+                    <FieldLabel htmlFor="tipo_sessao">
+                        Tipo da sessão
+                    </FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
+                        <InputGroupAddon id="icon">
                             <div></div>
                         </InputGroupAddon>
-                        <InputGroupInput id="id4"></InputGroupInput>
+                        <InputGroupInput id="tipo_sessao"></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
-                    <FieldLabel htmlFor="id5">Campo 5</FieldLabel>
+                    <FieldLabel htmlFor="local">Local da sessão</FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
+                        <InputGroupAddon id="icon">
                             <div></div>
                         </InputGroupAddon>
-                        <InputGroupInput id="id5"></InputGroupInput>
+                        <InputGroupInput id="local"></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
-                    <FieldLabel htmlFor="id6">Campo 6</FieldLabel>
+                    <FieldLabel htmlFor="status">Status da sessão</FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
+                        <InputGroupAddon id="icon">
                             <div></div>
                         </InputGroupAddon>
-                        <InputGroupInput id="id6"></InputGroupInput>
+                        <InputGroupInput id="status"></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
-                    <FieldLabel htmlFor="id7">Campo 7</FieldLabel>
+                    <FieldLabel htmlFor="observacoes">Observações</FieldLabel>
                     <InputGroup {...register}>
-                        <InputGroupAddon>
+                        <InputGroupAddon id="icon">
                             <div></div>
                         </InputGroupAddon>
-                        <InputGroupInput id="id7"></InputGroupInput>
+                        <InputGroupInput id="observacoes"></InputGroupInput>
                     </InputGroup>
                 </Field>
             </FieldGroup>
