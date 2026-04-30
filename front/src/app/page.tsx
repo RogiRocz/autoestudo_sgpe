@@ -2,14 +2,10 @@
 
 import { LogoutButton } from '@/components/shared/LogoutButton'
 import { MenuBar } from '@/components/shared/MenuBar'
+import { RegisterSessions } from '@/components/shared/RegisterSessions'
 import { Container, Row } from '@/components/ui/grid'
-import { useAuthStore } from '@/store/auth.store'
-import { useStore } from 'zustand'
 
 export default function Page() {
-	const store = useStore(useAuthStore, state => state)
-	const {user} = store
-	console.log(user);
 	
     return (
         <Container className="px-0">
@@ -22,7 +18,7 @@ export default function Page() {
                 </div>
             </header>
             <main>
-                <p>Info user: </p>
+                <RegisterSessions />
             </main>
         </Container>
     )
