@@ -10,8 +10,15 @@ import {
 } from '@/utils/schemas.validator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { People, Event } from '@mui/icons-material'
+import { useSearchPacientes } from '@/hooks/queries/usePaciente.hook'
+import { useState } from 'react'
 
 export function AlunoRegisterSession() {
+    const [searchWord, setSearchWord] = useState('')
+    const { data: pacientes, isLoading } = useSearchPacientes(searchWord)
+    console.log(pacientes);
+    
+
     const {
         register,
         control,
@@ -27,7 +34,11 @@ export function AlunoRegisterSession() {
                         <InputGroupAddon id="icon">
                             <People />
                         </InputGroupAddon>
-                        <InputGroupInput type='search' id="paciente" onInput={searchPacientes}></InputGroupInput>
+                        <InputGroupInput
+                            type="search"
+                            id="paciente"
+                            onInput={(e) => setSearchWord(e.currentTarget.value)}
+                        ></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
