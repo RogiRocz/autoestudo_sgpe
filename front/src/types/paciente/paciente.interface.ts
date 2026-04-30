@@ -3,6 +3,7 @@ import { Prontuario } from '../prontuario/prontuario.interface'
 
 export interface Paciente {
     uuid?: string
+    id?: number
     nome: string
     cpf: string
     senha: string
