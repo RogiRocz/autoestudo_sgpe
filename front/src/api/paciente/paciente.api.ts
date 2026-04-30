@@ -11,7 +11,7 @@ export const PacienteService = {
 	...baseMethods,
 	search: async (word: string): Promise<Paciente[]> => {
 		const params = new URLSearchParams({word})
-		return apiFetch(`${routeName}/search/${params}`, {
+		return apiFetch(`${routeName}/search?${params.toString()}`, {
 			method: 'GET'
 		})
 	}

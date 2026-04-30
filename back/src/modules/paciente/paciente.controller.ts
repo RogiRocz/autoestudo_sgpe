@@ -30,8 +30,10 @@ export class PacienteController {
 		return await this.pacienteService.create(dadosPaciente)
 	}
 
-	@Get('search/:word')
-	async searchPacientes(@Param('word') word: string): Promise<Paciente[]> {
+	@Get('search')
+	async searchPacientes(@Query('word') word: string): Promise<Paciente[]> {
+		console.log(word);
+		
 		return await this.pacienteService.search(word)
 	}
 
