@@ -100,9 +100,7 @@ export class AuthService {
         try {
             return await this.jwtService.verifyAsync(token)
         } catch (error) {
-            throw new InternalServerErrorException(
-                'Falha na verificação do token: Erro: ' + error
-            )
+            throw new UnauthorizedException('Token expirado ou inválido')
         }
     }
 
