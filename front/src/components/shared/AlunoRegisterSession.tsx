@@ -2,38 +2,56 @@
 
 import { useFormContext } from 'react-hook-form'
 import { FieldGroup, Field, FieldLabel } from '../ui/field'
-import { InputGroup, InputGroupAddon, InputGroupInput } from '../ui/input-group'
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+    InputGroupTextarea,
+} from '../ui/input-group'
 import {
     prontuarioDefaultValues,
     prontuarioFieldsSchema,
     ProntuarioRegisterForms,
 } from '@/utils/schemas.validator'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { People, Event } from '@mui/icons-material'
+import { People, Event, Timer, Rule, Room, Pending, Notes } from '@mui/icons-material'
 import { useSearchPacientes } from '@/hooks/queries/usePaciente.hook'
 import { useState } from 'react'
 import { Paciente } from '@/types/paciente/paciente.interface'
 import { SuggestionList } from './SuggestionList'
+import { TimePicker } from './TimePicker'
+import { DatePicker } from './DatePicker'
+import { useConfigEnums } from '@/hooks/queries/useConfigEnums.hook'
+import {
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectGroup,
+    Select,
+    SelectItem,
+} from '../ui/select'
 
 export function AlunoRegisterSession() {
     const [searchWord, setSearchWord] = useState('')
-    const { data: pacientes, isLoading } = useSearchPacientes(searchWord)
     const [showSuggestions, setShowSuggestions] = useState(false)
-    console.log(pacientes);
-    
+    const [data, setData] = useState(undefined)
+    const [hora, setHora] = useState(undefined)
+
+    const { data: pacientes, isLoading: loadingPacientes } =
+        useSearchPacientes(searchWord)
+    const { data: configEnums, isLoading: loadingConfigs } = useConfigEnums()
 
     const {
         register,
         control,
         setValue,
         formState: errors,
-    } = useFormContext<ProntuarioRegisterForms>()
+    } = useFormContext<ProntuarioRegisterForms>()	
 
     return (
         <>
             <FieldGroup>
                 <Field>
-                    <FieldLabel htmlFor="paciente">Pacinete</FieldLabel>
+                    <FieldLabel htmlFor="paciente">Paciente</FieldLabel>
                     <div className="relative w-full">
                         <InputGroup {...register}>
                             <InputGroupAddon id="icon">
@@ -53,7 +71,7 @@ export function AlunoRegisterSession() {
                         <SuggestionList
                             show={showSuggestions}
                             data={pacientes}
-                            isLoading={isLoading}
+                            isLoading={loadingPacientes}
                             labelExtractor={(p: any) => p.nome}
                             onClose={() => setShowSuggestions(false)}
                             onSelect={(p: Paciente) => {
@@ -64,13 +82,16 @@ export function AlunoRegisterSession() {
                         />
                     </div>
                 </Field>
-                <Field>
+                <Field orientation={'horizontal'}>
                     <FieldLabel htmlFor="data_hora">Data e hora</FieldLabel>
                     <InputGroup {...register}>
                         <InputGroupAddon id="icon">
                             <Event />
                         </InputGroupAddon>
-                        <InputGroupInput id="data_hora"></InputGroupInput>
+                        <InputGroup id="data_hora">
+                            <DatePicker control={control} name="data_hora" />
+                            <TimePicker id="tempo_hora" />
+                        </InputGroup>
                     </InputGroup>
                 </Field>
                 <Field>
@@ -79,9 +100,15 @@ export function AlunoRegisterSession() {
                     </FieldLabel>
                     <InputGroup {...register}>
                         <InputGroupAddon id="icon">
-                            <div></div>
+                            <Timer />
                         </InputGroupAddon>
-                        <InputGroupInput id="duracao"></InputGroupInput>
+                        <InputGroupInput
+                            id="duracao"
+                            type="number"
+                            step={15}
+                            max={60}
+							min={0}
+                        ></InputGroupInput>
                     </InputGroup>
                 </Field>
                 <Field>
@@ -90,36 +117,97 @@ export function AlunoRegisterSession() {
                     </FieldLabel>
                     <InputGroup {...register}>
                         <InputGroupAddon id="icon">
-                            <div></div>
+                            <Rule />
                         </InputGroupAddon>
-                        <InputGroupInput id="tipo_sessao"></InputGroupInput>
+                        <Select>
+                            <SelectTrigger id="tipo_sessao">
+                                <SelectValue></SelectValue>
+                            </SelectTrigger>
+                            <SelectContent position="item-aligned">
+                                <SelectGroup>
+                                    {!loadingConfigs &&
+                                        configEnums?.tiposSessao?.map((tipo) => {
+                                            return (
+                                                <SelectItem
+													key={tipo}
+                                                    value={tipo.toString()}
+                                                >
+                                                    {tipo}
+                                                </SelectItem>
+                                            )
+                                        })}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
                     </InputGroup>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="local">Local da sessão</FieldLabel>
                     <InputGroup {...register}>
                         <InputGroupAddon id="icon">
-                            <div></div>
+                            <Room />
                         </InputGroupAddon>
-                        <InputGroupInput id="local"></InputGroupInput>
+                        <Select>
+                            <SelectTrigger id="local">
+                                <SelectValue></SelectValue>
+                            </SelectTrigger>
+                            <SelectContent position="item-aligned">
+                                <SelectGroup>
+                                    {!loadingConfigs &&
+                                        configEnums?.locaisSessao?.map(
+                                            (local) => {
+                                                return (
+                                                    <SelectItem
+														key={local}
+                                                        value={local.toString()}
+                                                    >
+                                                        {local}
+                                                    </SelectItem>
+                                                )
+                                            }
+                                        )}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
                     </InputGroup>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="status">Status da sessão</FieldLabel>
                     <InputGroup {...register}>
                         <InputGroupAddon id="icon">
-                            <div></div>
+                            <Pending />
                         </InputGroupAddon>
-                        <InputGroupInput id="status"></InputGroupInput>
+                        <Select>
+                            <SelectTrigger id="status">
+                                <SelectValue></SelectValue>
+                            </SelectTrigger>
+                            <SelectContent position="item-aligned">
+                                <SelectGroup>
+                                    {!loadingConfigs &&
+                                        configEnums?.prontuarioStatus?.map(
+                                            (status) => {
+                                                return (
+                                                    <SelectItem
+														key={status}
+                                                        value={status.toString()}
+                                                    >
+                                                        {status}
+                                                    </SelectItem>
+                                                )
+                                            }
+                                        )}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
                     </InputGroup>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="observacoes">Observações</FieldLabel>
                     <InputGroup {...register}>
                         <InputGroupAddon id="icon">
-                            <div></div>
+                            <Notes />
                         </InputGroupAddon>
-                        <InputGroupInput id="observacoes"></InputGroupInput>
+                        <InputGroupTextarea id="observacoes"></InputGroupTextarea>
                     </InputGroup>
                 </Field>
             </FieldGroup>
