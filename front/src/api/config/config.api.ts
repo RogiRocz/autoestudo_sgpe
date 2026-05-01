@@ -4,5 +4,5 @@ import { apiFetch } from "../shared/config"
 const routeName = 'config'
 
 export const ConfigService = {
-    getEnums: async () => apiFetch<SystemEnumsResponse>(`${routeName}`)
+    getEnums: async () => apiFetch<SystemEnumsResponse>(`${routeName}/enums`)
 }
