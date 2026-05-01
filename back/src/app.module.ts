@@ -7,6 +7,7 @@ import { ProntuarioModule } from './modules/prontuario/prontuario.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { APP_GUARD } from '@nestjs/core'
 import { AuthGuard } from './common/guards/auth.guard'
+import { ConfigSystemModule } from '@modules/config/config.module'
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { AuthGuard } from './common/guards/auth.guard'
         AlunoModule,
         ProntuarioModule,
         AuthModule,
+		ConfigSystemModule,
         ConfigModule,
     ],
     providers: [

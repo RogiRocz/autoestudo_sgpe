@@ -7,4 +7,4 @@ import { ConfigController } from "./config.controller";
     exports: [ConfigService],
     controllers: [ConfigController]
 })
-export class ConfigModule { }
+export class ConfigSystemModule { }
