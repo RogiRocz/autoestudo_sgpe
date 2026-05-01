@@ -8,11 +8,11 @@ const routeName = 'pacientes'
 const baseMethods = createBaseService<Paciente, UpdatePacienteDTO>(routeName)
 
 export const PacienteService = {
-	...baseMethods,
-	search: async (word: string): Promise<Paciente[]> => {
-		const params = new URLSearchParams({word})
-		return apiFetch(`${routeName}/search?${params.toString()}`, {
-			method: 'GET'
-		})
-	}
+    ...baseMethods,
+    search: async (word: string): Promise<Paciente[]> => {
+        const params = new URLSearchParams({ word })
+        return apiFetch(`${routeName}/search?${params.toString()}`, {
+            method: 'GET',
+        })
+    },
 }

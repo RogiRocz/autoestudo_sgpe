@@ -94,7 +94,10 @@ export function PacienteFields({ isLogin = false }: { isLogin?: boolean }) {
                             <FieldLabel htmlFor="data_nascimento">
                                 Data de Nascimento
                             </FieldLabel>
-                            <DatePicker control={control} name='data_nascimento' />
+                            <DatePicker
+                                control={control}
+                                name="data_nascimento"
+                            />
                             <FieldError
                                 errors={[errors.data_nascimento]}
                             ></FieldError>

@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
     constructor(
         private readonly authService: AuthService,
         private readonly reflector: Reflector
-    ) { }
+    ) {}
 
     private extractTokenFromHeader(request: any): string | undefined {
         const [type, token] = request.headers.authorization?.split(' ') ?? []
@@ -45,10 +45,12 @@ export class AuthGuard implements CanActivate {
 
             return true
         } catch (error) {
-            const response = context.switchToHttp().getResponse();
-            response.setHeader('X-Token-Expired', 'true');
+            const response = context.switchToHttp().getResponse()
+            response.setHeader('X-Token-Expired', 'true')
 
-            throw new UnauthorizedException('Sua sessão expirou. Faça login novamente.');
+            throw new UnauthorizedException(
+                'Sua sessão expirou. Faça login novamente.'
+            )
         }
     }
 }

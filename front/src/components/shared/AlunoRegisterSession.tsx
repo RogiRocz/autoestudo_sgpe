@@ -13,7 +13,15 @@ import {
     prontuarioFieldsSchema,
     ProntuarioRegisterForms,
 } from '@/utils/schemas.validator'
-import { People, Event, Timer, Rule, Room, Pending, Notes } from '@mui/icons-material'
+import {
+    People,
+    Event,
+    Timer,
+    Rule,
+    Room,
+    Pending,
+    Notes,
+} from '@mui/icons-material'
 import { useSearchPacientes } from '@/hooks/queries/usePaciente.hook'
 import { useState } from 'react'
 import { Paciente } from '@/types/paciente/paciente.interface'
@@ -45,7 +53,7 @@ export function AlunoRegisterSession() {
         control,
         setValue,
         formState: errors,
-    } = useFormContext<ProntuarioRegisterForms>()	
+    } = useFormContext<ProntuarioRegisterForms>()
 
     return (
         <>
@@ -107,7 +115,7 @@ export function AlunoRegisterSession() {
                             type="number"
                             step={15}
                             max={60}
-							min={0}
+                            min={0}
                         ></InputGroupInput>
                     </InputGroup>
                 </Field>
@@ -126,16 +134,18 @@ export function AlunoRegisterSession() {
                             <SelectContent position="item-aligned">
                                 <SelectGroup>
                                     {!loadingConfigs &&
-                                        configEnums?.tiposSessao?.map((tipo) => {
-                                            return (
-                                                <SelectItem
-													key={tipo}
-                                                    value={tipo.toString()}
-                                                >
-                                                    {tipo}
-                                                </SelectItem>
-                                            )
-                                        })}
+                                        configEnums?.tiposSessao?.map(
+                                            (tipo) => {
+                                                return (
+                                                    <SelectItem
+                                                        key={tipo}
+                                                        value={tipo.toString()}
+                                                    >
+                                                        {tipo}
+                                                    </SelectItem>
+                                                )
+                                            }
+                                        )}
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
@@ -158,7 +168,7 @@ export function AlunoRegisterSession() {
                                             (local) => {
                                                 return (
                                                     <SelectItem
-														key={local}
+                                                        key={local}
                                                         value={local.toString()}
                                                     >
                                                         {local}
@@ -188,7 +198,7 @@ export function AlunoRegisterSession() {
                                             (status) => {
                                                 return (
                                                     <SelectItem
-														key={status}
+                                                        key={status}
                                                         value={status.toString()}
                                                     >
                                                         {status}

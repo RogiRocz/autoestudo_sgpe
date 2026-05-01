@@ -6,10 +6,9 @@ import { RegisterSessions } from '@/components/shared/RegisterSessions'
 import { Container, Row } from '@/components/ui/grid'
 
 export default function Page() {
-	
     return (
         <Container className="px-0">
-            <header className="px-4 flex h-fit flex-row items-center justify-between py-4">
+            <header className="flex h-fit flex-row items-center justify-between px-4 py-4">
                 <div id="menubarArea" className="justify-items-start">
                     <MenuBar />
                 </div>

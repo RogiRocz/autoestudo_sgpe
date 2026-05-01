@@ -19,7 +19,7 @@ import { ConfigSystemModule } from '@modules/config/config.module'
         AlunoModule,
         ProntuarioModule,
         AuthModule,
-		ConfigSystemModule,
+        ConfigSystemModule,
         ConfigModule,
     ],
     providers: [

@@ -16,7 +16,7 @@ export function TimePicker(props: Props = { step: 15 * MINUTE, id: 'timer' }) {
             id={props.id}
             step={props.step}
             defaultValue={'08:00:00'}
-			className='w-fit'
+            className="w-fit"
         />
     )
 }
