@@ -17,9 +17,7 @@ const emptyToUndefined = z.preprocess(
 
 export const pacienteFieldsSchema = z.object({
     nome: z.string().min(1, 'O nome é obrigatório'),
-    senha: z
-        .string()
-        .min(6, 'A senha deve ter pelo menos 6 caracteres'),
+    senha: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
     cpf: z
         .stringFormat('cpf', /^(\d{3}\.\d{3}\.\d{3}-\d{2})|(\d{11})$/)
         .min(11, 'O CPF é composto por 11 números'),
@@ -43,9 +41,7 @@ export const alunoFieldsSchema = z.object({
         .max(6, 'A matrícula deve ter somente 6 dígitos'),
     nome: z.string().min(1, 'O nome é obrigatório'),
     email: z.email({ pattern: z.regexes.email }),
-    senha: z
-        .string()
-        .min(6, 'A senha deve ter pelo menos 6 caracteres'),
+    senha: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
     periodo: z.coerce.number<string>().min(1, 'O período é obrigatório'),
     papel: z.enum(PAPEIS).default(PAPEIS.ALUNO),
     ativo: z.boolean().default(true),

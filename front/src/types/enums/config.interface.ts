@@ -4,14 +4,14 @@ import {
     TIPO_SESSAO,
     LOCAL_SESSAO,
     PRONTUARIO_STATUS,
-    TIPO_USUARIO
-} from "@/types/enums/enums"
+    TIPO_USUARIO,
+} from '@/types/enums/enums'
 
 export interface SystemEnumsResponse {
     papeis: string[]
     statusProntuario: string[]
     tiposSessao: string[]
-	locaisSessao: string[]
+    locaisSessao: string[]
     prontuarioStatus: string[]
     tiposUsuario: string[]
 }
