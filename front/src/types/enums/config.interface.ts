@@ -8,10 +8,10 @@ import {
 } from "@/types/enums/enums"
 
 export interface SystemEnumsResponse {
-    papeis: PAPEIS[]
-    clienteProntuarioStatus: CLIENTE_PRONTUARIO_STATUS[]
-    tiposSessao: TIPO_SESSAO[]
-    locaisSessao: LOCAL_SESSAO[]
-    prontuarioStatus: PRONTUARIO_STATUS[]
-    tiposUsuario: TIPO_USUARIO[]
+    papeis: string[]
+    statusProntuario: string[]
+    tiposSessao: string[]
+	locaisSessao: string[]
+    prontuarioStatus: string[]
+    tiposUsuario: string[]
 }
