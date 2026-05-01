@@ -29,6 +29,7 @@ import {
 } from '@/components/ui/input-group'
 import { HideInput } from '@/components/shared/HideInput'
 import { useState } from 'react'
+import { DatePicker } from '@/components/shared/DatePicker'
 
 export function PacienteFields({ isLogin = false }: { isLogin?: boolean }) {
     const {
@@ -93,60 +94,7 @@ export function PacienteFields({ isLogin = false }: { isLogin?: boolean }) {
                             <FieldLabel htmlFor="data_nascimento">
                                 Data de Nascimento
                             </FieldLabel>
-                            <Controller
-                                name="data_nascimento"
-                                control={control}
-                                render={({ field }) => (
-                                    <Popover>
-                                        <PopoverTrigger asChild>
-                                            <Button
-                                                id="data_nascimento"
-                                                className="w-full justify-start text-left font-normal"
-                                            >
-                                                <EditCalendarOutlined className="mr-2 h-4 w-4" />
-                                                {field.value ? (
-                                                    format(
-                                                        new Date(
-                                                            field.value +
-                                                                'T12:00:00'
-                                                        ),
-                                                        'dd/MM/yyyy'
-                                                    )
-                                                ) : (
-                                                    <span>
-                                                        Escolha uma data
-                                                    </span>
-                                                )}
-                                            </Button>
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-auto p-0">
-                                            <Calendar
-                                                mode="single"
-                                                captionLayout="dropdown"
-                                                selected={
-                                                    field.value
-                                                        ? new Date(
-                                                              field.value +
-                                                                  'T12:00:00'
-                                                          )
-                                                        : undefined
-                                                }
-                                                onSelect={(date) => {
-                                                    if (date) {
-                                                        field.onChange(
-                                                            format(
-                                                                date,
-                                                                'yyyy-MM-dd'
-                                                            )
-                                                        )
-                                                    }
-                                                }}
-                                                className="rounded-lg border"
-                                            />
-                                        </PopoverContent>
-                                    </Popover>
-                                )}
-                            />
+                            <DatePicker control={control} name='data_nascimento' />
                             <FieldError
                                 errors={[errors.data_nascimento]}
                             ></FieldError>
