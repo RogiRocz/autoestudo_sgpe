@@ -40,7 +40,7 @@ export function RegisterSessions(props: Props) {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    {user?.type === TIPO_USUARIO.PACIENTE ? (
+                    {user?.type === TIPO_USUARIO.ALUNO ? (
                         <AlunoRegisterSession />
                     ) : (
                         <PacienteRegisterSession />
