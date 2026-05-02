@@ -1,13 +1,13 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpCode,
-    Param,
-    Patch,
-    Post,
-    Query,
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Patch,
+	Post,
+	Query,
 } from '@nestjs/common'
 import { QueryParamsDTO } from '@common/dto/QueryParams.dto'
 import { AlunoService } from './aluno.service'
@@ -21,42 +21,49 @@ import { ApiPaginatedResponse } from '@common/decorator/paginated.decorator'
 @ApiTags('alunos')
 @Controller('alunos')
 export class AlunoController {
-    constructor(private alunoService: AlunoService) {}
+	constructor(private alunoService: AlunoService) { }
 
-    @Post()
-    async create(@Body() alunoNovo: CreateAlunoDTO): Promise<Aluno> {
-        return this.alunoService.create(alunoNovo)
-    }
+	@Post()
+	async create(@Body() alunoNovo: CreateAlunoDTO): Promise<Aluno> {
+		return this.alunoService.create(alunoNovo)
+	}
 
-    @Get()
-    @ApiPaginatedResponse(Aluno)
-    async findAll(
-        @Query() params: QueryParamsDTO
-    ): Promise<PaginatedResponse<Aluno>> {
-        return this.alunoService.findAll(params)
-    }
+	@Get('search')
+	async searchPacientes(@Query('word') word: string): Promise<Aluno[]> {
+		console.log(word)
 
-    @Get(':id')
-    async findOne(@Param('id') id: string): Promise<Aluno> {
-        return this.alunoService.findById(id)
-    }
+		return await this.alunoService.search(word)
+	}
 
-    @Patch(':id')
-    async update(
-        @Param('id') id: string,
-        @Body() dadosNovos: UpdateAlunoDTO
-    ): Promise<Aluno> {
-        return this.alunoService.update(id, dadosNovos)
-    }
+	@Get()
+	@ApiPaginatedResponse(Aluno)
+	async findAll(
+		@Query() params: QueryParamsDTO
+	): Promise<PaginatedResponse<Aluno>> {
+		return this.alunoService.findAll(params)
+	}
 
-    @Patch('/desativar/:id')
-    @HttpCode(204)
-    async deactivate(@Param('id') id: string): Promise<void> {
-        await this.alunoService.deactivate(id)
-    }
+	@Get(':id')
+	async findOne(@Param('id') id: string): Promise<Aluno> {
+		return this.alunoService.findById(id)
+	}
 
-    @Delete(':id')
-    async delete(@Param('id') id: string): Promise<void> {
-        return this.alunoService.delete(id)
-    }
+	@Patch(':id')
+	async update(
+		@Param('id') id: string,
+		@Body() dadosNovos: UpdateAlunoDTO
+	): Promise<Aluno> {
+		return this.alunoService.update(id, dadosNovos)
+	}
+
+	@Patch('/desativar/:id')
+	@HttpCode(204)
+	async deactivate(@Param('id') id: string): Promise<void> {
+		await this.alunoService.deactivate(id)
+	}
+
+	@Delete(':id')
+	async delete(@Param('id') id: string): Promise<void> {
+		return this.alunoService.delete(id)
+	}
 }
