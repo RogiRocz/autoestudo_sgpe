@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormContext } from 'react-hook-form'
+import { Controller, useFormContext, useWatch } from 'react-hook-form'
 import { FieldGroup, Field, FieldLabel } from '../ui/field'
 import {
     InputGroup,
@@ -23,7 +23,7 @@ import {
     Notes,
 } from '@mui/icons-material'
 import { useSearchPacientes } from '@/hooks/queries/usePaciente.hook'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Paciente } from '@/types/paciente/paciente.interface'
 import { SuggestionList } from './SuggestionList'
 import { TimePicker } from './TimePicker'
@@ -55,27 +55,47 @@ export function AlunoRegisterSession() {
         formState: errors,
     } = useFormContext<ProntuarioRegisterForms>()
 
+    const pacienteId = useWatch({
+        control,
+        name: 'paciente_id',
+    })
+
+    useEffect(() => {
+        if (!pacienteId) {
+            setSearchWord('')
+        }
+    }, [pacienteId])
+
     return (
         <>
             <FieldGroup>
                 <Field>
                     <FieldLabel htmlFor="paciente">Paciente</FieldLabel>
                     <div className="relative w-full">
-                        <InputGroup {...register}>
-                            <InputGroupAddon id="icon">
-                                <People />
-                            </InputGroupAddon>
-                            <InputGroupInput
-                                type="search"
-                                id="paciente"
-                                value={searchWord}
-                                onInput={(e) => {
-                                    setSearchWord(e.currentTarget.value)
-                                    setShowSuggestions(true)
-                                }}
-                                onFocus={() => setShowSuggestions(true)}
-                            ></InputGroupInput>
-                        </InputGroup>
+                        <Controller
+                            control={control}
+                            name="paciente_id"
+                            render={({ field }) => (
+                                <InputGroup>
+                                    <InputGroupAddon id="icon">
+                                        <People />
+                                    </InputGroupAddon>
+                                    <InputGroupInput
+                                        type="search"
+                                        id="paciente"
+                                        value={searchWord}
+                                        onInput={(e) => {
+                                            const val = e.currentTarget.value
+                                            setSearchWord(val)
+                                            setShowSuggestions(true)
+                                            if (val === '')
+                                                field.onChange(undefined)
+                                        }}
+                                        onFocus={() => setShowSuggestions(true)}
+                                    ></InputGroupInput>
+                                </InputGroup>
+                            )}
+                        />
                         <SuggestionList
                             show={showSuggestions}
                             data={pacientes}
@@ -92,13 +112,20 @@ export function AlunoRegisterSession() {
                 </Field>
                 <Field orientation={'horizontal'}>
                     <FieldLabel htmlFor="data_hora">Data e hora</FieldLabel>
-                    <InputGroup {...register}>
+                    <InputGroup>
                         <InputGroupAddon id="icon">
                             <Event />
                         </InputGroupAddon>
                         <InputGroup id="data_hora">
-                            <DatePicker control={control} name="data_hora" />
-                            <TimePicker id="tempo_hora" />
+                            <DatePicker
+                                {...register('data_hora')}
+                                control={control}
+                                name="data_hora"
+                            />
+                            <TimePicker
+                                {...register('data_hora')}
+                                id="tempo_hora"
+                            />
                         </InputGroup>
                     </InputGroup>
                 </Field>
@@ -106,7 +133,7 @@ export function AlunoRegisterSession() {
                     <FieldLabel htmlFor="duracao">
                         Duração atendimento
                     </FieldLabel>
-                    <InputGroup {...register}>
+                    <InputGroup>
                         <InputGroupAddon id="icon">
                             <Timer />
                         </InputGroupAddon>
@@ -123,101 +150,131 @@ export function AlunoRegisterSession() {
                     <FieldLabel htmlFor="tipo_sessao">
                         Tipo da sessão
                     </FieldLabel>
-                    <InputGroup {...register}>
+                    <InputGroup>
                         <InputGroupAddon id="icon">
                             <Rule />
                         </InputGroupAddon>
-                        <Select>
-                            <SelectTrigger id="tipo_sessao">
-                                <SelectValue></SelectValue>
-                            </SelectTrigger>
-                            <SelectContent position="item-aligned">
-                                <SelectGroup>
-                                    {!loadingConfigs &&
-                                        configEnums?.tiposSessao?.map(
-                                            (tipo) => {
-                                                return (
-                                                    <SelectItem
-                                                        key={tipo}
-                                                        value={tipo.toString()}
-                                                    >
-                                                        {tipo}
-                                                    </SelectItem>
-                                                )
-                                            }
-                                        )}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                        <Controller
+                            control={control}
+                            name="tipo_sessao"
+                            render={({ field }) => (
+                                <Select
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                >
+                                    <SelectTrigger id="tipo_sessao">
+                                        <SelectValue></SelectValue>
+                                    </SelectTrigger>
+                                    <SelectContent position="item-aligned">
+                                        <SelectGroup>
+                                            {!loadingConfigs &&
+                                                configEnums?.tiposSessao?.map(
+                                                    (tipo) => {
+                                                        return (
+                                                            <SelectItem
+                                                                key={tipo}
+                                                                value={tipo.toString()}
+                                                            >
+                                                                {tipo}
+                                                            </SelectItem>
+                                                        )
+                                                    }
+                                                )}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
                     </InputGroup>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="local">Local da sessão</FieldLabel>
-                    <InputGroup {...register}>
+                    <InputGroup>
                         <InputGroupAddon id="icon">
                             <Room />
                         </InputGroupAddon>
-                        <Select>
-                            <SelectTrigger id="local">
-                                <SelectValue></SelectValue>
-                            </SelectTrigger>
-                            <SelectContent position="item-aligned">
-                                <SelectGroup>
-                                    {!loadingConfigs &&
-                                        configEnums?.locaisSessao?.map(
-                                            (local) => {
-                                                return (
-                                                    <SelectItem
-                                                        key={local}
-                                                        value={local.toString()}
-                                                    >
-                                                        {local}
-                                                    </SelectItem>
-                                                )
-                                            }
-                                        )}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                        <Controller
+                            control={control}
+                            name="local"
+                            render={({ field }) => (
+                                <Select
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                >
+                                    <SelectTrigger id="local">
+                                        <SelectValue></SelectValue>
+                                    </SelectTrigger>
+                                    <SelectContent position="item-aligned">
+                                        <SelectGroup>
+                                            {!loadingConfigs &&
+                                                configEnums?.locaisSessao?.map(
+                                                    (local) => {
+                                                        return (
+                                                            <SelectItem
+                                                                key={local}
+                                                                value={local.toString()}
+                                                            >
+                                                                {local}
+                                                            </SelectItem>
+                                                        )
+                                                    }
+                                                )}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
                     </InputGroup>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="status">Status da sessão</FieldLabel>
-                    <InputGroup {...register}>
+                    <InputGroup>
                         <InputGroupAddon id="icon">
                             <Pending />
                         </InputGroupAddon>
-                        <Select>
-                            <SelectTrigger id="status">
-                                <SelectValue></SelectValue>
-                            </SelectTrigger>
-                            <SelectContent position="item-aligned">
-                                <SelectGroup>
-                                    {!loadingConfigs &&
-                                        configEnums?.prontuarioStatus?.map(
-                                            (status) => {
-                                                return (
-                                                    <SelectItem
-                                                        key={status}
-                                                        value={status.toString()}
-                                                    >
-                                                        {status}
-                                                    </SelectItem>
-                                                )
-                                            }
-                                        )}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
+                        <Controller
+                            control={control}
+                            name="status"
+                            render={({ field }) => (
+                                <Select
+                                    onValueChange={field.onChange}
+                                    value={field.value}
+                                >
+                                    <SelectTrigger id="status">
+                                        <SelectValue></SelectValue>
+                                    </SelectTrigger>
+                                    <SelectContent position="item-aligned">
+                                        <SelectGroup>
+                                            {!loadingConfigs &&
+                                                configEnums?.prontuarioStatus?.map(
+                                                    (status) => {
+                                                        return (
+                                                            <SelectItem
+                                                                key={status}
+                                                                value={status.toString()}
+                                                            >
+                                                                {status}
+                                                            </SelectItem>
+                                                        )
+                                                    }
+                                                )}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
                     </InputGroup>
                 </Field>
                 <Field>
                     <FieldLabel htmlFor="observacoes">Observações</FieldLabel>
-                    <InputGroup {...register}>
+                    <InputGroup>
                         <InputGroupAddon id="icon">
                             <Notes />
                         </InputGroupAddon>
-                        <InputGroupTextarea id="observacoes"></InputGroupTextarea>
+                        <InputGroupTextarea
+                            {...register}
+                            id="observacoes"
+                        ></InputGroupTextarea>
                     </InputGroup>
                 </Field>
             </FieldGroup>
