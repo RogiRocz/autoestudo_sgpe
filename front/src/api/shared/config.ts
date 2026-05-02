@@ -1,8 +1,11 @@
 import { useAuthStore } from '@/store/auth.store'
 import { AnyUser } from '@/types/shared/user.interface'
 import { deleteCookie, getCookie, setCookie } from 'cookies-next/client'
+import { handleMockRequest } from '../mocks/mockHandles'
+import { mock } from 'node:test'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:3000'
+const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === 'true'
 
 export async function apiFetch<T>(
     endpoint: string,
@@ -22,6 +25,24 @@ export async function apiFetch<T>(
         ...options,
         headers,
     }
+
+	if (USE_MOCKS) {
+		const mocks = await handleMockRequest(endpoint, options) as any;
+
+		// Verificamos se a resposta do mock contém dados de autenticação
+		// Isso geralmente só acontece nas rotas 'auth/login' ou 'auth/register'
+		if (mocks && mocks.token && mocks.user) {
+			console.log("MOCK AUTH DETECTED:", mocks);
+
+			// Salva na Store do Zustand (para o Front saber que está logado)
+			authStore.setAuth(mocks.token, mocks.user as AnyUser);
+
+			// Salva nos Cookies (para o proxy.ts/middleware permitir a navegação)
+			setCookie('token', mocks.token);
+		}
+
+		return mocks as T;
+	}
 
     const response = await fetch(`${BASE_URL}/${endpoint}`, config)
     const data = await response.json()

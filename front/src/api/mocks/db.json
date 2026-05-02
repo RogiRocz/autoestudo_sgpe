@@ -1,0 +1,830 @@
+{
+  "alunos": [
+    {
+      "uuid": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "matricula": "333311",
+      "nome": "Aluno 1",
+      "email": "aluno1@example.com",
+      "senha": "Senha!1",
+      "periodo": 5,
+      "papel": "ALUNO",
+      "ativo": true
+    },
+    {
+      "uuid": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "matricula": "839489",
+      "nome": "Aluno 2",
+      "email": "aluno2@example.com",
+      "senha": "Senha!2",
+      "periodo": 10,
+      "papel": "ALUNO",
+      "ativo": true
+    },
+    {
+      "uuid": "e619bc26-334c-43f8-be3f-6cdee4077642",
+      "matricula": "151192",
+      "nome": "Aluno 3",
+      "email": "aluno3@example.com",
+      "senha": "Senha!3",
+      "periodo": 6,
+      "papel": "ALUNO",
+      "ativo": true
+    },
+    {
+      "uuid": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "matricula": "334890",
+      "nome": "Aluno 4",
+      "email": "aluno4@example.com",
+      "senha": "Senha!4",
+      "periodo": 7,
+      "papel": "ALUNO",
+      "ativo": true
+    },
+    {
+      "uuid": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "matricula": "540150",
+      "nome": "Aluno 5",
+      "email": "aluno5@example.com",
+      "senha": "Senha!5",
+      "periodo": 6,
+      "papel": "ALUNO",
+      "ativo": true
+    }
+  ],
+  "pacientes": [
+    {
+      "uuid": "490a5e50-47d0-4cfa-9271-146d9c10a1b7",
+      "nome": "Paciente 1",
+      "cpf": "83006618327",
+      "senha": "Senha!1",
+      "data_nascimento": "1987-02-10",
+      "prontuario_status": "ARQUIVADO"
+    },
+    {
+      "uuid": "ade7beaf-022f-4d4d-87dc-41ff5464727a",
+      "nome": "Paciente 2",
+      "cpf": "64565133830",
+      "senha": "Senha!2",
+      "data_nascimento": "2002-09-02",
+      "prontuario_status": "INATIVO"
+    },
+    {
+      "uuid": "c8531118-4ccc-40e4-807b-37bf3923ee62",
+      "nome": "Paciente 3",
+      "cpf": "31330115538",
+      "senha": "Senha!3",
+      "data_nascimento": "1981-07-16",
+      "prontuario_status": "ARQUIVADO"
+    },
+    {
+      "uuid": "cdc27718-f7c6-406f-8fa6-2259957c5054",
+      "nome": "Paciente 4",
+      "cpf": "85034616254",
+      "senha": "Senha!4",
+      "data_nascimento": "1988-12-25",
+      "prontuario_status": "ATIVO"
+    },
+    {
+      "uuid": "8510cb13-ab98-4394-9c5c-5e249f82b8e4",
+      "nome": "Paciente 5",
+      "cpf": "77063077279",
+      "senha": "Senha!5",
+      "data_nascimento": "2007-05-26",
+      "prontuario_status": "INATIVO"
+    },
+    {
+      "uuid": "c0b129b4-c88b-4c4b-9fcf-af1b95740ad1",
+      "nome": "Paciente 6",
+      "cpf": "41506864244",
+      "senha": "Senha!6",
+      "data_nascimento": "2008-06-20",
+      "prontuario_status": "ARQUIVADO"
+    },
+    {
+      "uuid": "acf625fa-b192-4ad0-8d09-22927b820d4f",
+      "nome": "Paciente 7",
+      "cpf": "58634265510",
+      "senha": "Senha!7",
+      "data_nascimento": "1988-12-19",
+      "prontuario_status": "ARQUIVADO"
+    },
+    {
+      "uuid": "893771d1-859d-4aaa-a86c-f1d638ed4ec2",
+      "nome": "Paciente 8",
+      "cpf": "78785837571",
+      "senha": "Senha!8",
+      "data_nascimento": "2006-12-21",
+      "prontuario_status": "ATIVO"
+    },
+    {
+      "uuid": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "nome": "Paciente 9",
+      "cpf": "47663653300",
+      "senha": "Senha!9",
+      "data_nascimento": "1996-04-26",
+      "prontuario_status": "ATIVO"
+    },
+    {
+      "uuid": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "nome": "Paciente 10",
+      "cpf": "26467000404",
+      "senha": "Senha!10",
+      "data_nascimento": "1987-06-17",
+      "prontuario_status": "INATIVO"
+    },
+    {
+      "uuid": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "nome": "Paciente 11",
+      "cpf": "10004207602",
+      "senha": "Senha!11",
+      "data_nascimento": "2009-11-04",
+      "prontuario_status": "INATIVO"
+    },
+    {
+      "uuid": "17dae98f-2770-48f3-a8a6-a06a21cb769c",
+      "nome": "Paciente 12",
+      "cpf": "50823421260",
+      "senha": "Senha!12",
+      "data_nascimento": "1998-03-15",
+      "prontuario_status": "ATIVO"
+    },
+    {
+      "uuid": "1a119f2c-5130-480e-9562-40385d91162e",
+      "nome": "Paciente 13",
+      "cpf": "84673418743",
+      "senha": "Senha!13",
+      "data_nascimento": "2007-09-02",
+      "prontuario_status": "ARQUIVADO"
+    },
+    {
+      "uuid": "94c1cead-f853-4533-86c6-eddf71d2343b",
+      "nome": "Paciente 14",
+      "cpf": "55164731100",
+      "senha": "Senha!14",
+      "data_nascimento": "1986-03-17",
+      "prontuario_status": "ARQUIVADO"
+    },
+    {
+      "uuid": "35b6b3ba-0a0c-4ab6-ae4f-223126ea26d6",
+      "nome": "Paciente 15",
+      "cpf": "73326548575",
+      "senha": "Senha!15",
+      "data_nascimento": "1989-04-25",
+      "prontuario_status": "ATIVO"
+    }
+  ],
+  "prontuarios": [
+    {
+      "uuid": "db1f5615-cb4d-4884-ba8a-b614ddecbab5",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "data_hora": "2023-03-09T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 1"
+    },
+    {
+      "uuid": "3f8d659a-1c5c-481d-ab94-bf98609f77e1",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "data_hora": "2023-03-09T08:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 2"
+    },
+    {
+      "uuid": "9381be10-05e0-425f-8a1a-0b88ceaa9423",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "893771d1-859d-4aaa-a86c-f1d638ed4ec2",
+      "data_hora": "2023-01-25T16:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 3"
+    },
+    {
+      "uuid": "ee308f4d-8086-4020-b7a0-eb1decc708fe",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "490a5e50-47d0-4cfa-9271-146d9c10a1b7",
+      "data_hora": "2023-04-24T15:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 4"
+    },
+    {
+      "uuid": "b3e45f9d-42f7-478c-8c2d-d71bd6532a5a",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "data_hora": "2023-05-19T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_01",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 5"
+    },
+    {
+      "uuid": "41462898-5c27-4c15-b92b-d391d192d449",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "8510cb13-ab98-4394-9c5c-5e249f82b8e4",
+      "data_hora": "2023-04-07T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 6"
+    },
+    {
+      "uuid": "63767bf8-d229-4804-a9a0-87cd0c69e919",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "17dae98f-2770-48f3-a8a6-a06a21cb769c",
+      "data_hora": "2023-07-24T12:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "SALA_01",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 7"
+    },
+    {
+      "uuid": "b397e4f6-81f1-4370-8215-f09c4d26a13e",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "data_hora": "2023-10-01T17:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 8"
+    },
+    {
+      "uuid": "f2af9d6b-78a4-4024-aab4-48a6264fc0b6",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "ade7beaf-022f-4d4d-87dc-41ff5464727a",
+      "data_hora": "2023-06-20T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "REMOTO",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 9"
+    },
+    {
+      "uuid": "546bb001-648e-4790-854a-916d5c8e14f0",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "data_hora": "2023-03-14T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 10"
+    },
+    {
+      "uuid": "35387822-268f-425c-9097-054f342b03b1",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "data_hora": "2023-02-03T16:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 11"
+    },
+    {
+      "uuid": "887280e6-a9bf-48cb-9cc1-d078a80240c6",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "94c1cead-f853-4533-86c6-eddf71d2343b",
+      "data_hora": "2023-11-10T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 12"
+    },
+    {
+      "uuid": "4eb62031-f3f5-404a-8f27-84c02ddfe876",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "35b6b3ba-0a0c-4ab6-ae4f-223126ea26d6",
+      "data_hora": "2023-06-08T09:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 13"
+    },
+    {
+      "uuid": "bd481cf2-d9f5-4206-b1f2-c2f2e6a83279",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "data_hora": "2023-08-20T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "REMOTO",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 14"
+    },
+    {
+      "uuid": "29effb4c-82cd-4bf9-abc1-4be27949c60b",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "94c1cead-f853-4533-86c6-eddf71d2343b",
+      "data_hora": "2023-06-22T08:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "SALA_02",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 15"
+    },
+    {
+      "uuid": "186fdbac-1200-489f-8288-cb4685176c8d",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "data_hora": "2023-04-16T09:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 16"
+    },
+    {
+      "uuid": "50014bed-c3b5-4050-a1d5-d6433b3e630e",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "data_hora": "2023-06-18T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 17"
+    },
+    {
+      "uuid": "d4e11742-57b2-407c-ac6c-e6972a7822ea",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "17dae98f-2770-48f3-a8a6-a06a21cb769c",
+      "data_hora": "2023-05-24T11:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 18"
+    },
+    {
+      "uuid": "36fb4721-b6ac-4d23-8c37-b4411199f1ab",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "c8531118-4ccc-40e4-807b-37bf3923ee62",
+      "data_hora": "2023-01-16T12:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 19"
+    },
+    {
+      "uuid": "d4974872-08ad-4249-8d31-2721ec76690f",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "17dae98f-2770-48f3-a8a6-a06a21cb769c",
+      "data_hora": "2023-03-07T15:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_01",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 20"
+    },
+    {
+      "uuid": "6b7ddbd3-e7c4-4e0b-ad7c-05162b4f9d0e",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "94c1cead-f853-4533-86c6-eddf71d2343b",
+      "data_hora": "2023-04-25T16:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 21"
+    },
+    {
+      "uuid": "dc957579-d64d-4667-a4ba-a81e70181e96",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "data_hora": "2023-02-25T16:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 22"
+    },
+    {
+      "uuid": "600d8529-912f-4913-a1bb-a1cce7c88953",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "data_hora": "2023-02-06T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_01",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 23"
+    },
+    {
+      "uuid": "43941064-6320-4a38-bdd8-9e5cff50c8ba",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "1a119f2c-5130-480e-9562-40385d91162e",
+      "data_hora": "2023-11-08T12:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 24"
+    },
+    {
+      "uuid": "d7ae33e0-419c-4051-a456-acd4c8cef35d",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "data_hora": "2023-10-19T12:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_01",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 25"
+    },
+    {
+      "uuid": "6e6b8f7e-29a9-422c-9409-adb62186a201",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "490a5e50-47d0-4cfa-9271-146d9c10a1b7",
+      "data_hora": "2023-05-08T11:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 26"
+    },
+    {
+      "uuid": "af7a3ba5-f587-44a5-a8f5-09146beff88c",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "ade7beaf-022f-4d4d-87dc-41ff5464727a",
+      "data_hora": "2023-12-27T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_01",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 27"
+    },
+    {
+      "uuid": "94150049-79a6-4fe3-b22e-8f8bf8aa7b98",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "data_hora": "2023-07-23T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 28"
+    },
+    {
+      "uuid": "9a828ed4-6a04-4b68-870f-ee07027e60d5",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "8510cb13-ab98-4394-9c5c-5e249f82b8e4",
+      "data_hora": "2023-01-10T17:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 29"
+    },
+    {
+      "uuid": "11756109-52e4-48d5-842f-99c97b2c5fa7",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "c0b129b4-c88b-4c4b-9fcf-af1b95740ad1",
+      "data_hora": "2023-09-09T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_01",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 30"
+    },
+    {
+      "uuid": "98f44dbd-2e10-4a45-841f-8ba0ab951834",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "data_hora": "2023-06-21T15:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 31"
+    },
+    {
+      "uuid": "a462e9b7-3172-4453-a062-cef17370ca2c",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "8510cb13-ab98-4394-9c5c-5e249f82b8e4",
+      "data_hora": "2023-06-11T09:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 32"
+    },
+    {
+      "uuid": "b1ef1bfb-5d99-4a17-afdd-907fb8c90691",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "acf625fa-b192-4ad0-8d09-22927b820d4f",
+      "data_hora": "2023-03-13T09:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 33"
+    },
+    {
+      "uuid": "81ab92b1-0f13-4780-962d-0946754e540e",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "1a119f2c-5130-480e-9562-40385d91162e",
+      "data_hora": "2023-02-25T12:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_02",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 34"
+    },
+    {
+      "uuid": "af45ec8e-20dd-4685-9990-af22be483448",
+      "aluno_id": "e619bc26-334c-43f8-be3f-6cdee4077642",
+      "paciente_id": "8510cb13-ab98-4394-9c5c-5e249f82b8e4",
+      "data_hora": "2023-12-19T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "REMOTO",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 35"
+    },
+    {
+      "uuid": "c75f28ac-27c1-4d6a-9aad-361aa8767d85",
+      "aluno_id": "e619bc26-334c-43f8-be3f-6cdee4077642",
+      "paciente_id": "cdc27718-f7c6-406f-8fa6-2259957c5054",
+      "data_hora": "2023-05-24T11:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_02",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 36"
+    },
+    {
+      "uuid": "83296d8b-52b9-4e3f-8c6f-69b80f60d2ea",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "35b6b3ba-0a0c-4ab6-ae4f-223126ea26d6",
+      "data_hora": "2023-10-21T12:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 37"
+    },
+    {
+      "uuid": "fe071e72-8c1a-4f5f-8741-7febe2c22ec3",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "acf625fa-b192-4ad0-8d09-22927b820d4f",
+      "data_hora": "2023-11-12T14:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 38"
+    },
+    {
+      "uuid": "efa2f5b6-7c7e-4066-8878-7344a8bb8d3a",
+      "aluno_id": "e619bc26-334c-43f8-be3f-6cdee4077642",
+      "paciente_id": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "data_hora": "2023-01-25T10:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 39"
+    },
+    {
+      "uuid": "9e318734-c4b9-4913-bda5-daf1e890bcf0",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "94c1cead-f853-4533-86c6-eddf71d2343b",
+      "data_hora": "2023-07-17T16:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_01",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 40"
+    },
+    {
+      "uuid": "ae7f2257-fdb2-4507-a3f4-b90738a788e9",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "c0b129b4-c88b-4c4b-9fcf-af1b95740ad1",
+      "data_hora": "2023-07-07T08:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "REMOTO",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 41"
+    },
+    {
+      "uuid": "fcbb4ac5-a98b-4ca2-ae45-92d99abcf6fe",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "15bdb6e5-90b5-4504-aad4-c630823e5eb7",
+      "data_hora": "2023-10-05T17:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_02",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 42"
+    },
+    {
+      "uuid": "48baa086-b5bc-47a8-a6c6-991a03427115",
+      "aluno_id": "e619bc26-334c-43f8-be3f-6cdee4077642",
+      "paciente_id": "cdc27718-f7c6-406f-8fa6-2259957c5054",
+      "data_hora": "2023-08-24T14:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "REMOTO",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 43"
+    },
+    {
+      "uuid": "1d1bc4ee-0743-46a3-ba7a-78f175d97033",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "5cbc2dc3-af01-4492-9fda-b121a4b7686d",
+      "data_hora": "2023-03-17T13:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "CANCELADO",
+      "observacoes": "Observação da sessão 44"
+    },
+    {
+      "uuid": "576faa9d-6816-4831-ad9b-af75fe0e5612",
+      "aluno_id": "6e9cdbeb-1b6a-4dd5-b6e6-f90a4b659ec0",
+      "paciente_id": "acf625fa-b192-4ad0-8d09-22927b820d4f",
+      "data_hora": "2023-01-03T14:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_01",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 45"
+    },
+    {
+      "uuid": "b678c8b6-015b-4261-aa8f-49a387273152",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "acf625fa-b192-4ad0-8d09-22927b820d4f",
+      "data_hora": "2023-08-12T17:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "SALA_02",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 46"
+    },
+    {
+      "uuid": "c1b4de30-2180-4f79-bf7c-5489c7519c4d",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "17dae98f-2770-48f3-a8a6-a06a21cb769c",
+      "data_hora": "2023-05-24T11:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "SALA_01",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 47"
+    },
+    {
+      "uuid": "1d631d31-143c-4913-92d2-ab9045fb9a9e",
+      "aluno_id": "276075ad-6af9-4556-908d-689d89ad2a5c",
+      "paciente_id": "0fb58419-f645-458f-9856-3046da8f7a4f",
+      "data_hora": "2023-05-26T17:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "INDIVIDUAL",
+      "local": "SALA_01",
+      "status": "AGENDADO",
+      "observacoes": "Observação da sessão 48"
+    },
+    {
+      "uuid": "88a1f1c4-25d0-4154-8962-4d88fd7e016a",
+      "aluno_id": "8f8759dc-85ed-4410-b1af-6100640a2fbb",
+      "paciente_id": "ade7beaf-022f-4d4d-87dc-41ff5464727a",
+      "data_hora": "2023-11-26T17:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "TRIAGEM",
+      "local": "SALA_01",
+      "status": "REALIZADO",
+      "observacoes": "Observação da sessão 49"
+    },
+    {
+      "uuid": "a129f595-2ab3-4d1d-9528-a58cddafed77",
+      "aluno_id": "06bc7429-7fbf-458f-b195-5d1351057bf3",
+      "paciente_id": "acf625fa-b192-4ad0-8d09-22927b820d4f",
+      "data_hora": "2023-07-18T08:00:00.000Z",
+      "duracao_minutos": 60,
+      "tipo_sessao": "GRUPO",
+      "local": "REMOTO",
+      "status": "FALTA",
+      "observacoes": "Observação da sessão 50"
+    }
+  ],
+  "credentials": [
+    {
+      "type": "ALUNO",
+      "email": "aluno1@example.com",
+      "password": "Senha!1"
+    },
+    {
+      "type": "ALUNO",
+      "email": "aluno2@example.com",
+      "password": "Senha!2"
+    },
+    {
+      "type": "ALUNO",
+      "email": "aluno3@example.com",
+      "password": "Senha!3"
+    },
+    {
+      "type": "ALUNO",
+      "email": "aluno4@example.com",
+      "password": "Senha!4"
+    },
+    {
+      "type": "ALUNO",
+      "email": "aluno5@example.com",
+      "password": "Senha!5"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "83006618327",
+      "password": "Senha!1"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "64565133830",
+      "password": "Senha!2"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "31330115538",
+      "password": "Senha!3"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "85034616254",
+      "password": "Senha!4"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "77063077279",
+      "password": "Senha!5"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "41506864244",
+      "password": "Senha!6"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "58634265510",
+      "password": "Senha!7"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "78785837571",
+      "password": "Senha!8"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "47663653300",
+      "password": "Senha!9"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "26467000404",
+      "password": "Senha!10"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "10004207602",
+      "password": "Senha!11"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "50823421260",
+      "password": "Senha!12"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "84673418743",
+      "password": "Senha!13"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "55164731100",
+      "password": "Senha!14"
+    },
+    {
+      "type": "PACIENTE",
+      "cpf": "73326548575",
+      "password": "Senha!15"
+    }
+  ]
+}
