@@ -1,11 +1,6 @@
 'use client'
 
 import {
-    LOCAL_SESSAO,
-    PRONTUARIO_STATUS,
-    TIPO_SESSAO,
-} from '@/types/enums/enums'
-import {
     CardTitle,
     CardFooter,
     Card,
@@ -21,17 +16,48 @@ import {
 } from '../ui/item'
 import { Prontuario } from '@/types/prontuario/prontuario.interface'
 interface Props extends Prontuario {
+    showPacientes?: boolean
+    showAlunos?: boolean
+    showAll?: boolean
     title: string
 }
 
 export function CardSesison(props: Props) {
+    const exibirPaciente = props.showAll || props.showPacientes
+    const exibirAluno = props.showAll || props.showAlunos
+
+    // console.log(exibirAluno, exibirPaciente);
+    // console.log(props.paciente);
+
     return (
-        <Card className='my-8 bg-secondary w-[20%]'>
+        <Card className="my-8 bg-secondary">
             <CardHeader>
                 <CardTitle>{props.title}</CardTitle>
             </CardHeader>
             <CardContent>
                 <ItemGroup>
+                    {exibirPaciente && props.paciente && (
+                        <Item>
+                            <ItemContent>
+                                <ItemTitle>Paciente</ItemTitle>
+                                <ItemDescription>
+                                    {props.paciente.nome}
+                                </ItemDescription>
+                            </ItemContent>
+                        </Item>
+                    )}
+
+                    {exibirAluno && props.aluno && (
+                        <Item>
+                            <ItemContent>
+                                <ItemTitle>Aluno</ItemTitle>
+                                <ItemDescription>
+                                    {props.aluno.nome}
+                                </ItemDescription>
+                            </ItemContent>
+                        </Item>
+                    )}
+
                     <Item>
                         <ItemContent>
                             <ItemTitle>Tipo</ItemTitle>
@@ -55,9 +81,7 @@ export function CardSesison(props: Props) {
                 </ItemGroup>
             </CardContent>
             <CardFooter>
-                <span>
-                    {new Date(props.data_hora).toLocaleString('pt-br')} 
-                </span>
+                <span>{new Date(props.data_hora).toLocaleString('pt-br')}</span>
             </CardFooter>
         </Card>
     )
