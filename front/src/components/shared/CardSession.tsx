@@ -19,20 +19,14 @@ import {
     ItemTitle,
     ItemDescription,
 } from '../ui/item'
-
-interface Props {
+import { Prontuario } from '@/types/prontuario/prontuario.interface'
+interface Props extends Prontuario {
     title: string
-    paciente: string
-    aluno: string
-    data_hora: Date
-    tipo: TIPO_SESSAO
-    local: LOCAL_SESSAO
-    status: PRONTUARIO_STATUS
 }
 
 export function CardSesison(props: Props) {
     return (
-        <Card>
+        <Card className='my-8 bg-secondary w-[20%]'>
             <CardHeader>
                 <CardTitle>{props.title}</CardTitle>
             </CardHeader>
@@ -41,7 +35,9 @@ export function CardSesison(props: Props) {
                     <Item>
                         <ItemContent>
                             <ItemTitle>Tipo</ItemTitle>
-                            <ItemDescription>{props.tipo}</ItemDescription>
+                            <ItemDescription>
+                                {props.tipo_sessao}
+                            </ItemDescription>
                         </ItemContent>
                     </Item>
                     <Item>
@@ -59,7 +55,9 @@ export function CardSesison(props: Props) {
                 </ItemGroup>
             </CardContent>
             <CardFooter>
-                <span>{props.data_hora.toISOString()}</span>
+                <span>
+                    {new Date(props.data_hora).toLocaleString('pt-br')} 
+                </span>
             </CardFooter>
         </Card>
     )
