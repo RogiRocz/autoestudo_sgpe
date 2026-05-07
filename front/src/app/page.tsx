@@ -1,11 +1,26 @@
 'use client'
 
+import { ListSessions } from '@/components/shared/ListSessions'
 import { LogoutButton } from '@/components/shared/LogoutButton'
 import { MenuBar } from '@/components/shared/MenuBar'
-import { RegisterSessions } from '@/components/shared/RegisterSessions'
-import { Container, Row } from '@/components/ui/grid'
+import { Container } from '@/components/ui/grid'
+import { useProntuarios } from '@/hooks/queries/useProntuario.hook'
+import { prontuariosStore } from '@/store/prontuario.store'
+import { useEffect } from 'react'
 
 export default function Page() {
+    const { data: prontuarios } = useProntuarios()
+    const { setProntuarios } = prontuariosStore()
+
+    
+    useEffect(() => {
+        if (prontuarios?.data) {
+            setProntuarios(prontuarios.data)
+        }
+    }, [prontuarios, setProntuarios])
+    
+    
+
     return (
         <Container className="px-0">
             <header className="flex h-fit flex-row items-center justify-between px-4 py-4">
@@ -17,7 +32,7 @@ export default function Page() {
                 </div>
             </header>
             <main>
-                <RegisterSessions />
+                <ListSessions />
             </main>
         </Container>
     )
