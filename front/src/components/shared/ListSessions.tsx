@@ -17,7 +17,7 @@ export function ListSessions() {
                 {prontuarios?.map((p, i) => {
                     console.log(p)
                     return (
-                        <Col key={i} cols={12} md={4} lg={3} className="mb-2">
+                        <Col key={i} cols={12} md={4} lg={3} className="mb-8">
                             <CardSesison
                                 showPacientes={
                                     user?.type === TIPO_USUARIO.ALUNO
