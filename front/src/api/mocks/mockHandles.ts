@@ -94,8 +94,18 @@ export async function handleMockRequest(endpoint: string, options: RequestInit) 
 			filtered = filtered.filter(p => p.status === status)
 		}
 
+		const enrichedData = filtered.map(prontuario => {
+			return {
+				...prontuario,
+				// Busca o objeto completo do aluno pelo UUID
+				aluno: db.alunos.find(a => a.uuid === prontuario.aluno_id) || null,
+				// Busca o objeto completo do paciente pelo UUID
+				paciente: db.pacientes.find(p => p.uuid === prontuario.paciente_id) || null
+			}
+		})
+
 		// Paginação final
-		return paginate(filtered, page, size)
+		return paginate(enrichedData, page, size)
 	}
 
 	return { message: "Rota mockada não encontrada", path }
