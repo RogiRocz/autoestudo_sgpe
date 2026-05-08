@@ -1,4 +1,4 @@
-interface PaginationMetadata {
+export interface PaginationMetadata {
     page: number
     size: number
     totalPages: number
