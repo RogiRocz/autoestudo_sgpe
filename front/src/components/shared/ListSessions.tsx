@@ -54,7 +54,7 @@ export function ListSessions() {
                             showPacientes={user?.type === TIPO_USUARIO.ALUNO}
                             showAlunos={user?.type !== TIPO_USUARIO.ALUNO}
                             {...p}
-                            title={`Sessão ${(page - 1) * 12 + (i + 1)}`}
+                            title={`Sessão ${(page - 1) * 10 + (i + 1)}`}
                         />
                     </Col>
                 ))}
