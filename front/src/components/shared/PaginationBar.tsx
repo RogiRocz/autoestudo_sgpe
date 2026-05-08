@@ -35,6 +35,7 @@ export function PaginationBar({
                 {textPagination && (
                     <PaginationItem>
                         <PaginationPrevious
+                        text='Anterior'
                             onClick={() =>
                                 currentPage > 1 && onPageChange(currentPage - 1)
                             }
@@ -60,6 +61,7 @@ export function PaginationBar({
                 {textPagination && (
                     <PaginationItem>
                         <PaginationNext
+                            text='Próximo'
                             onClick={() =>
                                 currentPage < pages &&
                                 onPageChange(currentPage + 1)
