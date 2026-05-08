@@ -30,7 +30,7 @@ export function CardSesison(props: Props) {
     // console.log(props.paciente);
 
     return (
-        <Card className="bg-secondary">
+        <Card className="flex h-full w-full flex-col bg-secondary">
             <CardHeader>
                 <CardTitle>{props.title}</CardTitle>
             </CardHeader>

@@ -46,8 +46,8 @@ export function ListSessions() {
                     <Col
                         key={p.uuid || i}
                         cols={12}
-                        md={4}
-                        lg={2}
+                        md={6}
+                        lg={3}
                         className="mb-8"
                     >
                         <CardSesison
