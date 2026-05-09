@@ -8,7 +8,7 @@ import { useProntuarios } from '@/hooks/queries/useProntuario.hook'
 import { prontuariosStore } from '@/store/prontuario.store'
 import { useEffect } from 'react'
 
-export default function Page() {
+export default function HomePage() {
     const { data: prontuarios } = useProntuarios()
     const { setProntuarios } = prontuariosStore()
 

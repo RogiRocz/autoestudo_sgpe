@@ -17,7 +17,7 @@ export async function proxy(req: NextRequest) {
     }
 
     if (token && isPublicRoute) {
-        return NextResponse.redirect(new URL('/', req.url))
+        return NextResponse.redirect(new URL('/home', req.url))
     }
 
     return res
