@@ -49,7 +49,7 @@ export default function RegisterPage() {
                 userData: formattedData as any,
             },
             {
-                onSuccess: () => router.push('/'),
+                onSuccess: () => router.push('/home'),
             }
         )
     }

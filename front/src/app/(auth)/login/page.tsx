@@ -66,7 +66,7 @@ export default function LoginPage() {
                 ],
             },
             {
-                onSuccess: () => router.push('/'),
+                onSuccess: () => router.push('/home'),
             }
         )
     }
