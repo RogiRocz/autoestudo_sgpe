@@ -11,7 +11,7 @@ interface IMENU_ITENS {
 }
 
 export const MENU_ITENS = <IMENU_ITENS[]>[
-    { label: 'Home', href: '/', icon: HomeIcon },
+    { label: 'Home', href: '/home', icon: HomeIcon },
     { label: 'Prontuarios', href: '/prontuarios', icon: RecentActorsIcon },
     { label: 'Perfil', href: '/profile', icon: PersonIcon },
 ]

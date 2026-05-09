@@ -1,5 +1,9 @@
-import { ListSessions } from "@/components/shared/ListSessions";
+import { ListSessions } from '@/components/shared/ListSessions'
 
-export function ProntuariosPage() {
-	return <ListSessions />
+export default function ProntuariosPage() {
+    return (
+        <>
+            <ListSessions />
+        </>
+    )
 }
